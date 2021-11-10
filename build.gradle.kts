@@ -1,5 +1,15 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+	repositories {
+		maven { url = uri("https://plugins.gradle.org/m2/") }
+		mavenCentral()
+	}
+
+	dependencies {
+	}
+}
+
 plugins {
 	id("org.springframework.boot") version "2.6.0-SNAPSHOT"
 	id("io.spring.dependency-management") version "1.0.11.RELEASE"
@@ -7,12 +17,12 @@ plugins {
 	kotlin("plugin.spring") version "1.6.0-RC"
 }
 
-subprojects {
-	apply(plugin = "kotlin")
+group = "dev.milzipmoza"
+version = "0.0.1-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_11
 
-	group = "dev.milzipmoza"
-	version = "0.0.1-SNAPSHOT"
-	java.sourceCompatibility = JavaVersion.VERSION_11
+allprojects {
+	apply(plugin = "kotlin")
 
 	repositories {
 		mavenCentral()
@@ -23,6 +33,9 @@ subprojects {
 	dependencies {
 		implementation("org.jetbrains.kotlin:kotlin-reflect")
 		implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+		testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+		testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 	}
 
 	tasks.withType<KotlinCompile> {
