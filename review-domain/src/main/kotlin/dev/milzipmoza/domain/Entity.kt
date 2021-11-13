@@ -7,5 +7,5 @@ interface Entity<T> {
 
     fun getId(): String
 
-    fun sameAs(other: Entity<T>) = this.getId() == other.getId()
+    fun <E : Entity<T>> sameAs(other: E) = this.getId() == other.getId()
 }
