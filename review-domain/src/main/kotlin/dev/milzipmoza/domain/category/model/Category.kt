@@ -1,9 +1,9 @@
-package dev.milzipmoza.domain.category
+package dev.milzipmoza.domain.category.model
 
 import dev.milzipmoza.domain.Entity
-import dev.milzipmoza.domain.category.color.CategoryColor
-import dev.milzipmoza.domain.category.description.CategoryDescription
-import dev.milzipmoza.domain.category.name.CategoryName
+import dev.milzipmoza.domain.category.model.color.CategoryColor
+import dev.milzipmoza.domain.category.model.description.CategoryDescription
+import dev.milzipmoza.domain.category.model.name.CategoryName
 
 class Category(
         val no: String,

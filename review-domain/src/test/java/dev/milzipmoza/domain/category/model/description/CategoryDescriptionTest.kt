@@ -1,5 +1,7 @@
-package dev.milzipmoza.domain.category.description
+package dev.milzipmoza.domain.category.model.description
 
+import dev.milzipmoza.domain.category.model.description.CategoryDescription
+import dev.milzipmoza.domain.category.model.description.CategoryDescriptionOperationException
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 

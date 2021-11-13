@@ -1,4 +1,4 @@
-package dev.milzipmoza.domain.category.description
+package dev.milzipmoza.domain.category.model.description
 
 import dev.milzipmoza.domain.Value
 

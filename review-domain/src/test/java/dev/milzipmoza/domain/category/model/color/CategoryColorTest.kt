@@ -1,5 +1,7 @@
-package dev.milzipmoza.domain.category.color
+package dev.milzipmoza.domain.category.model.color
 
+import dev.milzipmoza.domain.category.model.color.CategoryColor
+import dev.milzipmoza.domain.category.model.color.CategoryColorOperationException
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows

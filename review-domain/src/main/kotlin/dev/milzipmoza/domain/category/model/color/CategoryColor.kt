@@ -1,4 +1,4 @@
-package dev.milzipmoza.domain.category.color
+package dev.milzipmoza.domain.category.model.color
 
 import dev.milzipmoza.domain.Value
 
