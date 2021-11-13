@@ -15,7 +15,7 @@ class CategoryColor(
         }
     }
 
-    override fun sameAs(other: Value<CategoryColor>) = this == other
+    override fun sameAs(other: CategoryColor) = this == other
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

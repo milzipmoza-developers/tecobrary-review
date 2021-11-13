@@ -5,5 +5,5 @@ package dev.milzipmoza.domain
  */
 interface Value<T> {
 
-    fun sameAs(other: Value<T>): Boolean
+    fun sameAs(other: T): Boolean
 }

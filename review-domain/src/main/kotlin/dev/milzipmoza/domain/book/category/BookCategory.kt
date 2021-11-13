@@ -7,7 +7,7 @@ class BookCategory(
         val name: String
 ) : Value<BookCategory> {
 
-    override fun sameAs(other: Value<BookCategory>): Boolean {
+    override fun sameAs(other: BookCategory): Boolean {
         return this == other
     }
 
