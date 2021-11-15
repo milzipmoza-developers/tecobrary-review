@@ -1,7 +1,8 @@
 package dev.milzipmoza.domain.book
 
-import dev.milzipmoza.domain.book.category.BookCategory
-import dev.milzipmoza.domain.book.reviewer.BookReviewer
+import dev.milzipmoza.domain.book.model.Book
+import dev.milzipmoza.domain.book.model.category.BookCategory
+import dev.milzipmoza.domain.book.model.reviewer.BookReviewer
 
 interface Books {
 
