@@ -9,14 +9,14 @@ import dev.milzipmoza.domain.book.model.review.BookReview
 import dev.milzipmoza.domain.book.model.review.BookReviews
 
 class Book(
-        private val no: String,
+        val isbn: String,
         val categories: BookCategories,
         val detail: BookDetail,
         val reviews: BookReviews,
         val markers: BookMarks = BookMarks()
 ) : Entity<Book> {
 
-    override fun getId() = no
+    override fun getId() = isbn
 
     fun add(category: BookCategory): Boolean {
         return categories.add(category)
@@ -28,7 +28,7 @@ class Book(
 
     fun edit(bookDetail: BookDetail): Book {
         return Book(
-                no = this.no,
+                isbn = this.isbn,
                 categories = this.categories,
                 detail = this.detail.edit(bookDetail),
                 reviews = this.reviews,

@@ -6,7 +6,7 @@ import dev.milzipmoza.domain.search.model.image.SearchBookImage
 import java.time.LocalDate
 
 class SearchBook(
-        val no: String,
+        val isbn: String,
         val title: String,
         val publisher: String,
         val author: String,
@@ -15,7 +15,7 @@ class SearchBook(
         private val description: SearchBookDescription
 ) : Entity<SearchBook> {
 
-    override fun getId() = no
+    override fun getId() = isbn
 
     val imageUrl: String
         get() = image.toUrl()
