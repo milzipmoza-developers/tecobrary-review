@@ -9,14 +9,14 @@ class SearchBookImageTest {
 
     @Test
     internal fun `host 가 https 로 시작하지 않는 경우 예외가 발생한다`() {
-        assertThrows<SearchBookImageOperationException> {
+        assertThrows<IllegalArgumentException> {
             SearchBookImage("grpc://naver.com", "/image/201020120.png")
         }
     }
 
     @Test
     internal fun `path 길이가 0이면 예외가 발생한다`() {
-        assertThrows<SearchBookImageOperationException> {
+        assertThrows<IllegalArgumentException> {
             SearchBookImage("https://naver.com", "")
         }
     }
