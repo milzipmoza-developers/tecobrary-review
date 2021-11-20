@@ -1,6 +1,6 @@
 package dev.milzipmoza.domain
 
-data class PageEntities<T : Entity<Any>>(
+data class PageEntities<T : Entity<T>>(
         val total: Long,
         val start: Long,
         val size: Long,

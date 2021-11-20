@@ -15,11 +15,11 @@ internal class CategoryDescriptionTest {
     }
 
     @Test
-    fun `카테고리 설명이 20 글자를 초과하면 예외가 발생한다`() {
+    fun `카테고리 설명이 25 글자를 초과하면 예외가 발생한다`() {
         assertThrows<CategoryDescriptionOperationException> {
             CategoryDescription("0123456789" +
                     "0123456789" +
-                    "0")
+                    "012345")
         }
     }
 }
