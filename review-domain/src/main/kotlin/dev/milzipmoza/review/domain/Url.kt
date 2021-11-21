@@ -2,8 +2,8 @@ package dev.milzipmoza.review.domain
 
 open class Url{
 
-    private val host: String
-    private val path: String
+    val host: String
+    val path: String
 
     constructor(host: String, path: String) {
         if (!host.startsWith(HTTPS_HOST)) {

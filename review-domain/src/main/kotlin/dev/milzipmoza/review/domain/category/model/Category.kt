@@ -11,7 +11,7 @@ class Category(
         color: CategoryColor,
         name: CategoryName,
         description: CategoryDescription,
-        private val imageUrl: CategoryImageUrl
+        val imageUrl: CategoryImageUrl
 ) : Entity<Category> {
     var color = color
         private set
