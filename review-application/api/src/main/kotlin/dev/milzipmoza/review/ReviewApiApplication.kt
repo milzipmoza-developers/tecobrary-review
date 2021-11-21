@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api
+package dev.milzipmoza.review
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
