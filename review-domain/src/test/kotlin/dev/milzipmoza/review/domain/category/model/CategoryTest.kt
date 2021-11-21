@@ -3,6 +3,7 @@ package dev.milzipmoza.review.domain.category.model
 import dev.milzipmoza.review.domain.category.model.color.CategoryColor
 import dev.milzipmoza.review.domain.category.model.description.CategoryDescription
 import dev.milzipmoza.review.domain.category.model.name.CategoryName
+import dev.milzipmoza.review.domain.category.model.url.CategoryImageUrl
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -16,7 +17,7 @@ internal class CategoryTest {
                 color = CategoryColor(code = "#000000"),
                 name = CategoryName(name = "리액트"),
                 description = CategoryDescription(description = "Meta 에서 개발한 프론트엔드 라이브러리"),
-                imagePath = ""
+                imageUrl = CategoryImageUrl("https://www.naver.com/path/image.png")
         )
 
         val newColor = CategoryColor("#FFFFFF")
@@ -34,7 +35,7 @@ internal class CategoryTest {
                 color = CategoryColor(code = "#000000"),
                 name = CategoryName(name = "리액트"),
                 description = CategoryDescription(description = "Meta 에서 개발한 프론트엔드 라이브러리"),
-                imagePath = ""
+                imageUrl = CategoryImageUrl("https://www.naver.com/path/image.png")
         )
 
         val newName = CategoryName("스프링부트")
@@ -52,7 +53,7 @@ internal class CategoryTest {
                 color = CategoryColor(code = "#000000"),
                 name = CategoryName(name = "스프링부트"),
                 description = CategoryDescription(description = "Meta 에서 개발한 프론트엔드 라이브러리"),
-                imagePath = ""
+                imageUrl = CategoryImageUrl("https://www.naver.com/path/image.png")
         )
 
         val newDescription = CategoryDescription("Pivotal 팀에서 개발한 백엔드 프레임워크")
