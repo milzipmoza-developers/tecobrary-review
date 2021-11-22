@@ -7,32 +7,44 @@ import dev.milzipmoza.review.domain.category.model.name.CategoryName
 import dev.milzipmoza.review.domain.category.model.url.CategoryImageUrl
 
 class Category(
-        val no: String,
-        color: CategoryColor,
-        name: CategoryName,
-        description: CategoryDescription,
+        val no: String = "",
+        val color: CategoryColor,
+        val name: CategoryName,
+        val description: CategoryDescription,
         val imageUrl: CategoryImageUrl
 ) : Entity<Category> {
-    var color = color
-        private set
-    var name = name
-        private set
-    var description = description
-        private set
     val fullImageUrl: String
         get() = imageUrl.toUrl()
 
     override fun getId() = no
 
-    fun change(color: CategoryColor) {
-        this.color = color
+    fun change(color: CategoryColor): Category {
+        return Category(
+                no = this.no,
+                color = color,
+                name = this.name,
+                description = this.description,
+                imageUrl = this.imageUrl
+        )
     }
 
-    fun change(name: CategoryName) {
-        this.name = name
+    fun change(name: CategoryName): Category {
+        return Category(
+                no = this.no,
+                color = this.color,
+                name = name,
+                description = this.description,
+                imageUrl = this.imageUrl
+        )
     }
 
-    fun edit(description: CategoryDescription) {
-        this.description = description
+    fun edit(description: CategoryDescription): Category {
+        return Category(
+                no = this.no,
+                color = this.color,
+                name = this.name,
+                description = description,
+                imageUrl = this.imageUrl
+        )
     }
 }

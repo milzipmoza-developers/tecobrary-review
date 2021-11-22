@@ -4,7 +4,7 @@ import dev.milzipmoza.review.domain.category.model.Category
 
 interface CategoryOperation {
 
-    fun save(category: Category)
+    fun save(category: Category): String
 
-    fun update(category: Category)
+    fun update(category: Category): String
 }
