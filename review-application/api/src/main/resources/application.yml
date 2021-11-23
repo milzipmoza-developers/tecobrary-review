@@ -1,0 +1,13 @@
+logging:
+  level:
+    - root: debug
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: admin
+      password: local
+      database: review-local
+      authentication-database: admin
