@@ -15,7 +15,7 @@ class MongoCategoryOperation(
     override fun save(category: Category): String {
         val document = DocumentCategoryMapper.map(category)
 
-        return mongoCategoryRepository.save(document).id.toHexString()
+        return mongoCategoryRepository.insert(document).id.toHexString()
     }
 
     override fun update(category: Category): String {
