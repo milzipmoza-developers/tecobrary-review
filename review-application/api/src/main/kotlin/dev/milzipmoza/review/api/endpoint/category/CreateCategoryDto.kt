@@ -7,7 +7,7 @@ import dev.milzipmoza.review.domain.category.model.name.CategoryName
 import dev.milzipmoza.review.domain.category.model.url.CategoryImageUrl
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategoryImage
 
-data class CreateCategoryRequest(
+data class CreateCategoryDto(
         val colorCode: String,
         val name: String,
         val description: String,
