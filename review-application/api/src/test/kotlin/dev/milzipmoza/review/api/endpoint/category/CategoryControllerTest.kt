@@ -1,6 +1,7 @@
 package dev.milzipmoza.review.api.endpoint.category
 
 import dev.milzipmoza.review.api.ApiCreateRequest
+import dev.milzipmoza.review.api.ApiUpdateRequest
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategory
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategoryImage
 import dev.milzipmoza.review.mongo.category.mongo.MongoCategoryRepository
@@ -21,6 +22,7 @@ internal class CategoryControllerTest {
     private lateinit var mongoCategoryRepository: MongoCategoryRepository
 
     private lateinit var documentCategoryNo: String
+    private lateinit var updateCategoryNo: String
 
     @BeforeEach
     internal fun setUp() {
@@ -46,10 +48,19 @@ internal class CategoryControllerTest {
                 )
         ))
 
+        updateCategoryNo = mongoCategoryRepository.insert(DocumentCategory(
+                colorCode = "#001122",
+                name = "코틀린",
+                description = "새로운 jvm 언어 !",
+                image = DocumentCategoryImage(
+                        host = "https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/",
+                        path = "/logos/react_logo.png"
+                )
+        )).id.toHexString()
     }
 
     @Test
-    fun create() {
+    fun doCreate() {
         webTestClient.post()
                 .uri("/api/categories")
                 .body(BodyInserters.fromValue(
@@ -100,13 +111,31 @@ internal class CategoryControllerTest {
                 .jsonPath("responseDateTime").isNotEmpty
                 .jsonPath("data").isNotEmpty
                 .jsonPath("data.total").isNumber
-                .jsonPath("data.total").isEqualTo(2)
+                .jsonPath("data.total").isEqualTo(3)
                 .jsonPath("data.size").isNumber
                 .jsonPath("data.size").isEqualTo(2)
                 .jsonPath("data.isFirst").isBoolean
                 .jsonPath("data.isFirst").isEqualTo(true)
                 .jsonPath("data.isLast").isBoolean
-                .jsonPath("data.isLast").isEqualTo(true)
+                .jsonPath("data.isLast").isEqualTo(false)
                 .jsonPath("data.items").isArray
+    }
+
+    @Test
+    fun doUpdate() {
+        webTestClient.post()
+                .uri("/api/categories/{categoryNo}", updateCategoryNo)
+                .body(BodyInserters.fromValue(
+                        ApiUpdateRequest(
+                                update = UpdateCategoryDto(
+                                        colorCode = "#000000",
+                                        description = "자바의 웹 프레임워크",
+                                        imageUrl = "https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/springboot_logo.png"
+                                )
+                        )
+                ))
+                .exchange()
+                .expectStatus().is2xxSuccessful
+                .expectBody().jsonPath("data").isNotEmpty
     }
 }
