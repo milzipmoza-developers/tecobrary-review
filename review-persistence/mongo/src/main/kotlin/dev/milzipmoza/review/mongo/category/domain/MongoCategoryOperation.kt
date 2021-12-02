@@ -18,12 +18,9 @@ class MongoCategoryOperation(
         return mongoCategoryRepository.insert(document).id.toHexString()
     }
 
-    override fun update(category: Category): String {
-        val objectId = ObjectId(category.no)
+    override fun update(no: String, category: Category): String {
+        val objectId = ObjectId(no)
 
-        return when (mongoCategoryRepository.existsById(objectId)) {
-            true -> mongoCategoryRepository.save(DocumentCategoryMapper.map(objectId, category)).id.toHexString()
-            false -> throw IllegalArgumentException("카테고리 넘버를 확인해주세요.")
-        }
+        return mongoCategoryRepository.save(DocumentCategoryMapper.map(objectId, category)).id.toHexString()
     }
 }

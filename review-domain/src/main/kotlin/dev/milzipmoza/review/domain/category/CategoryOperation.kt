@@ -6,5 +6,5 @@ interface CategoryOperation {
 
     fun save(category: Category): String
 
-    fun update(category: Category): String
+    fun update(no: String, category: Category): String
 }

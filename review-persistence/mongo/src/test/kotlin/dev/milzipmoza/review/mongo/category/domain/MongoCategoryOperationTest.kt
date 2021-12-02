@@ -56,8 +56,8 @@ internal class MongoCategoryOperationTest {
 
         val savedCategory = mongoCategories.findBy(savedCategoryNo)
 
-        val toUpdateCategory = savedCategory.change(CategoryColor("#000001"))
+        val toUpdateCategory = savedCategory.edit(CategoryColor("#000001"))
 
-        assertDoesNotThrow { mongoCategoryOperation.update(toUpdateCategory) }
+        assertDoesNotThrow { mongoCategoryOperation.update(savedCategory.no, toUpdateCategory) }
     }
 }
