@@ -4,8 +4,7 @@ import dev.milzipmoza.review.domain.category.model.color.CategoryColor
 import dev.milzipmoza.review.domain.category.model.description.CategoryDescription
 import dev.milzipmoza.review.domain.category.model.name.CategoryName
 import dev.milzipmoza.review.domain.category.model.url.CategoryImageUrl
-import org.junit.jupiter.api.Assertions.assertDoesNotThrow
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 internal class CategoryTest {
@@ -23,9 +22,9 @@ internal class CategoryTest {
         val newColor = CategoryColor("#FFFFFF")
 
         assertDoesNotThrow {
-            category.change(newColor)
+            val editedCategory = category.edit(newColor)
+            assertEquals(editedCategory.color, newColor)
         }
-        assertEquals(category.color, newColor)
     }
 
     @Test
@@ -38,12 +37,12 @@ internal class CategoryTest {
                 imageUrl = CategoryImageUrl("https://www.naver.com/path/image.png")
         )
 
-        val newName = CategoryName("스프링부트")
+        val newUrl = CategoryImageUrl("https://www.naver.com/path/image.png")
 
         assertDoesNotThrow {
-            category.change(newName)
+            val editedCategory = category.edit(newUrl)
+            assertEquals(editedCategory.imageUrl, newUrl)
         }
-        assertEquals(category.name, newName)
     }
 
     @Test
@@ -59,8 +58,8 @@ internal class CategoryTest {
         val newDescription = CategoryDescription("Pivotal 팀에서 개발한 백엔드 프레임워크")
 
         assertDoesNotThrow {
-            category.edit(newDescription)
+            val editedCategory = category.edit(newDescription)
+            assertEquals(editedCategory.description, newDescription)
         }
-        assertEquals(category.description, newDescription)
     }
 }

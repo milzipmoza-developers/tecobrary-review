@@ -18,7 +18,7 @@ class Category(
 
     override fun getId() = no
 
-    fun change(color: CategoryColor): Category {
+    fun edit(color: CategoryColor): Category {
         return Category(
                 no = this.no,
                 color = color,
@@ -28,13 +28,13 @@ class Category(
         )
     }
 
-    fun change(name: CategoryName): Category {
+    fun edit(imageUrl: CategoryImageUrl): Category {
         return Category(
                 no = this.no,
                 color = this.color,
-                name = name,
+                name = this.name,
                 description = this.description,
-                imageUrl = this.imageUrl
+                imageUrl = imageUrl
         )
     }
 
