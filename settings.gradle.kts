@@ -7,6 +7,7 @@ pluginManagement {
 
 	plugins {
 		id("org.springframework.boot") version "2.6.0-SNAPSHOT"
+		id("org.springframework.cloud") version "2.6.0-SNAPSHOT"
 		id("io.spring.dependency-management") version "1.0.11.RELEASE"
 
 		kotlin("jvm") version "1.6.0-RC"
@@ -19,5 +20,7 @@ include(
 		"review-application",
 		"review-application:api",
 		"review-persistence",
-		"review-persistence:mongo"
+		"review-persistence:mongo",
+		"review-external",
+		"review-external:naver-api",
 )

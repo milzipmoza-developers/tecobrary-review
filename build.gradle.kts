@@ -7,6 +7,7 @@ buildscript {
 	}
 
 	dependencies {
+		classpath("io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE")
 	}
 }
 
