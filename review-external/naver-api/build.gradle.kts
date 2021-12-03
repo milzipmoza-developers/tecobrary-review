@@ -7,7 +7,7 @@ plugins {
 
 dependencyManagement {
 	imports {
-		mavenBom("org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR8")
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.0")
 	}
 }
 
