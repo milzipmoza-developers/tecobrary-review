@@ -1,5 +1,6 @@
 package dev.milzipmoza.review.naver.config
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import com.fasterxml.jackson.module.kotlin.kotlinModule
@@ -30,6 +31,8 @@ class NaverApiConfiguration {
     @Bean
     fun objectMapper() = jsonMapper {
         addModule(kotlinModule())
+        enable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL)
+        disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
     }
 
     companion object {
