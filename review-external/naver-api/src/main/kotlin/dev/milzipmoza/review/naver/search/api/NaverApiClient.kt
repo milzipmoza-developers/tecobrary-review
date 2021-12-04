@@ -2,6 +2,7 @@ package dev.milzipmoza.review.naver.search.api
 
 import dev.milzipmoza.review.naver.config.NaverApiConfiguration
 import org.springframework.cloud.openfeign.FeignClient
+import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam
         url = "https://openapi.naver.com/",
         configuration = [NaverApiConfiguration::class]
 )
+@Component
 interface NaverApiClient {
 
     @GetMapping("/v1/search/book.json")
