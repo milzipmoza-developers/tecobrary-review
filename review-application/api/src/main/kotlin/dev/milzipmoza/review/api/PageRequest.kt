@@ -1,6 +1,6 @@
 package dev.milzipmoza.review.api
 
-data class PageRequest(
-     val page: Int = 0,
-     val size: Int = 10
+open class PageRequest(
+        open val page: Int = 0,
+        open val size: Int = 10
 )
