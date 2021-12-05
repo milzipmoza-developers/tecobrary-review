@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import com.fasterxml.jackson.module.kotlin.kotlinModule
 import feign.RequestInterceptor
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -23,11 +24,13 @@ class NaverApiConfiguration {
         }
     }
 
+    @ConditionalOnMissingBean
     @Bean
     fun mappingJackson2HttpMessageConverter(objectMapper: ObjectMapper): MappingJackson2HttpMessageConverter {
         return MappingJackson2HttpMessageConverter(objectMapper)
     }
 
+    @ConditionalOnMissingBean
     @Bean
     fun objectMapper() = jsonMapper {
         addModule(kotlinModule())
