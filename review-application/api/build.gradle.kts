@@ -5,11 +5,19 @@ plugins {
 	kotlin("plugin.spring")
 }
 
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.0")
+	}
+}
+
 dependencies {
 	implementation(project(":review-domain"))
 	implementation(project(":review-persistence:mongo"))
+	implementation(project(":review-external:naver-api"))
 
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
