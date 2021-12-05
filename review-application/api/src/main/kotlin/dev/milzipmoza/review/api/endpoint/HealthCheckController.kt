@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class HelloWorldController {
+class HealthCheckController {
 
-    @GetMapping("/hello")
-    fun helloWorld() = "world"
+    @GetMapping("/health")
+    fun health() = "ok"
 }
