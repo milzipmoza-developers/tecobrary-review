@@ -1,7 +1,7 @@
 package dev.milzipmoza.review.api.endpoint.category
 
-import dev.milzipmoza.review.api.ApiCreateRequest
-import dev.milzipmoza.review.api.ApiUpdateRequest
+import dev.milzipmoza.review.api.ApiCreateBody
+import dev.milzipmoza.review.api.ApiUpdateBody
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategory
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategoryImage
 import dev.milzipmoza.review.mongo.category.mongo.MongoCategoryRepository
@@ -64,7 +64,7 @@ internal class CategoryControllerTest {
         webTestClient.post()
                 .uri("/api/categories")
                 .body(BodyInserters.fromValue(
-                        ApiCreateRequest(
+                        ApiCreateBody(
                                 create = CreateCategoryDto(
                                         colorCode = "#000000",
                                         name = "스프링",
@@ -126,7 +126,7 @@ internal class CategoryControllerTest {
         webTestClient.post()
                 .uri("/api/categories/{categoryNo}", updateCategoryNo)
                 .body(BodyInserters.fromValue(
-                        ApiUpdateRequest(
+                        ApiUpdateBody(
                                 update = UpdateCategoryDto(
                                         colorCode = "#000000",
                                         description = "자바의 웹 프레임워크",

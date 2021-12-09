@@ -1,5 +1,5 @@
 package dev.milzipmoza.review.api
 
-data class ApiUpdateRequest<T>(
+data class ApiUpdateBody<T>(
         val update: T
 )

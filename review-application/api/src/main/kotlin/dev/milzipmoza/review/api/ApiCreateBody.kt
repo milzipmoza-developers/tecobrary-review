@@ -1,5 +1,5 @@
 package dev.milzipmoza.review.api
 
-data class ApiCreateRequest<T>(
+data class ApiCreateBody<T>(
         val create: T
 )

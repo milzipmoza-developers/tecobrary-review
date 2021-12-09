@@ -13,8 +13,8 @@ class CategoryController(
         private val categoryQueryService: CategoryQueryService
 ) {
     @PostMapping("/api/categories")
-    fun createCategory(@RequestBody request: ApiCreateRequest<CreateCategoryDto>): ApiResponse<String> {
-        val categoryNo = categoryCreateService.doCreate(request.create)
+    fun createCategory(@RequestBody body: ApiCreateBody<CreateCategoryDto>): ApiResponse<String> {
+        val categoryNo = categoryCreateService.doCreate(body.create)
         return ApiResponse.success(data = categoryNo)
     }
 
@@ -32,8 +32,8 @@ class CategoryController(
 
     @PostMapping("/api/categories/{categoryNo}")
     fun updateCategory(@PathVariable categoryNo: String,
-                       @RequestBody request: ApiUpdateRequest<UpdateCategoryDto>): ApiResponse<String> {
-        val updatedCategoryNo = categoryUpdateService.doUpdate(categoryNo, request.update)
+                       @RequestBody body: ApiUpdateBody<UpdateCategoryDto>): ApiResponse<String> {
+        val updatedCategoryNo = categoryUpdateService.doUpdate(categoryNo, body.update)
         return ApiResponse.success(data = updatedCategoryNo)
     }
 }
