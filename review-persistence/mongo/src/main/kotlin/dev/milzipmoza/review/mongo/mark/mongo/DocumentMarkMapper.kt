@@ -40,10 +40,10 @@ object DocumentMarkMapper {
             book = map(documentMark.book)
     )
 
-    fun map(documentMark: DocumentMark, documentMarked: DocumentMarked) = Mark(
+    fun map(documentMark: DocumentMark, documentMarked: DocumentMarked?) = Mark(
             no = documentMark.id.toHexString(),
             type = MarkType.valueOf(documentMark.type),
-            marked = documentMarked.marked,
+            marked = documentMarked?.marked ?: false,
             member = map(documentMark.member),
             book = map(documentMark.book)
     )

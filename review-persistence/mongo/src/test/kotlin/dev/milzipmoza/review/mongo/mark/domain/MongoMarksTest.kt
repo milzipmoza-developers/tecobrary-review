@@ -52,7 +52,7 @@ internal class MongoMarksTest {
 
     @Test
     fun findByMemberAndBookAndType() {
-        val mark = mongoMarks.findByMemberAndBookAndType(member, book, type)!!
+        val mark = mongoMarks.findBy(member, book, type)!!
 
         assertThat(mark.book).isEqualTo(book)
         assertThat(mark.member).isEqualTo(member)
