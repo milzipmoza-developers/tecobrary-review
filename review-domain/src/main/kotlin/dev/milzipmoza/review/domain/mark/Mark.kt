@@ -12,7 +12,7 @@ class Mark(
 
     val unmarked = !marked
 
-    constructor(type: String, memberNo: String, bookNo: String) : this(type = MarkType.valueOf(type), member = MarkMember(memberNo), book = MarkBook(bookNo))
+    constructor(type: String, memberNo: String, bookNo: String) : this(type = MarkType.valueOfIgnoreCases(type), member = MarkMember(memberNo), book = MarkBook(bookNo))
 
     override fun getId() = when (no.isNotBlank()) {
         true -> no
