@@ -3,6 +3,8 @@ logging:
     - root: debug
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   data:
     mongodb:
       host: localhost
