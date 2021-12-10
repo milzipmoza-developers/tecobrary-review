@@ -5,6 +5,18 @@ feign:
         connectTimeout: 5000
         readTimeout: 5000
 
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: admin
+      password: local
+      database: review-local
+      authentication-database: admin
+
 external:
   naver-api:
     id: a
