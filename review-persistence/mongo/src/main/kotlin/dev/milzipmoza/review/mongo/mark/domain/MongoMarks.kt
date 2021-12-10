@@ -62,7 +62,7 @@ class MongoMarks(
 
     private fun Page<DocumentMark>.toPageEntities(): PageEntities<Mark> {
 
-        val markedIds = this.content.map { it -> it.markedObjectId }
+        val markedIds = this.content.map { it.markedObjectId }
 
         val markeds = mongoMarkedRepository.findAllById(markedIds)
 
