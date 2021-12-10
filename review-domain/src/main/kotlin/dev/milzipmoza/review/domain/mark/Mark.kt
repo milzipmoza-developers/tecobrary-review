@@ -10,16 +10,28 @@ class Mark(
         val book: MarkBook
 ) : Entity<Mark> {
 
-    override fun getId() = when(no.isNotBlank()) {
+    val unmarked = !marked
+
+    constructor(type: String, memberNo: String, bookNo: String) : this(type = MarkType.valueOf(type), member = MarkMember(memberNo), book = MarkBook(bookNo))
+
+    override fun getId() = when (no.isNotBlank()) {
         true -> no
         false -> throw MarkOperationException("비교가 불가능합니다.")
     }
 
+    fun mark() = Mark(
+            no = this.no,
+            type = this.type,
+            marked = true,
+            member = this.member,
+            book = this.book
+    )
+
     fun unmark() = Mark(
-          no = this.no,
-          type = this.type,
-          marked = false,
-          member = this.member,
-          book = this.book
+            no = this.no,
+            type = this.type,
+            marked = false,
+            member = this.member,
+            book = this.book
     )
 }
