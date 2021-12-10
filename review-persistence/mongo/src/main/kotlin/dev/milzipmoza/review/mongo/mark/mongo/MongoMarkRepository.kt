@@ -13,6 +13,8 @@ interface MongoMarkRepository : MongoRepository<DocumentMark, ObjectId> {
 
     fun findAllByMemberAndBook(member: DocumentMarkMember, book: DocumentMarkBook): List<DocumentMark>
 
+    fun findAllByMemberAndBook(member: DocumentMarkMember, book: DocumentMarkBook, page : Pageable): Page<DocumentMark>
+
     fun findAllByMember(member: DocumentMarkMember, page : Pageable): Page<DocumentMark>
 
     fun findAllByBook(book: DocumentMarkBook, page : Pageable): Page<DocumentMark>

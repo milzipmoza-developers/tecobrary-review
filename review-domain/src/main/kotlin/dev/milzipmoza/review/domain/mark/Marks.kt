@@ -15,4 +15,6 @@ interface Marks {
     fun findAllBy(member: MarkMember, pageQuery: PageQuery): PageEntities<Mark>
 
     fun findAllBy(book: MarkBook, pageQuery: PageQuery): PageEntities<Mark>
+
+    fun findAllBy(member: MarkMember, book: MarkBook, pageQuery: PageQuery): PageEntities<Mark>
 }
