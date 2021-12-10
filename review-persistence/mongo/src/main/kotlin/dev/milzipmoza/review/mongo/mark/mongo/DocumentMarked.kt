@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.time.LocalDateTime
 
-@Document(collection = "markedMarks")
+@Document(collection = "marked_marks")
 data class DocumentMarked(
         @Id val id: ObjectId = ObjectId.get(),
         var marked: Boolean,
