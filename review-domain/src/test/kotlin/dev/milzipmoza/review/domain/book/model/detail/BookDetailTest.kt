@@ -10,7 +10,7 @@ internal class BookDetailTest {
 
     @Test
     fun `도서 상세를 수정할 때 내용이 같으면 수정이 불가능하다`() {
-        val sameImagePath = "/img/path.png"
+        val sameImageUrl = "https://www.naver.com/img/path.png"
         val sameTitle = "제주도 책"
         val samePublisher = "민슬기"
         val sameAuthor = ""
@@ -19,7 +19,7 @@ internal class BookDetailTest {
         val sameDescription = ""
 
         val it = BookDetail(
-                imagePath = sameImagePath,
+                image = BookImageUrl(sameImageUrl),
                 title = sameTitle,
                 publisher = samePublisher,
                 author = sameAuthor,
@@ -29,7 +29,7 @@ internal class BookDetailTest {
         )
 
         val other = BookDetail(
-                imagePath = sameImagePath,
+                image = BookImageUrl(sameImageUrl),
                 title = sameTitle,
                 publisher = samePublisher,
                 author = sameAuthor,
@@ -45,7 +45,7 @@ internal class BookDetailTest {
 
     @Test
     fun `도서 상세를 수정할 때 내용이 다르면 수정이 가능하다`() {
-        val sameImagePath = "/img/path.png"
+        val sameImageUrl = "https://www.naver.com/img/path.png"
         val sameTitle = "제주도 책"
         val sameAuthor = ""
         val sameLocale = BookLanguage.KOREAN
@@ -53,7 +53,7 @@ internal class BookDetailTest {
         val sameDescription = ""
 
         val it = BookDetail(
-                imagePath = sameImagePath,
+                image = BookImageUrl(sameImageUrl),
                 title = sameTitle,
                 publisher = "",
                 author = sameAuthor,
@@ -63,7 +63,7 @@ internal class BookDetailTest {
         )
 
         val other = BookDetail(
-                imagePath = sameImagePath,
+                image = BookImageUrl(sameImageUrl),
                 title = sameTitle,
                 publisher = "귤귤",
                 author = sameAuthor,

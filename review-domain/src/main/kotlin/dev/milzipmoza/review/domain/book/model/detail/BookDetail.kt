@@ -4,7 +4,7 @@ import dev.milzipmoza.review.domain.Value
 import java.time.LocalDate
 
 class BookDetail(
-        val imagePath: String,
+        val image: BookImageUrl,
         val title: String,
         val publisher: String,
         val author: String,
@@ -29,7 +29,7 @@ class BookDetail(
 
         other as BookDetail
 
-        if (imagePath != other.imagePath) return false
+        if (image != other.image) return false
         if (title != other.title) return false
         if (publisher != other.publisher) return false
         if (author != other.author) return false
@@ -41,7 +41,7 @@ class BookDetail(
     }
 
     override fun hashCode(): Int {
-        var result = imagePath.hashCode()
+        var result = image.hashCode()
         result = 31 * result + title.hashCode()
         result = 31 * result + publisher.hashCode()
         result = 31 * result + author.hashCode()
