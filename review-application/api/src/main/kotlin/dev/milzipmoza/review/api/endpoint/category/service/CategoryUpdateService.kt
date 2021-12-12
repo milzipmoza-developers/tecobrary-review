@@ -18,7 +18,6 @@ class CategoryUpdateService(
         val command = CategoryUpdate(category)
 
         val updatedCategory = command.doUpdate(
-                colorCode = updateCategoryDto.colorCode,
                 description = updateCategoryDto.description,
                 imageUrl = updateCategoryDto.imageUrl
         )

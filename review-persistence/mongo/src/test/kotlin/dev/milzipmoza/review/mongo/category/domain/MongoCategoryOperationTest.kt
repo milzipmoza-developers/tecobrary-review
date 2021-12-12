@@ -1,7 +1,6 @@
 package dev.milzipmoza.review.mongo.category.domain
 
 import dev.milzipmoza.review.domain.category.model.Category
-import dev.milzipmoza.review.domain.category.model.color.CategoryColor
 import dev.milzipmoza.review.domain.category.model.description.CategoryDescription
 import dev.milzipmoza.review.domain.category.model.name.CategoryName
 import dev.milzipmoza.review.domain.category.model.url.CategoryImageUrl
@@ -33,7 +32,6 @@ internal class MongoCategoryOperationTest {
     @Test
     fun `데이터를 성공적으로 저장한다`() {
         val category = Category(
-                color = CategoryColor(code = "#000000"),
                 name = CategoryName(name = "스프링"),
                 description = CategoryDescription(description = "아무튼 스프링임"),
                 imageUrl = CategoryImageUrl(host = "https://www.naver.com", path = "/image.png")
@@ -46,7 +44,6 @@ internal class MongoCategoryOperationTest {
     @Test
     fun `데이터를 업데이트 할 수 있다`() {
         val category = Category(
-                color = CategoryColor(code = "#000000"),
                 name = CategoryName(name = "스프링"),
                 description = CategoryDescription(description = "아무튼 스프링임"),
                 imageUrl = CategoryImageUrl(host = "https://www.naver.com", path = "/image.png")
@@ -56,7 +53,7 @@ internal class MongoCategoryOperationTest {
 
         val savedCategory = mongoCategories.findBy(savedCategoryNo)
 
-        val toUpdateCategory = savedCategory.edit(CategoryColor("#000001"))
+        val toUpdateCategory = savedCategory.edit(CategoryDescription("뿌잉뿌잉"))
 
         assertDoesNotThrow { mongoCategoryOperation.update(savedCategory.no, toUpdateCategory) }
     }

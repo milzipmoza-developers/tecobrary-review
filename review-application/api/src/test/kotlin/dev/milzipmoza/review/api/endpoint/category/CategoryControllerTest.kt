@@ -29,7 +29,6 @@ internal class CategoryControllerTest {
         mongoCategoryRepository.deleteAll()
 
         documentCategoryNo = mongoCategoryRepository.insert(DocumentCategory(
-                colorCode = "#001100",
                 name = "리액트",
                 description = "META 에서 개발한 라이브러리",
                 image = DocumentCategoryImage(
@@ -39,7 +38,6 @@ internal class CategoryControllerTest {
         )).id.toHexString()
 
         mongoCategoryRepository.insert(DocumentCategory(
-                colorCode = "#001111",
                 name = "스프링부트",
                 description = "한국에서 가장 많이 쓰이는 프레임워크",
                 image = DocumentCategoryImage(
@@ -49,7 +47,6 @@ internal class CategoryControllerTest {
         ))
 
         updateCategoryNo = mongoCategoryRepository.insert(DocumentCategory(
-                colorCode = "#001122",
                 name = "코틀린",
                 description = "새로운 jvm 언어 !",
                 image = DocumentCategoryImage(
@@ -66,7 +63,6 @@ internal class CategoryControllerTest {
                 .body(BodyInserters.fromValue(
                         ApiCreateBody(
                                 create = CreateCategoryDto(
-                                        colorCode = "#000000",
                                         name = "스프링",
                                         description = "자바의 웹 프레임워크",
                                         imageUrl = "https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/springboot_logo.png"
@@ -90,7 +86,6 @@ internal class CategoryControllerTest {
                 .jsonPath("responseDateTime").isNotEmpty
                 .jsonPath("data").isNotEmpty
                 .jsonPath("data.no").isEqualTo(documentCategoryNo)
-                .jsonPath("data.colorCode").isNotEmpty
                 .jsonPath("data.name").isNotEmpty
                 .jsonPath("data.description").isNotEmpty
                 .jsonPath("data.imageUrl").isNotEmpty
@@ -128,7 +123,6 @@ internal class CategoryControllerTest {
                 .body(BodyInserters.fromValue(
                         ApiUpdateBody(
                                 update = UpdateCategoryDto(
-                                        colorCode = "#000000",
                                         description = "자바의 웹 프레임워크",
                                         imageUrl = "https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/springboot_logo.png"
                                 )

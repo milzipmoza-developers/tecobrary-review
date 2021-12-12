@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "categories")
 data class DocumentCategory(
         @Id val id: ObjectId = ObjectId.get(),
-        @Indexed(unique = true) val colorCode: String,
         @Indexed(unique = true) val name: String,
         val description: String,
         val image: DocumentCategoryImage
