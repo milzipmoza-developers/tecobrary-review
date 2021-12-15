@@ -4,7 +4,7 @@ import dev.milzipmoza.review.domain.tag.model.Tag
 
 interface TagOperation {
 
-    fun save(newTag: Tag): Boolean
+    fun save(newTag: Tag): String
 
-    fun update(tag: Tag): Boolean
+    fun update(no: String, tag: Tag): String
 }

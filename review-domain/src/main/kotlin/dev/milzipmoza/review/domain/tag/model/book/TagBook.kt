@@ -3,7 +3,7 @@ package dev.milzipmoza.review.domain.tag.model.book
 import dev.milzipmoza.review.domain.Value
 
 class TagBook(
-        private val isbn: String
+        val isbn: String
 ) : Value<TagBook> {
 
     override fun sameAs(other: TagBook) = this == other
