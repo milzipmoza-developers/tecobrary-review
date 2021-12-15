@@ -22,5 +22,15 @@ data class PageData<R>(
                             .toList()
             )
         }
+
+        fun <T : Entity<T>, R> of(entity: T, mapper: (entity: T) -> R) : PageData<R> {
+            return PageData(
+                    total = 1,
+                    size = 1,
+                    isFirst = true,
+                    isLast = true,
+                    items = listOf(mapper(entity))
+            )
+        }
     }
 }
