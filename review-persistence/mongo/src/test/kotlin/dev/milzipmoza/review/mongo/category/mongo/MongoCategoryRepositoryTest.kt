@@ -22,7 +22,6 @@ class MongoCategoryRepositoryTest {
     @Test
     internal fun name() {
         val document = DocumentCategory(
-                colorCode = "#000000",
                 name = "스프링",
                 description = "아무튼 스프링임",
                 image = DocumentCategoryImage(
