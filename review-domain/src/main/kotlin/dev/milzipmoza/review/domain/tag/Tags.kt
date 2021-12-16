@@ -8,6 +8,8 @@ import dev.milzipmoza.review.domain.tag.model.name.TagName
 
 interface Tags {
 
+    fun findBy(no: String): Tag
+
     fun findBy(tagName: TagName, tagBook: TagBook): Tag
 
     fun findBy(tagName: TagName): Tag

@@ -16,6 +16,7 @@ import dev.milzipmoza.review.mongo.tag.mongo.DocumentTag
 import dev.milzipmoza.review.mongo.tag.mongo.DocumentTagBooks
 import dev.milzipmoza.review.mongo.tag.mongo.MongoTagBooksRepository
 import dev.milzipmoza.review.mongo.tag.mongo.MongoTagRepository
+import org.bson.types.ObjectId
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -23,6 +24,13 @@ class MongoTags(
         private val mongoTagRepository: MongoTagRepository,
         private val mongoTagBooksRepository: MongoTagBooksRepository
 ) : Tags {
+
+    override fun findBy(no: String): Tag {
+        val tag = mongoTagRepository.findById(ObjectId(no)).unwrap()
+                ?: throw DocumentNotFoundException("조건에 맞는 결과를 찾을 수 없어요.")
+
+        return DocumentTagMapper.map(tag)
+    }
 
     override fun findBy(tagName: TagName): Tag {
         val documentTag = mongoTagRepository.findByName(tagName.name)

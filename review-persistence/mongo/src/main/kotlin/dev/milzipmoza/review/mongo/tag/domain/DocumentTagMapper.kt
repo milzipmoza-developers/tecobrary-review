@@ -23,6 +23,15 @@ object DocumentTagMapper {
         )
     }
 
+    fun map(documentTag: DocumentTag): Tag {
+        return Tag(
+                no = documentTag.id.toHexString(),
+                color = TagColor(code = documentTag.colorCode),
+                name = TagName(name = documentTag.name),
+                description = TagDescription(description = documentTag.description),
+        )
+    }
+
     fun map(objectId: ObjectId, tag: Tag, documentTag: DocumentTag): DocumentTag {
         return DocumentTag(
                 id = objectId,
