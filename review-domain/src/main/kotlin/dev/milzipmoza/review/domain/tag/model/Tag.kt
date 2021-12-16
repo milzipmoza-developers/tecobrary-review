@@ -12,7 +12,7 @@ class Tag(
         val color: TagColor,
         val name: TagName,
         val description: TagDescription,
-        val books: TagBooks
+        val books: TagBooks = TagBooks()
 ) : Entity<Tag> {
 
     override fun getId() = no
