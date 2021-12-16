@@ -25,7 +25,7 @@ interface CustomMongoTagBooksRepository {
 @Document(collection = COLLECTION_NAME)
 data class DocumentTagBooks(
         @Id val id: ObjectId = ObjectId.get(),
-        val books: List<String>
+        val books: List<String> = listOf()
 )
 
 @Repository

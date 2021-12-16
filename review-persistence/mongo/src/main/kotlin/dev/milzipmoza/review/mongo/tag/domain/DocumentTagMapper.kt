@@ -8,6 +8,7 @@ import dev.milzipmoza.review.domain.tag.model.description.TagDescription
 import dev.milzipmoza.review.domain.tag.model.name.TagName
 import dev.milzipmoza.review.mongo.tag.mongo.DocumentTag
 import dev.milzipmoza.review.mongo.tag.mongo.DocumentTagBooks
+import org.bson.types.ObjectId
 
 object DocumentTagMapper {
 
@@ -19,6 +20,16 @@ object DocumentTagMapper {
                 description = TagDescription(description = documentTag.description),
                 books = TagBooks(books = documentTagBooks?.books?.map { TagBook(it) }?.toMutableList()
                         ?: mutableListOf())
+        )
+    }
+
+    fun map(objectId: ObjectId, tag: Tag, documentTag: DocumentTag): DocumentTag {
+        return DocumentTag(
+                id = objectId,
+                colorCode = tag.color.code,
+                name = tag.name.name,
+                description = tag.description.description,
+                bookMappingId = documentTag.bookMappingId
         )
     }
 }
