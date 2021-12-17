@@ -12,8 +12,8 @@ class CreateTagController(
 ) {
 
     @PutMapping("/api/tags")
-    fun create(@RequestBody body: ApiCreateBody<CreateTagDto>): ApiResponse<String> {
-        val tagNo = createTagService.doCreate(body.create)
-        return ApiResponse.success(data = tagNo)
+    fun create(@RequestBody body: ApiCreateBody<CreateTagDto>): ApiResponse<Boolean> {
+        val result = createTagService.doCreate(body.create)
+        return ApiResponse.success(data = result)
     }
 }

@@ -11,7 +11,7 @@ class UpdateTagService(
         private val tagOperation: TagOperation
 ) {
 
-    fun doUpdate(no: String, update: UpdateTagDto): String {
+    fun doUpdate(no: String, update: UpdateTagDto): Boolean {
         val tag = tags.findBy(no)
 
         val command = TagUpdate(tag)

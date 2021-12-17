@@ -12,7 +12,7 @@ class CreateTagService(
         private val tagOperation: TagOperation
 ) {
 
-    fun doCreate(tagDto: CreateTagDto): String {
+    fun doCreate(tagDto: CreateTagDto): Boolean {
         val newTag = Tag(
                 color = TagColor(tagDto.colorCode),
                 name = TagName(tagDto.name),

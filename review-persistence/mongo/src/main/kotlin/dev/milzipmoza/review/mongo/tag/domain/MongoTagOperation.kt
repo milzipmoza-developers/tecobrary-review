@@ -4,6 +4,7 @@ import dev.milzipmoza.review.domain.tag.TagOperation
 import dev.milzipmoza.review.domain.tag.model.Tag
 import dev.milzipmoza.review.domain.unwrap
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
+import dev.milzipmoza.review.mongo.extension.Logger
 import dev.milzipmoza.review.mongo.tag.mongo.DocumentTag
 import dev.milzipmoza.review.mongo.tag.mongo.DocumentTagBooks
 import dev.milzipmoza.review.mongo.tag.mongo.MongoTagBooksRepository
@@ -17,17 +18,21 @@ class MongoTagOperation(
         private val mongoTagBooksRepository: MongoTagBooksRepository
 ) : TagOperation {
 
-    override fun save(newTag: Tag): String {
+    private val log = Logger.of(this)
+
+    override fun save(newTag: Tag): Boolean {
         val documentTagBooks = DocumentTagBooks()
         val savedTagBooks = mongoTagBooksRepository.save(documentTagBooks)
+        log.info("[MongoTagOperation] succeed saving tag books={}", savedTagBooks)
 
         val documentTag = DocumentTag(colorCode = newTag.color.code, name = newTag.name.name, description = newTag.description.description, bookMappingId = savedTagBooks.id)
         val savedTag = mongoTagRepository.save(documentTag)
+        log.info("[MongoTagOperation] succeed saving tag={}", savedTag)
 
-        return savedTag.id.toHexString()
+        return true
     }
 
-    override fun update(no: String, tag: Tag): String {
+    override fun update(no: String, tag: Tag): Boolean {
         val objectId = ObjectId(no)
 
         val documentTag = mongoTagRepository.findById(objectId).unwrap()
@@ -35,6 +40,9 @@ class MongoTagOperation(
 
         val newDocumentTag = DocumentTagMapper.map(objectId, tag, documentTag)
 
-        return mongoTagRepository.save(newDocumentTag).id.toHexString()
+        val savedTag = mongoTagRepository.save(newDocumentTag)
+        log.info("[MongoTagOperation] succeed updating tag={}", savedTag)
+
+        return true
     }
 }

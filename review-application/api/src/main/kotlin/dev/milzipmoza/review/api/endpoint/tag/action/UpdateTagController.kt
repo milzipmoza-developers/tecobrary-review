@@ -14,8 +14,8 @@ class UpdateTagController(
 
     @PostMapping("/api/tags/{tagNo}")
     fun update(@PathVariable tagNo: String,
-               @RequestBody body: ApiUpdateBody<UpdateTagDto>): ApiResponse<String> {
-        val tagNo = updateTagService.doUpdate(tagNo, body.update)
-        return ApiResponse.success(data = tagNo)
+               @RequestBody body: ApiUpdateBody<UpdateTagDto>): ApiResponse<Boolean> {
+        val result = updateTagService.doUpdate(tagNo, body.update)
+        return ApiResponse.success(data = result)
     }
 }

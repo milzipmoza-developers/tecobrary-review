@@ -26,10 +26,12 @@ class MongoTags(
 ) : Tags {
 
     override fun findBy(no: String): Tag {
-        val tag = mongoTagRepository.findById(ObjectId(no)).unwrap()
+        val documentTag = mongoTagRepository.findById(ObjectId(no)).unwrap()
                 ?: throw DocumentNotFoundException("조건에 맞는 결과를 찾을 수 없어요.")
 
-        return DocumentTagMapper.map(tag)
+        val documentTagBooks = mongoTagBooksRepository.findById(documentTag.bookMappingId).unwrap()
+
+        return DocumentTagMapper.map(documentTag, documentTagBooks)
     }
 
     override fun findBy(tagName: TagName): Tag {
