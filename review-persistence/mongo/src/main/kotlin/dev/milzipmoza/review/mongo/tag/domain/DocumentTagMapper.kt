@@ -32,13 +32,18 @@ object DocumentTagMapper {
         )
     }
 
-    fun map(objectId: ObjectId, tag: Tag, documentTag: DocumentTag): DocumentTag {
-        return DocumentTag(
+    fun map(objectId: ObjectId, domainTag: Tag, documentTag: DocumentTag): Pair<DocumentTag, DocumentTagBooks> {
+        val tag = DocumentTag(
                 id = objectId,
-                colorCode = tag.color.code,
-                name = tag.name.name,
-                description = tag.description.description,
+                colorCode = domainTag.color.code,
+                name = domainTag.name.name,
+                description = domainTag.description.description,
                 bookMappingId = documentTag.bookMappingId
         )
+        val tagBooks = DocumentTagBooks(
+                id = tag.bookMappingId,
+                books = domainTag.books.map { it.isbn }.toList()
+        )
+        return Pair(tag, tagBooks)
     }
 }

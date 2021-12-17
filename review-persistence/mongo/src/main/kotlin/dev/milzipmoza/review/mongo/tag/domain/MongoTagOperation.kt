@@ -38,10 +38,13 @@ class MongoTagOperation(
         val documentTag = mongoTagRepository.findById(objectId).unwrap()
                 ?: throw DocumentNotFoundException("조건에 맞는 결과를 찾을 수 없어요.")
 
-        val newDocumentTag = DocumentTagMapper.map(objectId, tag, documentTag)
+        val (newDocumentTag, newDocumentTagBooks) = DocumentTagMapper.map(objectId, tag, documentTag)
 
         val savedTag = mongoTagRepository.save(newDocumentTag)
         log.info("[MongoTagOperation] succeed updating tag={}", savedTag)
+
+        val savedTagBooks = mongoTagBooksRepository.save(newDocumentTagBooks)
+        log.info("[MongoTagOperation] succeed updating tag books={}", savedTagBooks)
 
         return true
     }
