@@ -1,6 +1,6 @@
 package dev.milzipmoza.review.domain
 
-open class Url{
+open class Url : Value<Url> {
 
     val host: String
     val path: String
@@ -24,9 +24,28 @@ open class Url{
         else -> "$host/$path"
     }
 
+    override fun sameAs(other: Url) = this == other
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Url
+
+        if (host != other.host) return false
+        if (path != other.path) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = host.hashCode()
+        result = 31 * result + path.hashCode()
+        return result
+    }
+
     companion object {
         private const val HTTPS_HOST = "https://"
         private const val SLASH = "/"
     }
-
 }
