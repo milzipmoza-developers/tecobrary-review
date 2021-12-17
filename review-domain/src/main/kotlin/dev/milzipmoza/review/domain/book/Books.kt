@@ -4,5 +4,5 @@ import dev.milzipmoza.review.domain.book.model.Book
 
 interface Books {
 
-    fun findBy(isbn: String): Book?
+    fun findBy(isbn: String): Book
 }

@@ -55,7 +55,7 @@ class MongoBooksTest {
 
     @Test
     fun findByIsbn() {
-        val book = mongoBooks.findBy(bookIsbn)!!
+        val book = mongoBooks.findBy(bookIsbn)
 
         assertThat(book.isbn).isEqualTo(bookIsbn)
 
