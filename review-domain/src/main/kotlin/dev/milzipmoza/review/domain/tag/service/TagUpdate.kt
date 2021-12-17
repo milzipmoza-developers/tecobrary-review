@@ -1,8 +1,8 @@
-package dev.milzipmoza.review.domain.tag.model
+package dev.milzipmoza.review.domain.tag.service
 
+import dev.milzipmoza.review.domain.tag.model.Tag
 import dev.milzipmoza.review.domain.tag.model.color.TagColor
 import dev.milzipmoza.review.domain.tag.model.description.TagDescription
-import dev.milzipmoza.review.domain.tag.model.name.TagName
 
 class TagUpdate(
         val tag: Tag

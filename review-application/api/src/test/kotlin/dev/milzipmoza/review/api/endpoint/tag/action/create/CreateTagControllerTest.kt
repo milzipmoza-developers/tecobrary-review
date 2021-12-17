@@ -1,6 +1,7 @@
-package dev.milzipmoza.review.api.endpoint.tag.action
+package dev.milzipmoza.review.api.endpoint.tag.action.create
 
 import dev.milzipmoza.review.api.ApiCreateBody
+import dev.milzipmoza.review.api.endpoint.tag.action.create.CreateTagDto
 import java.time.Duration
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

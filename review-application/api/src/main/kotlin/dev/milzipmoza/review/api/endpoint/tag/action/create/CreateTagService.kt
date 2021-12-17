@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.tag.action
+package dev.milzipmoza.review.api.endpoint.tag.action.create
 
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.domain.tag.TagOperation

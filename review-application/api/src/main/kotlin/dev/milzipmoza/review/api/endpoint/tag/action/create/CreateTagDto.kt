@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.tag.action
+package dev.milzipmoza.review.api.endpoint.tag.action.create
 
 data class CreateTagDto(
         val colorCode: String,

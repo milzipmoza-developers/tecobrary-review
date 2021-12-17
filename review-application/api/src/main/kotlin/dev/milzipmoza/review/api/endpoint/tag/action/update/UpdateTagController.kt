@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.tag.action
+package dev.milzipmoza.review.api.endpoint.tag.action.update
 
 import dev.milzipmoza.review.api.ApiResponse
 import dev.milzipmoza.review.api.ApiUpdateBody

@@ -1,14 +1,15 @@
-package dev.milzipmoza.review.domain.tag
+package dev.milzipmoza.review.domain.tag.service
 
 import dev.milzipmoza.review.domain.book.model.Book
+import dev.milzipmoza.review.domain.tag.TagOperationException
 import dev.milzipmoza.review.domain.tag.model.Tag
 import dev.milzipmoza.review.domain.tag.model.book.TagBook
 
-class TagAddBookCommand(
+class AddingTagBook(
         private val tag: Tag
 ) {
 
-    fun add(book: Book): Tag {
+    fun doAdd(book: Book): Tag {
         val tagBook = TagBook(book.isbn)
 
         if (tag.books.contains(tagBook)) {

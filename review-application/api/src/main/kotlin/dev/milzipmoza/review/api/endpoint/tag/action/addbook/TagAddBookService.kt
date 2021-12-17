@@ -1,8 +1,8 @@
-package dev.milzipmoza.review.api.endpoint.tag.action
+package dev.milzipmoza.review.api.endpoint.tag.action.addbook
 
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.domain.book.Books
-import dev.milzipmoza.review.domain.tag.TagAddBookCommand
+import dev.milzipmoza.review.domain.tag.service.AddingTagBook
 import dev.milzipmoza.review.domain.tag.TagOperation
 import dev.milzipmoza.review.domain.tag.Tags
 
@@ -23,8 +23,8 @@ class TagAddBookService(
 
         val book = books.findBy(isbn[0])
 
-        val command = TagAddBookCommand(tags.findBy(tagNo))
-        val tag = command.add(book)
+        val command = AddingTagBook(tags.findBy(tagNo))
+        val tag = command.doAdd(book)
 
         return tagOperation.update(tag)
     }

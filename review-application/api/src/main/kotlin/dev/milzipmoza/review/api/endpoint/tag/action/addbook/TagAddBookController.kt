@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.tag.action
+package dev.milzipmoza.review.api.endpoint.tag.action.addbook
 
 import dev.milzipmoza.review.api.ApiResponse
 import org.springframework.web.bind.annotation.PathVariable

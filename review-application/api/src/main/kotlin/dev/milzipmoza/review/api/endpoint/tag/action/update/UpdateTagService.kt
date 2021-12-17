@@ -1,9 +1,9 @@
-package dev.milzipmoza.review.api.endpoint.tag.action
+package dev.milzipmoza.review.api.endpoint.tag.action.update
 
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.domain.tag.TagOperation
 import dev.milzipmoza.review.domain.tag.Tags
-import dev.milzipmoza.review.domain.tag.model.TagUpdate
+import dev.milzipmoza.review.domain.tag.service.TagUpdate
 
 @ApplicationService
 class UpdateTagService(
