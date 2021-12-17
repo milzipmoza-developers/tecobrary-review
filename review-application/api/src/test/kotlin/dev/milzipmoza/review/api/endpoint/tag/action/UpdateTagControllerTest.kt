@@ -1,14 +1,14 @@
 package dev.milzipmoza.review.api.endpoint.tag.action
 
-import dev.milzipmoza.review.api.ApiCreateBody
 import dev.milzipmoza.review.api.ApiUpdateBody
 import dev.milzipmoza.review.domain.tag.TagOperation
 import dev.milzipmoza.review.domain.tag.model.Tag
-import dev.milzipmoza.review.domain.tag.model.book.TagBooks
 import dev.milzipmoza.review.domain.tag.model.color.TagColor
 import dev.milzipmoza.review.domain.tag.model.description.TagDescription
 import dev.milzipmoza.review.domain.tag.model.name.TagName
+import dev.milzipmoza.review.mongo.tag.mongo.MongoTagRepository
 import java.time.Duration
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,6 +25,9 @@ class UpdateTagControllerTest {
     @Autowired
     private lateinit var tagOperation: TagOperation
 
+    @Autowired
+    private lateinit var mongoTagRepository: MongoTagRepository
+
     private lateinit var tagNo: String
 
     @BeforeEach
@@ -33,17 +36,24 @@ class UpdateTagControllerTest {
                 .responseTimeout(Duration.ofMinutes(60))
                 .build()
 
-        tagNo = tagOperation.save(
+        tagOperation.save(
                 Tag(
                         color = TagColor(code = "#000011"),
                         name = TagName(name = "객체지향"),
                         description = TagDescription(description = "객체지향 패러다임")
                 )
         )
+
+        tagNo = mongoTagRepository.findAll()[0].id.toHexString()
+    }
+
+    @AfterEach
+    internal fun tearDown() {
+        mongoTagRepository.deleteAll()
     }
 
     @Test
-    fun requestCreateTag() {
+    fun requestUpdateTag() {
         webTestClient.post()
                 .uri("/api/tags/{tagNo}", tagNo)
                 .body(BodyInserters.fromValue(
