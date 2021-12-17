@@ -21,6 +21,6 @@ class UpdateTagService(
                 description = update.description
         )
 
-        return tagOperation.update(no, updatedTag)
+        return tagOperation.update(updatedTag)
     }
 }

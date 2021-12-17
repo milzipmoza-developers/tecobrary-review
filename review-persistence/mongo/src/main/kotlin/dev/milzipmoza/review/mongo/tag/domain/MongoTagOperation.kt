@@ -32,8 +32,8 @@ class MongoTagOperation(
         return true
     }
 
-    override fun update(no: String, tag: Tag): Boolean {
-        val objectId = ObjectId(no)
+    override fun update(tag: Tag): Boolean {
+        val objectId = ObjectId(tag.no)
 
         val documentTag = mongoTagRepository.findById(objectId).unwrap()
                 ?: throw DocumentNotFoundException("조건에 맞는 결과를 찾을 수 없어요.")

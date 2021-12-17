@@ -6,5 +6,5 @@ interface TagOperation {
 
     fun save(newTag: Tag): Boolean
 
-    fun update(no: String, tag: Tag): Boolean
+    fun update(tag: Tag): Boolean
 }
