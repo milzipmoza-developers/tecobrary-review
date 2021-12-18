@@ -8,7 +8,7 @@ class BookDetail(
         val title: String,
         val publisher: String,
         val author: String,
-        val locale: BookLanguage,
+        val locale: BookLanguage = BookLanguage.KOREAN,
         val publishDate: LocalDate,
         val description: String
 ) : Value<BookDetail> {
