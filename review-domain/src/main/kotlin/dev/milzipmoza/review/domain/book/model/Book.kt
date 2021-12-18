@@ -10,7 +10,7 @@ class Book(
 
     override fun getId() = isbn
 
-    fun edit(bookDetail: BookDetail): Book {
+    internal fun edit(bookDetail: BookDetail): Book {
         return Book(
                 isbn = this.isbn,
                 detail = this.detail.edit(bookDetail),

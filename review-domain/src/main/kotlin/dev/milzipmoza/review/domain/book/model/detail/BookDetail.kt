@@ -18,8 +18,28 @@ class BookDetail(
             throw BookDetailOperationException("도서 상세 정보가 기존의 정보와 동일합니다.")
         }
 
-        return bookDetail
+        return edit(
+                imageUrl = bookDetail.image.toUrl(),
+                title = bookDetail.title,
+                publisher = bookDetail.publisher,
+                author = bookDetail.author,
+                description = bookDetail.description
+        )
     }
+
+    private fun edit(imageUrl: String, title: String, publisher: String, author: String, description: String): BookDetail {
+        return BookDetail(
+                image = if (notEdited(image.toUrl(), imageUrl)) image else BookImageUrl(imageUrl),
+                title = if (notEdited(this.title, title)) this.title else title,
+                publisher = if (notEdited(this.publisher, publisher)) this.publisher else publisher,
+                author = if (notEdited(this.author, author)) this.author else author,
+                locale = this.locale,
+                publishDate = this.publishDate,
+                description = if (notEdited(this.description, description)) this.description else description
+        )
+    }
+
+    private fun notEdited(original: String, edit: String) = original == edit || edit.isBlank()
 
     override fun sameAs(other: BookDetail) = this == other
 
