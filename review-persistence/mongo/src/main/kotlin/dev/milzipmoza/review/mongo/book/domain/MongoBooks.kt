@@ -7,6 +7,9 @@ import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
 import dev.milzipmoza.review.domain.unwrap
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
+import dev.milzipmoza.review.mongo.book.mongo.DocumentBook
+import dev.milzipmoza.review.mongo.book.mongo.DocumentBookDetail
+import dev.milzipmoza.review.mongo.book.mongo.DocumentBookMapper
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookDetailRepository
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookRepository
 import org.springframework.stereotype.Repository
@@ -24,20 +27,6 @@ class MongoBooks(
         val documentBookDetail = mongoBookDetailRepository.findById(documentBook.detailMappingId).unwrap()
                 ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없습니다.")
 
-        return Book(
-                isbn = documentBook.isbn,
-                detail = BookDetail(
-                        image = BookImageUrl(
-                                host = documentBookDetail.image.host,
-                                path = documentBookDetail.image.path
-                        ),
-                        title = documentBookDetail.title,
-                        publisher = documentBookDetail.publisher,
-                        author = documentBookDetail.author,
-                        locale = BookLanguage.valueOf(documentBookDetail.locale),
-                        publishDate = documentBookDetail.publishDate,
-                        description = documentBookDetail.description,
-                )
-        )
+        return DocumentBookMapper.map(documentBook, documentBookDetail)
     }
 }
