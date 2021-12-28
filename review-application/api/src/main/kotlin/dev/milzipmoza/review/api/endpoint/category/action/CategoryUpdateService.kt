@@ -1,7 +1,6 @@
-package dev.milzipmoza.review.api.endpoint.category.service
+package dev.milzipmoza.review.api.endpoint.category.action
 
 import dev.milzipmoza.review.annotation.ApplicationService
-import dev.milzipmoza.review.api.endpoint.category.UpdateCategoryDto
 import dev.milzipmoza.review.domain.category.Categories
 import dev.milzipmoza.review.domain.category.CategoryUpdate
 import dev.milzipmoza.review.domain.category.CategoryOperation

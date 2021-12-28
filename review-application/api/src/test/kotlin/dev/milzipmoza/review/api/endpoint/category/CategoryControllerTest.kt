@@ -2,6 +2,8 @@ package dev.milzipmoza.review.api.endpoint.category
 
 import dev.milzipmoza.review.api.ApiCreateBody
 import dev.milzipmoza.review.api.ApiUpdateBody
+import dev.milzipmoza.review.api.endpoint.category.action.CreateCategoryDto
+import dev.milzipmoza.review.api.endpoint.category.action.UpdateCategoryDto
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategory
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategoryImage
 import dev.milzipmoza.review.mongo.category.mongo.MongoCategoryRepository

@@ -1,8 +1,8 @@
-package dev.milzipmoza.review.api.endpoint.category.service
+package dev.milzipmoza.review.api.endpoint.category.search
 
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.api.PageData
-import dev.milzipmoza.review.api.endpoint.category.CategoryDto
+import dev.milzipmoza.review.api.endpoint.category.search.CategoryDto
 import dev.milzipmoza.review.domain.PageQuery
 import dev.milzipmoza.review.domain.category.Categories
 

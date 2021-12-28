@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.category
+package dev.milzipmoza.review.api.endpoint.category.action
 
 import dev.milzipmoza.review.domain.category.model.Category
 import dev.milzipmoza.review.domain.category.model.description.CategoryDescription
