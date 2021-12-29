@@ -1,5 +1,6 @@
 package dev.milzipmoza.review.api.endpoint.search
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import dev.milzipmoza.review.domain.search.model.SearchBook
 import java.time.LocalDate
 
@@ -10,6 +11,7 @@ data class SearchBookElementDto(
         val author: String,
         val imageUrl: String,
         val description: String,
+        @JsonFormat(pattern = "yyyy-MM-dd")
         val publishDate: LocalDate
 ) {
     companion object {
