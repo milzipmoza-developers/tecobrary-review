@@ -4,13 +4,8 @@ import dev.milzipmoza.review.domain.PageEntities
 import dev.milzipmoza.review.domain.PageQuery
 import dev.milzipmoza.review.domain.book.Books
 import dev.milzipmoza.review.domain.book.model.Book
-import dev.milzipmoza.review.domain.book.model.detail.BookDetail
-import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
-import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
 import dev.milzipmoza.review.domain.unwrap
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
-import dev.milzipmoza.review.mongo.book.mongo.DocumentBook
-import dev.milzipmoza.review.mongo.book.mongo.DocumentBookDetail
 import dev.milzipmoza.review.mongo.book.mongo.DocumentBookMapper
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookDetailRepository
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookRepository

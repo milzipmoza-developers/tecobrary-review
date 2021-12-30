@@ -18,5 +18,17 @@ interface MongoBookRepository : MongoRepository<DocumentBook, ObjectId> {
 data class DocumentBook(
         @Id val id: ObjectId = ObjectId(),
         @Indexed(unique = true) val isbn: String,
+        var category: DocumentBookCategory?,
         val detailMappingId: ObjectId,
+)
+
+data class DocumentBookCategory(
+        val no: String,
+        val name: String,
+        val image: DocumentBookCategoryImage
+)
+
+data class DocumentBookCategoryImage(
+        val host: String,
+        val path: String
 )

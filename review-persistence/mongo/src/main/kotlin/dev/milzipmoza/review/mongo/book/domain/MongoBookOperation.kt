@@ -2,6 +2,7 @@ package dev.milzipmoza.review.mongo.book.domain
 
 import dev.milzipmoza.review.domain.book.BookOperation
 import dev.milzipmoza.review.domain.book.model.Book
+import dev.milzipmoza.review.domain.book.model.category.BookCategory
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
 import dev.milzipmoza.review.mongo.book.mongo.DocumentBookMapper
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookDetailRepository
@@ -32,6 +33,9 @@ class MongoBookOperation(
     override fun edit(book: Book): Boolean {
         val documentBook = mongoBookRepository.findByIsbn(book.isbn)
                 ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없습니다.")
+        documentBook.category = DocumentBookMapper.map(book.category)
+        val updatedDocumentBook = mongoBookRepository.save(documentBook)
+        log.info("[MongoBookOperation] succeed updating book detail={}", updatedDocumentBook.id)
 
         val documentBookDetail = DocumentBookMapper.map(book.detail, documentBook.detailMappingId)
         val updatedBookDetail = mongoBookDetailRepository.save(documentBookDetail)
