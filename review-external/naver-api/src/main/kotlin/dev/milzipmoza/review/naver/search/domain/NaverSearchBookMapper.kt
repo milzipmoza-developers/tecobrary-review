@@ -5,6 +5,7 @@ import dev.milzipmoza.review.domain.search.model.description.SearchBookDescripti
 import dev.milzipmoza.review.domain.search.model.image.SearchBookImage
 import dev.milzipmoza.review.naver.extensions.removeHtmlTags
 import dev.milzipmoza.review.naver.search.api.NaverSearchBookItemDto
+import dev.milzipmoza.review.naver.search.parser.IsbnParser
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -12,7 +13,7 @@ object NaverSearchBookMapper {
 
     fun map(item: NaverSearchBookItemDto): SearchBook {
         return SearchBook(
-                isbn = item.isbn.removeHtmlTags(),
+                isbn = IsbnParser.parse(item.isbn.removeHtmlTags()),
                 title = item.title.removeHtmlTags(),
                 publisher = item.publisher.removeHtmlTags(),
                 author = item.author.removeHtmlTags(),
