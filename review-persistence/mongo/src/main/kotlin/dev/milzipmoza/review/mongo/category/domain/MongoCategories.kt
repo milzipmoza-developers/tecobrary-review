@@ -37,4 +37,8 @@ class MongoCategories(
                         .toList()
         )
     }
+
+    override fun isExistBy(no: String): Boolean {
+        return mongoCategoryRepository.existsById(ObjectId(no))
+    }
 }
