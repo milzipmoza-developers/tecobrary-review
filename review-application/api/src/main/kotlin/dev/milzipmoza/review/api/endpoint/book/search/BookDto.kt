@@ -2,12 +2,14 @@ package dev.milzipmoza.review.api.endpoint.book.search
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import dev.milzipmoza.review.domain.book.model.Book
+import dev.milzipmoza.review.domain.book.model.category.BookCategory
 import dev.milzipmoza.review.domain.book.model.detail.BookDetail
 import java.time.LocalDate
 
 data class BookDto(
         val isbn: String,
-        val detail: BookDetailDto
+        val detail: BookDetailDto,
+        val category: BookCategoryDto?
 )
 
 data class BookDetailDto(
@@ -21,10 +23,17 @@ data class BookDetailDto(
         val description: String
 )
 
+data class BookCategoryDto(
+        val no: String,
+        val name: String,
+        val imageUrl: String
+)
+
 object BookDtoMapper {
     fun map(book: Book) = BookDto(
             isbn = book.isbn,
-            detail = map(book.detail)
+            detail = map(book.detail),
+            category = map(book.category)
     )
 
     private fun map(bookDetail: BookDetail) = BookDetailDto(
@@ -36,4 +45,15 @@ object BookDtoMapper {
             publishDate = bookDetail.publishDate,
             description = bookDetail.description
     )
+
+    private fun map(bookCategory: BookCategory) = when (bookCategory) {
+        is BookCategory.EnrolledBookCategory -> {
+            BookCategoryDto(
+                    no = bookCategory.no,
+                    name = bookCategory.name,
+                    imageUrl = bookCategory.fullImageUrl
+            )
+        }
+        is BookCategory.NoBookCategory -> null
+    }
 }
