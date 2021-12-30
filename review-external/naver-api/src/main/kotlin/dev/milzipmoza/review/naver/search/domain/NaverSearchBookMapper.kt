@@ -6,6 +6,7 @@ import dev.milzipmoza.review.domain.search.model.image.SearchBookImage
 import dev.milzipmoza.review.naver.extensions.removeHtmlTags
 import dev.milzipmoza.review.naver.search.api.NaverSearchBookItemDto
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 object NaverSearchBookMapper {
 
@@ -15,9 +16,15 @@ object NaverSearchBookMapper {
                 title = item.title.removeHtmlTags(),
                 publisher = item.publisher.removeHtmlTags(),
                 author = item.author.removeHtmlTags(),
-                publishDate = LocalDate.now(),
+                publishDate = item.pubdate.toLocalDate(),
                 image = SearchBookImage(item.image),
                 description = SearchBookDescription(content = item.description.removeHtmlTags())
         )
     }
+}
+
+private val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
+
+private fun String.toLocalDate(): LocalDate {
+    return LocalDate.parse(this, formatter)
 }

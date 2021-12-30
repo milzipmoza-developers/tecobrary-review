@@ -13,18 +13,14 @@ class NaverSearchBooks(
         private val naverApiClient: NaverApiClient
 ) : SearchBooks {
 
-    private val logger = LoggerFactory.getLogger(this::class.java)
-
     override fun findAllBy(keyword: String, pageQuery: PageQuery): PageEntities<SearchBook> {
+        val naverSearchBookPageQuery = NaverSearchBookPageQuery.of(pageQuery)
+
         val response = naverApiClient.searchBooks(
                 query = keyword,
-                display = pageQuery.size,
-                start = pageQuery.start
+                display = naverSearchBookPageQuery.display,
+                start = naverSearchBookPageQuery.start
         )
-
-        response.items.forEach {
-            logger.info("naver api item={}", it)
-        }
 
         return PageEntities(
                 total = response.total,
