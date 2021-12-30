@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.domain.book
+package dev.milzipmoza.review.domain.book.service
 
 import dev.milzipmoza.review.domain.book.model.Book
 import dev.milzipmoza.review.domain.book.model.detail.BookDetail

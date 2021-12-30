@@ -3,7 +3,7 @@ package dev.milzipmoza.review.api.endpoint.book.action
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.domain.book.BookOperation
 import dev.milzipmoza.review.domain.book.Books
-import dev.milzipmoza.review.domain.book.EditingBookDetail
+import dev.milzipmoza.review.domain.book.service.EditingBookDetail
 
 
 @ApplicationService
