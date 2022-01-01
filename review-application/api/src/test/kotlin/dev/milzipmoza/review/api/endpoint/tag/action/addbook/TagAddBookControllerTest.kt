@@ -74,7 +74,8 @@ internal class TagAddBookControllerTest {
 
         mongoBookRepository.save(DocumentBook(
                 isbn = isbn,
-                detailMappingId = detailMappingId
+                detailMappingId = detailMappingId,
+                category = null
         ))
 
         tagNo = mongoTagRepository.findAll()[0].id.toHexString()
