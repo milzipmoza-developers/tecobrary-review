@@ -10,8 +10,8 @@ class SearchBookService(
         private val searchBooks: SearchBooks
 ) {
 
-    fun search(keyword: String, page: Int, size: Int): PageData<SearchBookElementDto> {
-        if (keyword.length < 2) {
+    fun search(keyword: String?, page: Int, size: Int): PageData<SearchBookElementDto> {
+        if (keyword.isNullOrBlank() || keyword.length < 2) {
             throw IllegalArgumentException("검색어를 두 글자 이상 입력해주세요.")
         }
         if (page < 1) {

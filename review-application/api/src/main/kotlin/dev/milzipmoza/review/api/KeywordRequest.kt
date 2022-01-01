@@ -1,5 +1,5 @@
 package dev.milzipmoza.review.api
 
 data class KeywordRequest(
-        val keyword: String
+        val keyword: String? = null
 )
