@@ -1,6 +1,7 @@
 package dev.milzipmoza.review.api.endpoint.category.search
 
 import dev.milzipmoza.review.api.*
+import dev.milzipmoza.review.api.KeywordRequest
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -15,8 +16,8 @@ class CategoryController(
     }
 
     @GetMapping("/api/categories")
-    fun categories(pageParam: PageRequest): ApiResponse<PageData<CategoryDto>> {
-        val categories = categoryQueryService.getCategories(pageParam.page, pageParam.size)
+    fun categories(pageParam: PageRequest, keywordRequest: KeywordRequest): ApiResponse<PageData<CategoryDto>> {
+        val categories = categoryQueryService.getCategories(pageParam.page, pageParam.size, keywordRequest.keyword)
         return ApiResponse.success(data = categories)
     }
 }

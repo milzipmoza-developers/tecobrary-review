@@ -16,8 +16,11 @@ class CategoryQueryService(
         return CategoryDto.of(category)
     }
 
-    fun getCategories(page: Int, size: Int): PageData<CategoryDto> {
-        val categories = categories.findAllBy(PageQuery(page = page, size = size))
+    fun getCategories(page: Int, size: Int, keyword: String?): PageData<CategoryDto> {
+        val categories = when (keyword) {
+            null -> categories.findAllBy(PageQuery(page = page, size = size))
+            else -> categories.findAllBy(keyword, PageQuery(page, size))
+        }
         return PageData.of(categories, CategoryDto::of)
     }
 }

@@ -7,9 +7,8 @@ import dev.milzipmoza.review.domain.category.model.Category
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
 import dev.milzipmoza.review.mongo.category.mongo.DocumentCategoryMapper
 import dev.milzipmoza.review.mongo.category.mongo.MongoCategoryRepository
+import dev.milzipmoza.review.mongo.extension.PageRequest
 import org.bson.types.ObjectId
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -25,7 +24,21 @@ class MongoCategories(
     }
 
     override fun findAllBy(pageQuery: PageQuery): PageEntities<Category> {
-        val documents = mongoCategoryRepository.findAll(PageRequest.of(pageQuery.page, pageQuery.size))
+        val documents = mongoCategoryRepository.findAll(PageRequest.of(pageQuery))
+
+        return PageEntities(
+                total = documents.totalElements,
+                size = documents.size,
+                isFirst = documents.isFirst,
+                isLast = documents.isLast,
+                items = documents.content
+                        .map { DocumentCategoryMapper.map(it) }
+                        .toList()
+        )
+    }
+
+    override fun findAllBy(keyword: String, pageQuery: PageQuery): PageEntities<Category> {
+        val documents = mongoCategoryRepository.findAllByKeyword(keyword, PageRequest.of(pageQuery))
 
         return PageEntities(
                 total = documents.totalElements,
