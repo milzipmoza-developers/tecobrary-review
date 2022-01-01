@@ -47,7 +47,8 @@ class MongoBooksTest {
 
         val documentBook = DocumentBook(
                 isbn = "9788966262472",
-                detailMappingId = savedBookDetail.id
+                detailMappingId = savedBookDetail.id,
+                category = null
         )
 
         mongoBookRepository.save(documentBook)
