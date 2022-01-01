@@ -13,11 +13,11 @@ internal class SearchBookControllerTest {
     private lateinit var webTestClient: WebTestClient
 
     @Test
-    internal fun searchBooks() {
+    fun searchBooks() {
         webTestClient.get()
                 .uri { it.path("/api/search-books")
                         .queryParam("keyword", "객체지향의 사실과 오해")
-                        .queryParam("page", 0)
+                        .queryParam("page", 1)
                         .queryParam("size", 2)
                         .build() }
                 .exchange()
