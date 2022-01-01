@@ -13,4 +13,6 @@ interface Categories {
     fun findAllBy(keyword: String, pageQuery: PageQuery): PageEntities<Category>
 
     fun isExistBy(no: String): Boolean
+
+    fun isNotExistBy(no: String) = !isExistBy(no)
 }

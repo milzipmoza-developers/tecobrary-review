@@ -9,13 +9,13 @@ import dev.milzipmoza.review.domain.category.Categories
 
 @ApplicationService
 class BookAddCategoryService(
-        private val books: Books,
         private val categories: Categories,
-        private val bookOperation: BookOperation
+        private val books: Books,
+        private val bookOperation: BookOperation,
 ) {
     fun add(isbn: String, categoryDto: BookAddCategoryDto): Boolean {
-        if (categories.isExistBy(categoryDto.no)) {
-            throw BookOperationException("카테고리가 정확한지 확인해주세요.")
+        if (categories.isNotExistBy(categoryDto.no)) {
+            throw BookOperationException("카테고리를 확인해주세요.")
         }
 
         val book = books.findBy(isbn)
