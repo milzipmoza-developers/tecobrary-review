@@ -42,7 +42,7 @@ class CustomMongoTagBooksRepositoryImpl(
                 .limit(pageRequest.pageSize)
                 .skip(pageRequest.offset)
 
-        val count = mongoOperations.count(Query(), COLLECTION_NAME)
+        val count = mongoOperations.count(query, COLLECTION_NAME)
         val results = mongoTemplate.find(query, DocumentTagBooks::class.java)
 
         return PageImpl(results, pageRequest, count)
