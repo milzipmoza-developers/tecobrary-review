@@ -22,15 +22,15 @@ class MongoBookOperation(
 
     override fun save(book: Book): Boolean {
         val documentBookTags = DocumentBookMapper.map(book.tags)
-        val savedBookTags = mongoBookTagsRepository.save(documentBookTags)
+        val savedBookTags = mongoBookTagsRepository.insert(documentBookTags)
         log.info("[MongoBookOperation][{}] succeed saving book tags={}", book.isbn, savedBookTags.id)
 
         val documentBookDetail = DocumentBookMapper.map(book.detail)
-        val savedBookDetail = mongoBookDetailRepository.save(documentBookDetail)
+        val savedBookDetail = mongoBookDetailRepository.insert(documentBookDetail)
         log.info("[MongoBookOperation][{}] succeed saving book detail={}", book.isbn, savedBookDetail.id)
 
         val documentBook = DocumentBookMapper.map(book, savedBookDetail.id, documentBookTags.id)
-        val savedBook = mongoBookRepository.save(documentBook)
+        val savedBook = mongoBookRepository.insert(documentBook)
         log.info("[MongoBookOperation][{}] succeed saving book={}", book.isbn, savedBook.id)
 
         return true
@@ -49,7 +49,7 @@ class MongoBookOperation(
 
         val documentBookTags = DocumentBookMapper.map(book.tags, documentBook.tagsMappingId)
         val updatedBookTags = mongoBookTagsRepository.save(documentBookTags)
-        log.info("[MongoBookOperation][{}] succeed updating book tags={}", book.isbn, updatedBookDetail.id)
+        log.info("[MongoBookOperation][{}] succeed updating book tags={}", book.isbn, updatedBookTags.id)
         return true
     }
 }
