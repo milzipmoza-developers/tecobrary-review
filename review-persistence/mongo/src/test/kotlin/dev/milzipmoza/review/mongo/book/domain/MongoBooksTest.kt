@@ -8,6 +8,7 @@ import dev.milzipmoza.review.mongo.book.mongo.MongoBookDetailRepository
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookRepository
 import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
+import org.bson.types.ObjectId
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -48,6 +49,7 @@ class MongoBooksTest {
         val documentBook = DocumentBook(
                 isbn = "9788966262472",
                 detailMappingId = savedBookDetail.id,
+                tagsMappingId = ObjectId.get(),
                 category = null
         )
 

@@ -5,11 +5,14 @@ import dev.milzipmoza.review.domain.Url
 import dev.milzipmoza.review.domain.Value
 import dev.milzipmoza.review.domain.book.model.category.BookCategory
 import dev.milzipmoza.review.domain.book.model.detail.BookDetail
+import dev.milzipmoza.review.domain.book.model.tag.BookTag
+import dev.milzipmoza.review.domain.book.model.tag.BookTags
 
 class Book(
         val isbn: String,
         val detail: BookDetail,
         val category: BookCategory = BookCategory.hasNoCategory(),
+        val tags: BookTags = BookTags()
 ) : Entity<Book> {
 
     override fun getId() = isbn
@@ -27,6 +30,20 @@ class Book(
                 isbn = this.isbn,
                 detail = this.detail,
                 category = category
+        )
+    }
+
+    internal fun add(vararg bookTag: BookTag): Book {
+        return Book(
+                isbn, detail, category,
+                tags = tags.add(bookTag)
+        )
+    }
+
+    internal fun remove(bookTag: BookTag): Book {
+        return Book(
+                isbn, detail, category,
+                tags = tags.remove(bookTag)
         )
     }
 }

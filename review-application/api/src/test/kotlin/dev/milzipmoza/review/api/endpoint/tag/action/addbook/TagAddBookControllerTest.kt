@@ -15,6 +15,7 @@ import dev.milzipmoza.review.mongo.book.mongo.MongoBookRepository
 import dev.milzipmoza.review.mongo.tag.mongo.MongoTagRepository
 import java.time.Duration
 import java.time.LocalDate
+import org.bson.types.ObjectId
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -75,6 +76,7 @@ internal class TagAddBookControllerTest {
         mongoBookRepository.save(DocumentBook(
                 isbn = isbn,
                 detailMappingId = detailMappingId,
+                tagsMappingId = ObjectId.get(),
                 category = null
         ))
 

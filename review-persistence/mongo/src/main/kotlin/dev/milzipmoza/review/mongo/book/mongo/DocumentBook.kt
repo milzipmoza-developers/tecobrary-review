@@ -19,6 +19,7 @@ data class DocumentBook(
         @Id val id: ObjectId = ObjectId(),
         @Indexed(unique = true) val isbn: String,
         var category: DocumentBookCategory?,
+        val tagsMappingId: ObjectId,
         val detailMappingId: ObjectId,
 )
 

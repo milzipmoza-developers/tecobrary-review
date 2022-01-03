@@ -6,6 +6,7 @@ import dev.milzipmoza.review.domain.book.model.category.BookCategoryImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookDetail
 import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
+import dev.milzipmoza.review.domain.book.model.tag.BookTags
 import org.bson.types.ObjectId
 
 object DocumentBookMapper {
@@ -33,7 +34,7 @@ object DocumentBookMapper {
     )
 
     private fun map(category: DocumentBookCategory?): BookCategory {
-        return when(category) {
+        return when (category) {
             null -> BookCategory.hasNoCategory()
             else -> BookCategory.EnrolledBookCategory(
                     no = category.no,
@@ -63,15 +64,16 @@ object DocumentBookMapper {
                     description = bookDetail.description
             )
 
-    fun map(book: Book, detailMappingId: ObjectId) =
+    fun map(book: Book, detailMappingId: ObjectId, tagsMappingId: ObjectId) =
             DocumentBook(
                     isbn = book.isbn,
                     category = map(book.category),
+                    tagsMappingId = tagsMappingId,
                     detailMappingId = detailMappingId
             )
 
     fun map(bookCategory: BookCategory): DocumentBookCategory? {
-        return when(bookCategory) {
+        return when (bookCategory) {
             is BookCategory.EnrolledBookCategory -> {
                 DocumentBookCategory(
                         no = bookCategory.no,
@@ -103,5 +105,18 @@ object DocumentBookMapper {
                     locale = bookDetail.locale.toString(),
                     publishDate = bookDetail.publishDate,
                     description = bookDetail.description
+            )
+
+    fun map(bookTags: BookTags) =
+            DocumentBookTags(
+                    tags = bookTags.map { DocumentBookTag(no = it.no, name = it.name, colorCode = it.colorCode) }
+                            .toList()
+            )
+
+    fun map(bookTags: BookTags, tagsMappingId: ObjectId)=
+            DocumentBookTags(
+                    id = tagsMappingId,
+                    tags = bookTags.map { DocumentBookTag(no = it.no, name = it.name, colorCode = it.colorCode) }
+                            .toList()
             )
 }
