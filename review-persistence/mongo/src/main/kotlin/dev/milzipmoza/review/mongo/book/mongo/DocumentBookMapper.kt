@@ -6,16 +6,18 @@ import dev.milzipmoza.review.domain.book.model.category.BookCategoryImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookDetail
 import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
+import dev.milzipmoza.review.domain.book.model.tag.BookTag
 import dev.milzipmoza.review.domain.book.model.tag.BookTags
 import org.bson.types.ObjectId
 
 object DocumentBookMapper {
 
-    fun map(documentBook: DocumentBook, documentBookDetail: DocumentBookDetail) =
+    fun map(documentBook: DocumentBook, documentBookDetail: DocumentBookDetail, documentBookTags: DocumentBookTags) =
             Book(
                     isbn = documentBook.isbn,
                     detail = map(documentBookDetail),
-                    category = map(documentBook.category)
+                    category = map(documentBook.category),
+                    tags = map(documentBookTags)
             )
 
     private fun map(documentBookDetail: DocumentBookDetail) = BookDetail(
@@ -43,6 +45,9 @@ object DocumentBookMapper {
             )
         }
     }
+
+    private fun map(documentBookTags: DocumentBookTags) =
+            BookTags(documentBookTags.tags.map { BookTag(it.no, it.name, it.colorCode) })
 
     private fun map(image: DocumentBookCategoryImage) = BookCategoryImageUrl(
             host = image.host,

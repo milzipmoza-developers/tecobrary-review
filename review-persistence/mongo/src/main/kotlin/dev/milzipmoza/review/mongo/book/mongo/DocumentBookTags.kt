@@ -7,7 +7,10 @@ import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface MongoBookTagsRepository: MongoRepository<DocumentBookTags, ObjectId>
+interface MongoBookTagsRepository: MongoRepository<DocumentBookTags, ObjectId> {
+
+    fun findAllByIdIn(id: Iterable<ObjectId>): List<DocumentBookTags>
+}
 
 @Document(collection = "book_tags")
 data class DocumentBookTags(
