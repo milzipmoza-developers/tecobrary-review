@@ -3,7 +3,6 @@ package dev.milzipmoza.review.domain.tag
 import dev.milzipmoza.review.domain.PageEntities
 import dev.milzipmoza.review.domain.PageQuery
 import dev.milzipmoza.review.domain.tag.model.Tag
-import dev.milzipmoza.review.domain.tag.model.book.TagBook
 import dev.milzipmoza.review.domain.tag.model.name.TagName
 
 interface Tags {

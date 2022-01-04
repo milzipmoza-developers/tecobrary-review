@@ -1,7 +1,6 @@
 package dev.milzipmoza.review.domain.book.model.tag
 
 import dev.milzipmoza.review.domain.book.BookOperationException
-import dev.milzipmoza.review.domain.tag.model.book.TagBook
 
 class BookTags(
         val tags: List<BookTag> = listOf()
