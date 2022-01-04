@@ -13,7 +13,7 @@ class AllTagSearchController(
 
     @GetMapping("/api/tags")
     fun get(pageParam: PageRequest, tagSearchRequest: TagSearchRequest): ApiResponse<PageData<TagDto>> {
-        val tags: PageData<TagDto> = allTagSearchService.search(pageParam.page, pageParam.size, tagSearchRequest.bookNo, tagSearchRequest.tagName)
+        val tags: PageData<TagDto> = allTagSearchService.search(pageParam.page, pageParam.size, tagSearchRequest.tagName)
         return ApiResponse.success(data = tags)
     }
 }
