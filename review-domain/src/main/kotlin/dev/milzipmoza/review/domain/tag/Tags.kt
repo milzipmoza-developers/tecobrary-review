@@ -10,11 +10,7 @@ interface Tags {
 
     fun findBy(no: String): Tag
 
-    fun findBy(tagName: TagName, tagBook: TagBook): Tag
-
     fun findBy(tagName: TagName): Tag
-
-    fun findAllBy(tagBook: TagBook, pageQuery: PageQuery): PageEntities<Tag>
 
     fun findAllBy(pageQuery: PageQuery): PageEntities<Tag>
 }

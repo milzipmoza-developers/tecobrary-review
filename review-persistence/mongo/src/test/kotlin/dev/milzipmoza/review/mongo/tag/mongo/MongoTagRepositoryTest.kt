@@ -23,16 +23,16 @@ class MongoTagRepositoryTest {
     internal fun setUp() {
         val saveAll = mongoTagRepository.saveAll(
                 listOf(
-                        DocumentTag(colorCode = "#000000", name = "객체지향", description = "객체지향 패러다임", bookMappingId = ObjectId.get()),
-                        DocumentTag(colorCode = "#000011", name = "절차지향", description = "절차지향 패러다임", bookMappingId = ObjectId.get()),
-                        DocumentTag(colorCode = "#000022", name = "쉬움", description = "쉬운 책이다", bookMappingId = ObjectId.get()),
-                        DocumentTag(colorCode = "#000033", name = "어려움", description = "어려운 책이다", bookMappingId = ObjectId.get()),
-                        DocumentTag(colorCode = "#000044", name = "중간", description = "중간 난이도의 책이다", bookMappingId = ObjectId.get()),
-                        DocumentTag(colorCode = "#000055", name = "프론트엔드", description = "프론트엔드 개발자에게 추천하는 도서이다.", bookMappingId = ObjectId.get()),
+                        DocumentTag(colorCode = "#000000", name = "객체지향", description = "객체지향 패러다임"),
+                        DocumentTag(colorCode = "#000011", name = "절차지향", description = "절차지향 패러다임"),
+                        DocumentTag(colorCode = "#000022", name = "쉬움", description = "쉬운 책이다"),
+                        DocumentTag(colorCode = "#000033", name = "어려움", description = "어려운 책이다"),
+                        DocumentTag(colorCode = "#000044", name = "중간", description = "중간 난이도의 책이다"),
+                        DocumentTag(colorCode = "#000055", name = "프론트엔드", description = "프론트엔드 개발자에게 추천하는 도서이다."),
                 )
         )
 
-        bookMappingIds.addAll(saveAll.map { it.bookMappingId })
+        mongoTagRepository.saveAll(saveAll)
     }
 
     @Test
@@ -46,12 +46,11 @@ class MongoTagRepositoryTest {
         assertThat(tag.colorCode).isEqualTo("#000000")
         assertThat(tag.name).isEqualTo("객체지향")
         assertThat(tag.description).isEqualTo("객체지향 패러다임")
-        assertThat(tag.bookMappingId).isEqualTo(bookMappingIds[0])
     }
 
     @Test
     fun findAllByBookMappingId() {
-        val pageTags = mongoTagRepository.findAllByBookMappingIdIn(bookMappingIds, PageRequest.of(0, 2))
+        val pageTags = mongoTagRepository.findAll(PageRequest.of(0, 2))
 
         logger.info("tags={}", pageTags)
         pageTags.content.forEach {
@@ -65,7 +64,7 @@ class MongoTagRepositoryTest {
 
     @Test
     fun findAllByBookMappingId2() {
-        val pageTags = mongoTagRepository.findAllByBookMappingIdIn(bookMappingIds.subList(4, 6), PageRequest.of(0, 2))
+        val pageTags = mongoTagRepository.findAll(PageRequest.of(0, 2))
 
         logger.info("tags={}", pageTags)
         pageTags.content.forEach {
