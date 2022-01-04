@@ -44,4 +44,14 @@ class MongoTags(
                         .toList()
         )
     }
+
+    override fun findAllBy(nos: List<String>): List<Tag> {
+        val ids = nos.map { ObjectId(it) }
+
+        val documents = mongoTagRepository.findAllByIdIn(ids)
+
+        return documents
+                .map { DocumentTagMapper.map(it) }
+                .toList()
+    }
 }

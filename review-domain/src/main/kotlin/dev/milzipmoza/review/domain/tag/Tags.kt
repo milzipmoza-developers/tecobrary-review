@@ -12,4 +12,6 @@ interface Tags {
     fun findBy(tagName: TagName): Tag
 
     fun findAllBy(pageQuery: PageQuery): PageEntities<Tag>
+
+    fun findAllBy(nos: List<String>): List<Tag>
 }

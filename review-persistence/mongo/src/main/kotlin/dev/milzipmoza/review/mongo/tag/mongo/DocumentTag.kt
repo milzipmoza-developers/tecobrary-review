@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository
 interface MongoTagRepository : MongoRepository<DocumentTag, ObjectId> {
 
     fun findByName(name: String): DocumentTag?
+
+    fun findAllByIdIn(objectId: List<ObjectId>): List<DocumentTag>
 }
 
 @Document(collection = "tags")
