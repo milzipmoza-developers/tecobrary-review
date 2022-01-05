@@ -18,14 +18,14 @@ class BookAddableTagSearchService(
 
         val bookTags = book.tags.map { it.no }
 
-        if (tagName != null) {
-            return tags.findBy(TagName(tagName), bookTags)
+        if (tagName.isNullOrEmpty()) {
+            val pageQuery = PageQuery(page, size)
+
+            return tags.findAllBy(pageQuery, bookTags)
                     .run { PageData.of(this, TagDto::of) }
         }
 
-        val pageQuery = PageQuery(page, size)
-
-        return tags.findAllBy(pageQuery, bookTags)
+        return tags.findBy(TagName(tagName), bookTags)
                 .run { PageData.of(this, TagDto::of) }
     }
 }

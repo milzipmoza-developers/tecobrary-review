@@ -11,14 +11,14 @@ class AllTagSearchService(
         private val tags: Tags
 ) {
     fun search(page: Int, size: Int, tagName: String?): PageData<TagDto> {
-        if (tagName != null) {
-            return tags.findBy(TagName(tagName))
+        if (tagName.isNullOrEmpty()) {
+            val pageQuery = PageQuery(page, size)
+
+            return tags.findAllBy(pageQuery)
                     .run { PageData.of(this, TagDto::of) }
         }
 
-        val pageQuery = PageQuery(page, size)
-
-        return tags.findAllBy(pageQuery)
+        return tags.findBy(TagName(tagName))
                 .run { PageData.of(this, TagDto::of) }
     }
 }
