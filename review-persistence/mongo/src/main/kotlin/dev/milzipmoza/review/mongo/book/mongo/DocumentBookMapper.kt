@@ -47,7 +47,7 @@ object DocumentBookMapper {
     }
 
     private fun map(documentBookTags: DocumentBookTags) =
-            BookTags(documentBookTags.tags.map { BookTag(it.no, it.name, it.colorCode) })
+            BookTags(documentBookTags.tags.map { BookTag(it.no, it.name, it.colorCode) }.toSet())
 
     private fun map(image: DocumentBookCategoryImage) = BookCategoryImageUrl(
             host = image.host,
@@ -115,13 +115,13 @@ object DocumentBookMapper {
     fun map(bookTags: BookTags) =
             DocumentBookTags(
                     tags = bookTags.map { DocumentBookTag(no = it.no, name = it.name, colorCode = it.colorCode) }
-                            .toList()
+                            .toSet()
             )
 
     fun map(bookTags: BookTags, tagsMappingId: ObjectId)=
             DocumentBookTags(
                     id = tagsMappingId,
                     tags = bookTags.map { DocumentBookTag(no = it.no, name = it.name, colorCode = it.colorCode) }
-                            .toList()
+                            .toSet()
             )
 }

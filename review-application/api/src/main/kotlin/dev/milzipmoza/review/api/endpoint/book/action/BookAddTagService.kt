@@ -23,7 +23,7 @@ class BookAddTagService(
 
         val command = EditingBookTag(book)
 
-        val tagAddedBook = command.add(foundTags.map { BookTag(it.no, it.name.name, it.color.code) })
+        val tagAddedBook = command.add(foundTags.map { BookTag(it.no, it.name.name, it.color.code) }.toSet())
 
         return bookOperation.edit(tagAddedBook)
     }

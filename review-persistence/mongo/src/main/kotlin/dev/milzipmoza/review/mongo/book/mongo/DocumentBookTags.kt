@@ -15,7 +15,7 @@ interface MongoBookTagsRepository: MongoRepository<DocumentBookTags, ObjectId> {
 @Document(collection = "book_tags")
 data class DocumentBookTags(
         @Id val id: ObjectId = ObjectId(),
-        val tags: List<DocumentBookTag>
+        val tags: Set<DocumentBookTag>
 )
 
 data class DocumentBookTag(
