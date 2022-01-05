@@ -21,7 +21,8 @@ class Book(
         return Book(
                 isbn = this.isbn,
                 detail = this.detail.edit(bookDetail),
-                category = this.category
+                category = this.category,
+                tags = this.tags
         )
     }
 
@@ -29,7 +30,8 @@ class Book(
         return Book(
                 isbn = this.isbn,
                 detail = this.detail,
-                category = category
+                category = category,
+                tags = this.tags
         )
     }
 
