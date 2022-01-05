@@ -1,5 +1,5 @@
 package dev.milzipmoza.review.api.endpoint.tag.search
 
 data class TagSearchRequest(
-        val tagName: String?
+        val tagName: String? = null
 )

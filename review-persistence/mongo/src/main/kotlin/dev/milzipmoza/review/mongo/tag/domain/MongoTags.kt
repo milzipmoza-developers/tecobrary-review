@@ -31,6 +31,13 @@ class MongoTags(
         return DocumentTagMapper.map(documentTag)
     }
 
+    override fun findBy(tagName: TagName, exceptNos: List<String>): Tag {
+        val documentTag = mongoTagRepository.findByNameExceptTagNos(tagName.name, exceptNos)
+                ?: throw DocumentNotFoundException("조건에 맞는 결과를 찾을 수 없어요.")
+
+        return DocumentTagMapper.map(documentTag)
+    }
+
     override fun findAllBy(pageQuery: PageQuery): PageEntities<Tag> {
         val tags = mongoTagRepository.findAll(PageRequest.of(pageQuery))
 
@@ -53,5 +60,19 @@ class MongoTags(
         return documents
                 .map { DocumentTagMapper.map(it) }
                 .toList()
+    }
+
+    override fun findAllBy(pageQuery: PageQuery, exceptNos: List<String>): PageEntities<Tag> {
+        val tags = mongoTagRepository.findAllExceptTagNos(PageRequest.of(pageQuery), exceptNos)
+
+        return PageEntities(
+                total = tags.totalElements,
+                size = tags.size,
+                isFirst = tags.isFirst,
+                isLast = tags.isLast,
+                items = tags.content
+                        .map { DocumentTagMapper.map(it) }
+                        .toList()
+        )
     }
 }
