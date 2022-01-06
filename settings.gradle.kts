@@ -23,4 +23,5 @@ include(
 		"review-persistence:mongo",
 		"review-external",
 		"review-external:naver-api",
+		"review-external:github-api",
 )
