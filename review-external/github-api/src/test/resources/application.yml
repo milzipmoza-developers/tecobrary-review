@@ -1,0 +1,17 @@
+logging:
+  level:
+    root: debug
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+external:
+  github-api:
+    client-id: a
+    client-secret: a
+    redirect-uri: a
+    scrop: a
