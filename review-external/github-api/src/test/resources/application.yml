@@ -13,5 +13,5 @@ external:
   github-api:
     client-id: a
     client-secret: a
-    redirect-uri: a
-    scrop: a
+    redirect-uri: http://localhost:8080/oauth2/callback/github
+    scrop: "read:user user:email"

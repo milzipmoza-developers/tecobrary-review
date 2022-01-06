@@ -1,3 +1,7 @@
+logging:
+  level:
+    root: debug
+
 feign:
   client:
     config:

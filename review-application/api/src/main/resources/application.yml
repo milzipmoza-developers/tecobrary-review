@@ -1,6 +1,6 @@
 logging:
   level:
-    - root: debug
+    root: debug
 
 spring:
   main:
@@ -13,3 +13,20 @@ spring:
       password: local
       database: review-local
       authentication-database: admin
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+external:
+  naver-api:
+    id: a
+    secret: a
+  github-api:
+    client-id: a
+    client-secret: a
+    redirect-uri: http://localhost:8080/oauth2/callback/github
+    scrop: "read:user user:email"
