@@ -4,5 +4,5 @@ import dev.milzipmoza.review.domain.member.model.Member
 
 interface MemberOperation {
 
-    fun upsert(member: Member): Boolean
+    fun upsert(member: Member): Member
 }
