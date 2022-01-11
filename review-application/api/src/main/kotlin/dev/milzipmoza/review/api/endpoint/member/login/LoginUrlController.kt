@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.member
+package dev.milzipmoza.review.api.endpoint.member.login
 
 import dev.milzipmoza.review.api.ApiResponse
 import dev.milzipmoza.review.github.oauth.GithubLoginUrlGenerator
