@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class GithubOAuthCallbackController(
         private val githubUserService: GithubUserService,
-        private val memberOperation: MemberOperation
+        private val memberLoginService: MemberLoginService
 ) {
 
     private val log = Logger.of(this)
@@ -19,8 +19,8 @@ class GithubOAuthCallbackController(
         try {
             val githubUser = githubUserService.getBy(callbackRequest.code)
             val member = ExternalUserConverter.convert(githubUser)
-            memberOperation.upsert(member)
-            val redirectUri = GithubOAuthCallbackUriFactory.success("login", "success", "temp-code")
+            val code = memberLoginService.processLogin(member, callbackRequest.deviceId)
+            val redirectUri = GithubOAuthCallbackUriFactory.success("login", "success", code)
             httpServletResponse.sendRedirect(redirectUri)
         } catch (e: Exception) {
             log.error("[GithubOAuthCallbackController] 로그인 도중 에러 발생", e)
