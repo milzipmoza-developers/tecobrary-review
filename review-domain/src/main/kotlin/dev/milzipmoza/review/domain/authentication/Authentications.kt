@@ -2,7 +2,7 @@ package dev.milzipmoza.review.domain.authentication
 
 interface Authentications {
 
-    fun findByCode(code: String): Authentication?
+    fun findBy(code: String): Authentication?
 
-    fun findByMemberNo(memberNo: String): Authentication?
+    fun findBy(memberNo: String, deviceId: String): Authentication?
 }

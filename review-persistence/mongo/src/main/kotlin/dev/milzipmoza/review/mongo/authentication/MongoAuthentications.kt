@@ -9,29 +9,29 @@ class MongoAuthentications(
         private val mongoAuthenticationRepository: MongoAuthenticationRepository
 ) : Authentications {
 
-    override fun findByCode(code: String): Authentication? {
+    override fun findBy(code: String): Authentication? {
         val documentAuthentication = mongoAuthenticationRepository.findByCode(code)
                 ?: return null
 
         return Authentication(
                 code = documentAuthentication.code,
                 accessToken = documentAuthentication.accessToken,
-                deviceId = documentAuthentication.deviceId,
-                memberNo = documentAuthentication.memberNo,
+                deviceId = documentAuthentication.identification.deviceId,
+                memberNo = documentAuthentication.identification.memberNo,
                 createdDateTime = documentAuthentication.createdDateTime,
                 lastLoginDateTime = documentAuthentication.lastLoginDateTime
         )
     }
 
-    override fun findByMemberNo(memberNo: String): Authentication? {
-        val documentAuthentication = mongoAuthenticationRepository.findByMemberNo(memberNo)
+    override fun findBy(memberNo: String, deviceId: String): Authentication? {
+        val documentAuthentication = mongoAuthenticationRepository.findByIdentification(DocumentAuthIdentification(memberNo, deviceId))
                 ?: return null
 
         return Authentication(
                 code = documentAuthentication.code,
                 accessToken = documentAuthentication.accessToken,
-                deviceId = documentAuthentication.deviceId,
-                memberNo = documentAuthentication.memberNo,
+                deviceId = documentAuthentication.identification.deviceId,
+                memberNo = documentAuthentication.identification.memberNo,
                 createdDateTime = documentAuthentication.createdDateTime,
                 lastLoginDateTime = documentAuthentication.lastLoginDateTime
         )

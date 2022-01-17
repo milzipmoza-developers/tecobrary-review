@@ -18,7 +18,7 @@ class MemberLoginService(
     fun processLogin(member: Member, deviceId: String): String {
         val upsertedMember = memberOperation.upsert(member)
 
-        val authentication = authentications.findByMemberNo(upsertedMember.no)
+        val authentication = authentications.findBy(upsertedMember.no, deviceId)
 
         val loginAuthentication = LoginAuthentication(member, authentication)
 

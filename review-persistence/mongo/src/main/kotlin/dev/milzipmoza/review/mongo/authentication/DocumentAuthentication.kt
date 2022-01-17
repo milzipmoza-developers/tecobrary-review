@@ -12,16 +12,20 @@ interface MongoAuthenticationRepository : MongoRepository<DocumentAuthentication
 
     fun findByCode(code: String): DocumentAuthentication?
 
-    fun findByMemberNo(memberNo: String): DocumentAuthentication?
+    fun findByIdentification(identification: DocumentAuthIdentification): DocumentAuthentication?
 }
 
 @Document("authentications")
 data class DocumentAuthentication(
         @Id val code: String,
         val accessToken: String,
-        val deviceId: String,
-        val memberNo: String,
+        @Indexed(unique = true) val identification: DocumentAuthIdentification,
         val expiredDateTime: LocalDateTime,
         val lastLoginDateTime: LocalDateTime,
         @Indexed(expireAfterSeconds = 30) val createdDateTime: LocalDateTime
+)
+
+data class DocumentAuthIdentification(
+        val deviceId: String,
+        val memberNo: String,
 )

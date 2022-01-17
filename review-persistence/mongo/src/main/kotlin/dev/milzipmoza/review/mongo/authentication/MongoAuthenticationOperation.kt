@@ -13,8 +13,7 @@ class MongoAuthenticationOperation(
         val documentAuthentication = DocumentAuthentication(
                 code = authentication.code,
                 accessToken = authentication.accessToken,
-                deviceId = authentication.deviceId,
-                memberNo = authentication.memberNo,
+                identification = DocumentAuthIdentification(authentication.memberNo, authentication.deviceId),
                 expiredDateTime = authentication.expiredDateTime,
                 createdDateTime = authentication.createdDateTime,
                 lastLoginDateTime = authentication.lastLoginDateTime
