@@ -15,6 +15,7 @@ class MongoAuthentications(
 
         return Authentication(
                 code = documentAuthentication.code,
+                accessToken = documentAuthentication.accessToken,
                 deviceId = documentAuthentication.deviceId,
                 memberNo = documentAuthentication.memberNo,
                 createdDateTime = documentAuthentication.createdDateTime,
@@ -28,6 +29,7 @@ class MongoAuthentications(
 
         return Authentication(
                 code = documentAuthentication.code,
+                accessToken = documentAuthentication.accessToken,
                 deviceId = documentAuthentication.deviceId,
                 memberNo = documentAuthentication.memberNo,
                 createdDateTime = documentAuthentication.createdDateTime,

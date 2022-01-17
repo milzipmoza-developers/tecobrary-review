@@ -23,7 +23,7 @@ class LoginAuthenticationTest : StringSpec({
 
         val login = LoginAuthentication(member, authentication)
 
-        val loginAuthentication = login.login("device_id")
+        val loginAuthentication = login.login("device_id", "accessToken")
 
         loginAuthentication.lastLoginDateTime shouldBe loginAuthentication.createdDateTime
     }
@@ -39,6 +39,7 @@ class LoginAuthenticationTest : StringSpec({
 
         val authentication = Authentication(
                 code = "",
+                accessToken = "",
                 deviceId = "device_id",
                 memberNo = "",
                 createdDateTime = now,
@@ -47,7 +48,7 @@ class LoginAuthenticationTest : StringSpec({
 
         val login = LoginAuthentication(member, authentication)
 
-        val loginAuthentication = login.login("device_id")
+        val loginAuthentication = login.login("device_id", "accessToken")
 
         loginAuthentication.lastLoginDateTime shouldNotBe loginAuthentication.createdDateTime
     }
@@ -63,6 +64,7 @@ class LoginAuthenticationTest : StringSpec({
 
         val authentication = Authentication(
                 code = "",
+                accessToken = "",
                 deviceId = "device_id",
                 memberNo = "",
                 createdDateTime = now,
@@ -72,7 +74,7 @@ class LoginAuthenticationTest : StringSpec({
         shouldThrow<IllegalAccessException> {
             val loginAuthentication = LoginAuthentication(member, authentication)
 
-            loginAuthentication.login("device_id1")
+            loginAuthentication.login("device_id1", "accessToken")
         }
     }
 })

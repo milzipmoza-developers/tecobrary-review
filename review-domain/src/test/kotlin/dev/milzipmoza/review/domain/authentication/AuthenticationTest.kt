@@ -13,6 +13,7 @@ class AuthenticationTest : StringSpec({
 
         val authentication = Authentication(
                 code = UUID.randomUUID().toString(),
+                accessToken = "access-token",
                 deviceId = UUID.randomUUID().toString(),
                 memberNo = "member-no",
                 createdDateTime = now,
@@ -32,6 +33,7 @@ class AuthenticationTest : StringSpec({
 
         val authentication = Authentication(
                 code = UUID.randomUUID().toString(),
+                accessToken = "access-token",
                 deviceId = UUID.randomUUID().toString(),
                 memberNo = "member-no",
                 createdDateTime = now,
@@ -47,6 +49,7 @@ class AuthenticationTest : StringSpec({
 
         val authentication = Authentication(
                 code = UUID.randomUUID().toString(),
+                accessToken = "access-token",
                 deviceId = UUID.randomUUID().toString(),
                 memberNo = "member-no",
                 createdDateTime = now,
@@ -64,6 +67,7 @@ class AuthenticationTest : StringSpec({
 
         val authentication = Authentication(
                 code = UUID.randomUUID().toString(),
+                accessToken = "access-token",
                 deviceId = deviceId,
                 memberNo = "member-no",
                 createdDateTime = now,

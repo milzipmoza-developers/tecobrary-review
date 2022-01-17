@@ -12,6 +12,7 @@ class MongoAuthenticationOperation(
     override fun save(authentication: Authentication): Boolean {
         val documentAuthentication = DocumentAuthentication(
                 code = authentication.code,
+                accessToken = authentication.accessToken,
                 deviceId = authentication.deviceId,
                 memberNo = authentication.memberNo,
                 expiredDateTime = authentication.expiredDateTime,

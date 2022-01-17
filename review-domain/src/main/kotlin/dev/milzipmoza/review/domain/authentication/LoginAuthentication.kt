@@ -9,12 +9,13 @@ class LoginAuthentication(
         private val authentication: Authentication?
 ) {
 
-    fun login(deviceId: String): Authentication {
+    fun login(deviceId: String, accessToken: String): Authentication {
         val now = LocalDateTime.now()
 
         if (authentication == null) {
             return Authentication(
                     code = UUID.randomUUID().toString(),
+                    accessToken = accessToken,
                     deviceId = deviceId,
                     memberNo = member.no,
                     createdDateTime = now,

@@ -18,6 +18,7 @@ interface MongoAuthenticationRepository : MongoRepository<DocumentAuthentication
 @Document("authentications")
 data class DocumentAuthentication(
         @Id val code: String,
+        val accessToken: String,
         val deviceId: String,
         val memberNo: String,
         val expiredDateTime: LocalDateTime,
