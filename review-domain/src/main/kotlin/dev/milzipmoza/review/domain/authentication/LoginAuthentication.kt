@@ -2,7 +2,7 @@ package dev.milzipmoza.review.domain.authentication
 
 import dev.milzipmoza.review.domain.member.model.Member
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 class LoginAuthentication(
         private val member: Member,
@@ -22,6 +22,10 @@ class LoginAuthentication(
             )
         }
 
-        return authentication.renew(now)
+        if (authentication.isNotAuthenticatedDevice(deviceId)) {
+            throw IllegalAccessException("다시 로그인을 시도해주세요.")
+        }
+
+        return authentication.renew()
     }
 }

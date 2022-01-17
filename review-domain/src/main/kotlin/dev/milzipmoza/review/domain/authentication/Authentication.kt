@@ -15,15 +15,19 @@ class Authentication(
 
     val expiredDateTime = createdDateTime.plusDays(30)!!
 
-    fun renew(now: LocalDateTime): Authentication {
+    fun renew(): Authentication {
         return Authentication(
                 code = this.code,
                 deviceId = this.deviceId,
                 memberNo = this.memberNo,
                 createdDateTime = this.createdDateTime,
-                lastLoginDateTime = now
+                lastLoginDateTime = LocalDateTime.now()
         )
     }
+
+    fun isExpired() = expiredDateTime.isAfter(LocalDateTime.now())
+
+    fun isNotAuthenticatedDevice(checkDeviceId: String) = this.deviceId != checkDeviceId
 
     override fun getId() = code
 
