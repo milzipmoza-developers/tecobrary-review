@@ -24,7 +24,7 @@ class LoginAuthentication(
         }
 
         if (authentication.isNotAuthenticatedDevice(deviceId)) {
-            throw IllegalAccessException("다시 로그인을 시도해주세요.")
+            throw DeviceNotMatchException("다시 로그인을 시도해주세요.")
         }
 
         return authentication.renew()
