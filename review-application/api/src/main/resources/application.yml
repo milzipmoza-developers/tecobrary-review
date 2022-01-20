@@ -29,4 +29,9 @@ external:
     client-id: a
     client-secret: a
     redirect-uri: http://localhost:8080/oauth2/callback/github
-    scrop: "read:user user:email"
+    scope: "read:user user:email"
+
+tecobrary:
+  authentication:
+    encrypt:
+      key: local12345local12345local1234567 # to be 32 chars
