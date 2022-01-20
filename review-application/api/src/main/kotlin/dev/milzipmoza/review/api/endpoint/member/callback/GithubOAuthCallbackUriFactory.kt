@@ -1,5 +1,6 @@
 package dev.milzipmoza.review.api.endpoint.member.callback
 
+import dev.milzipmoza.review.api.endpoint.member.UrlStatus
 import java.net.URI
 import org.springframework.web.util.UriComponentsBuilder
 
@@ -7,7 +8,7 @@ object GithubOAuthCallbackUriFactory {
 
     private val uri = URI("http://localhost:3000")
 
-    fun success(action: String, status: String, code: String): String {
+    fun success(action: String, code: String, status: UrlStatus): String {
         return UriComponentsBuilder.fromUri(uri)
                 .queryParam("status", status)
                 .queryParam("action", action)
@@ -16,11 +17,10 @@ object GithubOAuthCallbackUriFactory {
                 .toUriString()
     }
 
-    fun failed(action: String, status: String, errorCode: String): String {
+    fun failed(action: String, status: UrlStatus): String {
         return UriComponentsBuilder.fromUri(uri)
                 .queryParam("status", status)
                 .queryParam("action", action)
-                .queryParam("errorCode", errorCode)
                 .build()
                 .toUriString()
     }

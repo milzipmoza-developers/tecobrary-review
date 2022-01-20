@@ -12,7 +12,9 @@ class MemberLoginService(
         private val memberOperation: MemberOperation,
 
         private val authentications: Authentications,
-        private val authenticationOperation: AuthenticationOperation
+        private val authenticationOperation: AuthenticationOperation,
+
+        private val memberAccessTokenFactory: MemberAccessTokenFactory
 ) {
 
     fun processLogin(member: Member, deviceId: String): String {
@@ -20,9 +22,11 @@ class MemberLoginService(
 
         val authentication = authentications.findBy(upsertedMember.no, deviceId)
 
-        val loginAuthentication = LoginAuthentication(member, authentication)
+        val loginAuthentication = LoginAuthentication(upsertedMember, authentication)
 
-        val authenticationAfterLogin = loginAuthentication.login(deviceId)
+        val accessToken = memberAccessTokenFactory.create(upsertedMember.no)
+
+        val authenticationAfterLogin = loginAuthentication.login(deviceId, accessToken)
 
         authenticationOperation.save(authenticationAfterLogin)
 
