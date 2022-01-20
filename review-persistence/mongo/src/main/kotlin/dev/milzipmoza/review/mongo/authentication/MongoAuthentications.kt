@@ -24,7 +24,7 @@ class MongoAuthentications(
     }
 
     override fun findBy(memberNo: String, deviceId: String): Authentication? {
-        val documentAuthentication = mongoAuthenticationRepository.findByIdentification(DocumentAuthIdentification(memberNo, deviceId))
+        val documentAuthentication = mongoAuthenticationRepository.findByIdentification(DocumentAuthIdentification(deviceId, memberNo))
                 ?: return null
 
         return Authentication(
