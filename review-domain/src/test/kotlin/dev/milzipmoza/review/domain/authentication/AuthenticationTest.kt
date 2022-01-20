@@ -40,7 +40,7 @@ class AuthenticationTest : StringSpec({
                 lastLoginDateTime = now
         )
 
-        authentication.isExpired() shouldBe true
+        authentication.isExpired() shouldBe false
     }
 
     "인증 시간 만료여부를 확인한다. 30일이 지나면 만료된다." {
@@ -56,7 +56,7 @@ class AuthenticationTest : StringSpec({
                 lastLoginDateTime = now
         )
 
-        authentication.isExpired() shouldBe false
+        authentication.isExpired() shouldBe true
     }
 
     "디바이스 ID 가 인증한 디바이스인지 확인한다." {
