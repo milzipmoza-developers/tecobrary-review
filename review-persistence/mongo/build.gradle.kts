@@ -7,6 +7,7 @@ plugins {
 
 dependencies {
 	implementation(project(":review-domain"))
+	implementation(project(":review-util"))
 
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 

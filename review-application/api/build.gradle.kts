@@ -13,6 +13,7 @@ dependencyManagement {
 
 dependencies {
 	implementation(project(":review-domain"))
+	implementation(project(":review-util"))
 	implementation(project(":review-persistence:mongo"))
 	implementation(project(":review-external:naver-api"))
 	implementation(project(":review-external:github-api"))

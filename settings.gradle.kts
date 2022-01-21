@@ -17,6 +17,7 @@ pluginManagement {
 rootProject.name = "review"
 include(
 		"review-domain",
+		"review-util",
 		"review-application",
 		"review-application:api",
 		"review-persistence",
