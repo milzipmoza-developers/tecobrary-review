@@ -6,5 +6,5 @@ import java.util.Date
 
 
 fun LocalDateTime.convert(): Date {
-    return Date.from(this.toInstant(ZoneOffset.of("UTC+9")))
+    return Date.from(this.toInstant(ZoneOffset.of("+09:00")))
 }
