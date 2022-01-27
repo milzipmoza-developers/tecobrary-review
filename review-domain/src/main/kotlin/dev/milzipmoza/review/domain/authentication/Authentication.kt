@@ -27,9 +27,9 @@ class Authentication(
         )
     }
 
-    fun isExpired() = expiredDateTime.isBefore(LocalDateTime.now())
+    internal fun isExpired() = expiredDateTime.isBefore(LocalDateTime.now())
 
-    fun isNotAuthenticatedDevice(checkDeviceId: String) = this.deviceId != checkDeviceId
+    internal fun isNotAuthenticatedDevice(checkDeviceId: String) = this.deviceId != checkDeviceId
 
     override fun getId() = code
 }
