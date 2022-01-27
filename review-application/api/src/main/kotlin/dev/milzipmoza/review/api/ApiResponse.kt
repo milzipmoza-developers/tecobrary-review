@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 data class ApiResponse<T>(
         val status: String,
-        val message: String,
+        val message: String?,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
         val responseDateTime: LocalDateTime = LocalDateTime.now(),
         val data: T?
@@ -23,6 +23,14 @@ data class ApiResponse<T>(
         fun error(message: String): ApiResponse<Nothing> {
             return ApiResponse(
                     status = "ERROR",
+                    message = message,
+                    data = null
+            )
+        }
+
+        fun error(status: String, message: String?): ApiResponse<Nothing> {
+            return ApiResponse(
+                    status = status,
                     message = message,
                     data = null
             )
