@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.config.resolver
+package dev.milzipmoza.review.config
 
 object TecobraryHeaders {
 
