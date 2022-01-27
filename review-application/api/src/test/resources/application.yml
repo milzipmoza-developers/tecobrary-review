@@ -21,3 +21,14 @@ external:
   naver-api:
     id: a
     secret: a
+
+tecobrary:
+  authentication:
+    encrypt:
+      key: testt12345testt12345testt1234567
+    jwt:
+      issuer: "test"
+      subject: "test"
+      scope: "test"
+      version: "test"
+      secret-key: "test"
