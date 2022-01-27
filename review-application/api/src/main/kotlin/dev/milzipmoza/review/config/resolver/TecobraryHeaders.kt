@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.authentication
+package dev.milzipmoza.review.config.resolver
 
 object TecobraryHeaders {
 

@@ -17,7 +17,7 @@ internal class GithubLoginUrlGeneratorTest {
 
     @Test
     fun generate() {
-        val generate = githubLoginUrlGenerator.generate(deviceId)
+        val generate = githubLoginUrlGenerator.generate("deviceId")
 
         logger.info("uri={}", generate)
 
