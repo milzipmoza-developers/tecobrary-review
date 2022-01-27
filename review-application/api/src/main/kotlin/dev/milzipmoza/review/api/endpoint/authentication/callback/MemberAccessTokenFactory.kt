@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.member.callback
+package dev.milzipmoza.review.api.endpoint.authentication.callback
 
 import dev.milzipmoza.review.annotation.ApplicationService
 import org.springframework.beans.factory.annotation.Value

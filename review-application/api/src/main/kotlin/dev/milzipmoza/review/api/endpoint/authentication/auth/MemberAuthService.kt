@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.member.auth
+package dev.milzipmoza.review.api.endpoint.authentication.auth
 
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.domain.authentication.AuthenticationConfirm

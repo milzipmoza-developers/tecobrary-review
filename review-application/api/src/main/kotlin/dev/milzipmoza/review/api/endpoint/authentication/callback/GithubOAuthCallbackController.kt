@@ -1,6 +1,6 @@
-package dev.milzipmoza.review.api.endpoint.member.callback
+package dev.milzipmoza.review.api.endpoint.authentication.callback
 
-import dev.milzipmoza.review.api.endpoint.member.UrlStatus
+import dev.milzipmoza.review.api.endpoint.authentication.UrlStatus
 import dev.milzipmoza.review.domain.authentication.DeviceNotMatchException
 import dev.milzipmoza.review.mongo.extension.Logger
 import javax.servlet.http.HttpServletResponse

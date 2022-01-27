@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.member.auth
+package dev.milzipmoza.review.api.endpoint.authentication.auth
 
 import java.time.LocalDate
 

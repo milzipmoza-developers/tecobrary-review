@@ -1,7 +1,7 @@
-package dev.milzipmoza.review.api.endpoint.member.login
+package dev.milzipmoza.review.api.endpoint.authentication.login
 
 import dev.milzipmoza.review.api.ApiResponse
-import dev.milzipmoza.review.api.endpoint.member.TecobraryHeaders
+import dev.milzipmoza.review.api.endpoint.authentication.TecobraryHeaders
 import dev.milzipmoza.review.github.oauth.GithubLoginUrlGenerator
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestHeader

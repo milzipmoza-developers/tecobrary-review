@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.member
+package dev.milzipmoza.review.api.endpoint.authentication
 
 enum class UrlStatus {
     SUCCESS(),

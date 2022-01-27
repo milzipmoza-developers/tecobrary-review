@@ -1,6 +1,6 @@
-package dev.milzipmoza.review.api.endpoint.member.callback
+package dev.milzipmoza.review.api.endpoint.authentication.callback
 
-import dev.milzipmoza.review.api.endpoint.member.UrlStatus
+import dev.milzipmoza.review.api.endpoint.authentication.UrlStatus
 import java.net.URI
 import org.springframework.web.util.UriComponentsBuilder
 

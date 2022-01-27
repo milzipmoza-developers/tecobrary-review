@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.member.callback
+package dev.milzipmoza.review.api.endpoint.authentication.callback
 
 import java.util.*
 import javax.crypto.Cipher

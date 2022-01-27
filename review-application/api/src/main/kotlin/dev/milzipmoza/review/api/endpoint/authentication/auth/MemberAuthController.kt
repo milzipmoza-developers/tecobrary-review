@@ -1,8 +1,8 @@
-package dev.milzipmoza.review.api.endpoint.member.auth
+package dev.milzipmoza.review.api.endpoint.authentication.auth
 
 import dev.milzipmoza.review.api.ApiResponse
-import dev.milzipmoza.review.api.endpoint.member.TecobraryHeaders
-import dev.milzipmoza.review.api.endpoint.member.UrlStatus
+import dev.milzipmoza.review.api.endpoint.authentication.TecobraryHeaders
+import dev.milzipmoza.review.api.endpoint.authentication.UrlStatus
 import dev.milzipmoza.review.domain.authentication.DeviceNotMatchException
 import dev.milzipmoza.review.mongo.extension.Logger
 import org.springframework.http.HttpStatus
