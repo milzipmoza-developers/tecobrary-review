@@ -10,6 +10,8 @@ import dev.milzipmoza.review.domain.mark.Marks
 import dev.milzipmoza.review.mongo.extension.PageRequest
 import dev.milzipmoza.review.mongo.mark.mongo.DocumentMark
 import dev.milzipmoza.review.mongo.mark.mongo.DocumentMarkMapper
+import dev.milzipmoza.review.mongo.mark.mongo.DocumentMarkMember
+import dev.milzipmoza.review.mongo.mark.mongo.MongoMarkCompoundRepository
 import dev.milzipmoza.review.mongo.mark.mongo.MongoMarkRepository
 import dev.milzipmoza.review.mongo.mark.mongo.MongoMarkedRepository
 import org.springframework.data.domain.Page
@@ -18,11 +20,12 @@ import org.springframework.stereotype.Repository
 @Repository
 class MongoMarks(
         private val mongoMarkRepository: MongoMarkRepository,
-        private val mongoMarkedRepository: MongoMarkedRepository
+        private val mongoMarkedRepository: MongoMarkedRepository,
+        private val mongoMarkCompoundRepository: MongoMarkCompoundRepository
 ) : Marks {
 
     override fun findBy(member: MarkMember, book: MarkBook, type: MarkType): Mark? {
-        val documentMark = mongoMarkRepository.findByMemberAndBookAndType(DocumentMarkMapper.map(member), DocumentMarkMapper.map(book), type.toString())
+        val documentMark = mongoMarkRepository.findByMemberAndBookAndType(DocumentMarkMapper.map(member), DocumentMarkMapper.map(book), type.name)
                 ?: return null
 
         val documentMarked = mongoMarkedRepository.findById(documentMark.markedObjectId)
@@ -58,6 +61,14 @@ class MongoMarks(
     override fun findAllBy(member: MarkMember, book: MarkBook, pageQuery: PageQuery): PageEntities<Mark> {
         return mongoMarkRepository.findAllByMemberAndBook(DocumentMarkMapper.map(member), DocumentMarkMapper.map(book), PageRequest.of(pageQuery))
                 .toPageEntities()
+    }
+
+    override fun count(book: MarkBook, type: MarkType): Long {
+        return mongoMarkCompoundRepository.countMarked(DocumentMarkMapper.map(book), type.name)
+    }
+
+    override fun isMarked(member: MarkMember, book: MarkBook, type: MarkType): Boolean {
+        return mongoMarkRepository.existsByMemberAndBookAndType(DocumentMarkMapper.map(member), DocumentMarkMapper.map(book), type.name)
     }
 
     private fun Page<DocumentMark>.toPageEntities(): PageEntities<Mark> {

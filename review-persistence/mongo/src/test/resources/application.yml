@@ -7,3 +7,7 @@ spring:
   mongodb:
     embedded:
       version: latest
+
+logging:
+  level:
+    root: DEBUG

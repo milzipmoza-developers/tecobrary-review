@@ -17,4 +17,8 @@ interface Marks {
     fun findAllBy(book: MarkBook, pageQuery: PageQuery): PageEntities<Mark>
 
     fun findAllBy(member: MarkMember, book: MarkBook, pageQuery: PageQuery): PageEntities<Mark>
+
+    fun count(book: MarkBook, type: MarkType): Long
+
+    fun isMarked(member: MarkMember, book: MarkBook, type: MarkType): Boolean
 }
