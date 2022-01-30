@@ -16,6 +16,7 @@ class MemberMyInfoService(
                 member = MemberDto(
                         name = member.info.name,
                         email = member.info.email,
+                        profileImageUrl = member.info.profileImageUrl,
                         blogUrl = member.info.blogUrl,
                         description = member.info.description
                 )

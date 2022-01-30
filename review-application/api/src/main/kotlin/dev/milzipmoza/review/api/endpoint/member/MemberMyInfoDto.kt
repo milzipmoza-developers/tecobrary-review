@@ -7,6 +7,7 @@ data class MemberMyInfoDto(
 data class MemberDto(
         val name: String,
         val email: String,
+        val profileImageUrl: String,
         val blogUrl: String,
         val description: String
 )
