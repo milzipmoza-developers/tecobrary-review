@@ -21,6 +21,7 @@ object DocumentMemberMapper {
 
     private fun map(memberInfo: MemberInfo) = DocumentMemberInfo(
             name = memberInfo.name,
+            profileImageUrl = memberInfo.profileImageUrl,
             email = memberInfo.email,
             description = memberInfo.description
     )
@@ -37,5 +38,5 @@ object DocumentMemberMapper {
             MemberAccount(identifier = documentMemberAccount.identifier, provider = MemberOAuthProvider.valueOf(documentMemberAccount.provider))
 
     private fun map(documentMemberInfo: DocumentMemberInfo) =
-            MemberInfo(name = documentMemberInfo.name, email = documentMemberInfo.email, blogUrl = "", description = documentMemberInfo.description)
+            MemberInfo(name = documentMemberInfo.name, email = documentMemberInfo.email, profileImageUrl = documentMemberInfo.profileImageUrl, blogUrl = "", description = documentMemberInfo.description)
 }

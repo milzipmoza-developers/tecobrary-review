@@ -27,6 +27,7 @@ data class DocumentMemberAccount(
 
 data class DocumentMemberInfo(
         var name: String,
+        var profileImageUrl: String,
         val email: String,
         var description: String,
 )

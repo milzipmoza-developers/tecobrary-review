@@ -16,7 +16,7 @@ class LoginAuthenticationTest : StringSpec({
         val member = Member(
                 no = "",
                 account = MemberAccount(identifier = "", provider = MemberOAuthProvider.GITHUB),
-                info = MemberInfo(name = "", email = "", blogUrl = "", description = ""),
+                info = MemberInfo(name = "", email = "", profileImageUrl = "", blogUrl = "", description = ""),
         )
 
         val authentication: Authentication? = null
@@ -34,7 +34,7 @@ class LoginAuthenticationTest : StringSpec({
         val member = Member(
                 no = "",
                 account = MemberAccount(identifier = "", provider = MemberOAuthProvider.GITHUB),
-                info = MemberInfo(name = "", email = "", blogUrl = "", description = ""),
+                info = MemberInfo(name = "", email = "", profileImageUrl = "",  blogUrl = "", description = ""),
         )
 
         val authentication = Authentication(
@@ -59,7 +59,7 @@ class LoginAuthenticationTest : StringSpec({
         val member = Member(
                 no = "",
                 account = MemberAccount(identifier = "", provider = MemberOAuthProvider.GITHUB),
-                info = MemberInfo(name = "", email = "", blogUrl = "", description = ""),
+                info = MemberInfo(name = "", email = "", profileImageUrl = "", blogUrl = "", description = ""),
         )
 
         val authentication = Authentication(

@@ -4,6 +4,7 @@ import dev.milzipmoza.review.domain.Value
 
 class MemberInfo(
         val name: String,
+        val profileImageUrl: String,
         val email: String,
         val blogUrl: String,
         val description: String
@@ -18,6 +19,7 @@ class MemberInfo(
         other as MemberInfo
 
         if (name != other.name) return false
+        if (profileImageUrl != other.profileImageUrl) return false
         if (email != other.email) return false
         if (blogUrl != other.blogUrl) return false
         if (description != other.description) return false
@@ -27,6 +29,7 @@ class MemberInfo(
 
     override fun hashCode(): Int {
         var result = name.hashCode()
+        result = 31 * result + profileImageUrl.hashCode()
         result = 31 * result + email.hashCode()
         result = 31 * result + blogUrl.hashCode()
         result = 31 * result + description.hashCode()

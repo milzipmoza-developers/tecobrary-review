@@ -11,7 +11,7 @@ object ExternalUserConverter {
     fun convert(githubUser: GithubUserDto): Member {
         return Member(
                 account = MemberAccount(identifier = githubUser.id, provider = MemberOAuthProvider.GITHUB),
-                info = MemberInfo(name = githubUser.name, email = githubUser.email, blogUrl = "", description = githubUser.bio)
+                info = MemberInfo(name = githubUser.name, profileImageUrl = githubUser.avatarUrl, email = githubUser.email, blogUrl = "", description = githubUser.bio)
         )
     }
 }
