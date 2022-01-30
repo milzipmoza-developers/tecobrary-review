@@ -1,7 +1,6 @@
 package dev.milzipmoza.review.naver.search.domain
 
 import dev.milzipmoza.review.domain.search.model.SearchBook
-import dev.milzipmoza.review.domain.search.model.description.SearchBookDescription
 import dev.milzipmoza.review.domain.search.model.image.SearchBookImage
 import dev.milzipmoza.review.naver.extensions.removeHtmlTags
 import dev.milzipmoza.review.naver.extensions.removeNaverSearchDelimiters
@@ -20,7 +19,7 @@ object NaverSearchBookMapper {
                 author = item.author.removeHtmlTags().removeNaverSearchDelimiters(),
                 publishDate = item.pubdate.toLocalDate(),
                 image = SearchBookImage(item.image),
-                description = SearchBookDescription(content = item.description.removeHtmlTags())
+                description = item.description.removeHtmlTags()
         )
     }
 }

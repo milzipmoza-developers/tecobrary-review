@@ -22,7 +22,7 @@ data class SearchBookElementDto(
                     publisher = searchBook.publisher,
                     author = searchBook.author,
                     imageUrl = searchBook.imageUrl,
-                    description = searchBook.descriptionContent,
+                    description = searchBook.description,
                     publishDate = searchBook.publishDate
             )
         }
