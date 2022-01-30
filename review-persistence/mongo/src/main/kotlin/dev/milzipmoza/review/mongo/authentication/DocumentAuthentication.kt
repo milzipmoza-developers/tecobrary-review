@@ -13,6 +13,8 @@ interface MongoAuthenticationRepository : MongoRepository<DocumentAuthentication
     fun findByCode(code: String): DocumentAuthentication?
 
     fun findByIdentification(identification: DocumentAuthIdentification): DocumentAuthentication?
+
+    fun findByAccessToken(accessToken: String): DocumentAuthentication?
 }
 
 @Document("authentications")

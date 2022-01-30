@@ -36,8 +36,14 @@ class JwtParser(
     fun decode(jwt: String): Map<String, Any?> {
         return Jwts.parser()
                 .setSigningKey(secretKey)
-                .parseClaimsJwt(jwt)
+                .parseClaimsJws(jwt)
                 .body
+    }
+
+    fun isNotValidParsed(decodedJwt: DecodedJwt): Boolean {
+        return this.issuer != decodedJwt.issuer
+                || this.subject != decodedJwt.subject
+                || this.version != decodedJwt.version
     }
 
     companion object {

@@ -47,4 +47,14 @@ internal class JwtParserTest {
             jwtParser.decode(jwt)
         }
     }
+
+    @Test
+    fun decode() {
+        val now = LocalDateTime.now()
+        val token = jwtParser.encode("a", now, now.plusDays(30))
+
+        assertDoesNotThrow {
+            jwtParser.decode(token)
+        }
+    }
 }

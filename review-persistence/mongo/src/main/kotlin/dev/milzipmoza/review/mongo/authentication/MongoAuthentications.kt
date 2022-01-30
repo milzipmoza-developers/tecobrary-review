@@ -36,4 +36,18 @@ class MongoAuthentications(
                 lastLoginDateTime = documentAuthentication.lastLoginDateTime
         )
     }
+
+    override fun findByAccessToken(accessToken: String): Authentication? {
+        val documentAuthentication = mongoAuthenticationRepository.findByAccessToken(accessToken)
+                ?: return null
+
+        return Authentication(
+                code = documentAuthentication.code,
+                accessToken = documentAuthentication.accessToken,
+                deviceId = documentAuthentication.identification.deviceId,
+                memberNo = documentAuthentication.identification.memberNo,
+                createdDateTime = documentAuthentication.createdDateTime,
+                lastLoginDateTime = documentAuthentication.lastLoginDateTime
+        )
+    }
 }

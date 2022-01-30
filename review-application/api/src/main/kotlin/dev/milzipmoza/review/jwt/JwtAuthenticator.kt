@@ -1,9 +1,9 @@
 package dev.milzipmoza.review.jwt
 
-import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.domain.authentication.Authentication
+import org.springframework.stereotype.Component
 
-@ApplicationService
+@Component
 class JwtAuthenticator(
         jwtProperties: JwtProperties
 ) {
