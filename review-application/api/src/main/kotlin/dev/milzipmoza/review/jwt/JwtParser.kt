@@ -33,6 +33,13 @@ class JwtParser(
 
                     .compact()
 
+    fun decode(jwt: String): Map<String, Any?> {
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJwt(jwt)
+                .body
+    }
+
     companion object {
         private val SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256
     }
