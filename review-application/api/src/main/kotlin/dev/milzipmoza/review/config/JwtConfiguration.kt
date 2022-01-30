@@ -14,5 +14,6 @@ class JwtConfiguration {
                     .apply {
                         this.filter = jwtAuthenticationFilter
                         addUrlPatterns("/api/members/*")
+                        addUrlPatterns("/api/authentications/user-infos")
                     }
 }
