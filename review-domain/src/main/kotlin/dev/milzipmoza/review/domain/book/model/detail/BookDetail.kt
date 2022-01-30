@@ -15,6 +15,21 @@ class BookDetail(
     val fullImageUrl: String
         get() = image.toUrl()
 
+    val summarizedTitle: String
+        get() = if (title.contains("(")) {
+            title.split("(")[0].trim()
+        } else {
+            title
+        }
+
+    val summarizedDescription: String
+        get() = if (description.length > CONTENT_LENGTH) {
+            description.removeRange(CONTENT_LENGTH, description.length) + LENGTH_EXCEED_SUFFIX
+        } else {
+            description
+        }
+
+
     internal fun edit(bookDetail: BookDetail): BookDetail {
         if (this.sameAs(bookDetail)) {
             throw BookDetailOperationException("도서 상세 정보가 기존의 정보와 동일합니다.")
@@ -71,5 +86,10 @@ class BookDetail(
         result = 31 * result + publishDate.hashCode()
         result = 31 * result + description.hashCode()
         return result
+    }
+
+    companion object {
+        private const val CONTENT_LENGTH = 200
+        private const val LENGTH_EXCEED_SUFFIX = "..."
     }
 }

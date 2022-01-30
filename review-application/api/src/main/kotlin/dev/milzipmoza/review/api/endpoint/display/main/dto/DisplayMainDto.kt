@@ -30,7 +30,7 @@ data class DisplayMainNewBookDto(
                                 isbn = book.isbn,
                                 imageUrl = book.detail.fullImageUrl,
                                 author = book.detail.author,
-                                title = book.detail.title
+                                title = book.detail.summarizedTitle
                         )
                 }
         }
