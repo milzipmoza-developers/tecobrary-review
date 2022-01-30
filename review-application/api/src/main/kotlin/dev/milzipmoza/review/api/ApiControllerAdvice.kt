@@ -19,6 +19,13 @@ class ApiControllerAdvice {
         return ApiResponse.error(e.message ?: "헤더를 확인해주세요.")
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgument(e: IllegalArgumentException): ApiResponse<Nothing> {
+        log.error("부정확한 요청입니다.", e)
+        return ApiResponse.error(e.message ?: "요청을 확인해주세요.")
+    }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception::class)
     fun handleUnknown(e: Exception): ApiResponse<Nothing> {
