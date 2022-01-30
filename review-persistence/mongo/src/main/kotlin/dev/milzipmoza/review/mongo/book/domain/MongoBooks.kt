@@ -11,6 +11,7 @@ import dev.milzipmoza.review.mongo.book.mongo.MongoBookDetailRepository
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookRepository
 import dev.milzipmoza.review.mongo.book.mongo.MongoBookTagsRepository
 import dev.milzipmoza.review.mongo.extension.PageRequest
+import java.time.LocalDate
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -53,5 +54,15 @@ class MongoBooks(
                         ) }
                         .toList()
         )
+    }
+
+    override fun getRecentPublished(recentMonths: Long, count: Int): List<Book> {
+        val documentBookDetails = mongoBookDetailRepository.findAllAfterPublishDate(LocalDate.now().minusMonths(recentMonths), count)
+
+        val documentBooks = mongoBookRepository.findAllByDetailMappingIdIn(documentBookDetails.map { it.id })
+
+        val documentBookTags = mongoBookTagsRepository.findAllByIdIn(documentBooks.map { it.tagsMappingId })
+
+        return DocumentBookMapper.map(documentBooks, documentBookDetails, documentBookTags)
     }
 }

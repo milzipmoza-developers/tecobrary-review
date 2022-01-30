@@ -3,20 +3,17 @@ package dev.milzipmoza.review.api.endpoint.display.main
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.api.endpoint.display.main.dto.DisplayMainDto
 import dev.milzipmoza.review.api.endpoint.display.main.dto.DisplayMainInterestBookSectionDto
-import dev.milzipmoza.review.api.endpoint.display.main.dto.DisplayMainNewBookSectionDto
 import java.time.LocalDate
 
 @ApplicationService
 class DisplayMainFacade(
+        private val displayMainNewBookService: DisplayMainNewBookService,
         private val displayMainCategoryService: DisplayMainCategoryService
 ) {
 
     fun get(): DisplayMainDto {
         return DisplayMainDto(
-                news = DisplayMainNewBookSectionDto(
-                        updateDate = LocalDate.now(),
-                        books = listOf()
-                ),
+                news = displayMainNewBookService.getRecentPublished(),
                 interests = DisplayMainInterestBookSectionDto(
                         updateDate = LocalDate.now(),
                         books = listOf()
@@ -24,9 +21,5 @@ class DisplayMainFacade(
                 categories = displayMainCategoryService.getRandomCategories()
 
         )
-    }
-
-    companion object {
-        private val BASE_DATE = LocalDate.now().minusMonths(6)
     }
 }

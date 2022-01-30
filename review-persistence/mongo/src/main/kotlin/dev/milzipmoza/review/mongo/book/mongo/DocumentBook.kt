@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository
 interface MongoBookRepository : MongoRepository<DocumentBook, ObjectId> {
 
     fun findByIsbn(isbn: String): DocumentBook?
+
+    fun findAllByDetailMappingIdIn(id: Iterable<ObjectId>): List<DocumentBook>
 }
 
 @Document(collection = "books")

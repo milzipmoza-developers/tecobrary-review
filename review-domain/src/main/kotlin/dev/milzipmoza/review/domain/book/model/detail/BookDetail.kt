@@ -12,6 +12,8 @@ class BookDetail(
         val publishDate: LocalDate,
         val description: String
 ) : Value<BookDetail> {
+    val fullImageUrl: String
+        get() = image.toUrl()
 
     internal fun edit(bookDetail: BookDetail): BookDetail {
         if (this.sameAs(bookDetail)) {

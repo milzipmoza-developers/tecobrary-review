@@ -9,4 +9,6 @@ interface Books {
     fun findBy(isbn: String): Book
 
     fun findBy(pageQuery: PageQuery): PageEntities<Book>
+
+    fun getRecentPublished(recentMonths: Long, count: Int): List<Book>
 }

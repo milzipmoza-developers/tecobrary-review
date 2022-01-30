@@ -8,7 +8,9 @@ import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
 import dev.milzipmoza.review.domain.book.model.tag.BookTag
 import dev.milzipmoza.review.domain.book.model.tag.BookTags
+import kotlin.math.sign
 import org.bson.types.ObjectId
+import org.springframework.util.Assert
 
 object DocumentBookMapper {
 
@@ -118,10 +120,21 @@ object DocumentBookMapper {
                             .toSet()
             )
 
-    fun map(bookTags: BookTags, tagsMappingId: ObjectId)=
+    fun map(bookTags: BookTags, tagsMappingId: ObjectId) =
             DocumentBookTags(
                     id = tagsMappingId,
                     tags = bookTags.map { DocumentBookTag(no = it.no, name = it.name, colorCode = it.colorCode) }
                             .toSet()
             )
+
+    fun map(documentBooks: List<DocumentBook>, documentBookDetails: List<DocumentBookDetail>, documentBookTags: List<DocumentBookTags>): List<Book> {
+        Assert.isTrue(documentBooks.size == documentBookDetails.size && documentBookDetails.size == documentBookTags.size, "데이터 확인이 필요합니다.")
+        return documentBooks.map {
+            map(
+                    documentBook = it,
+                    documentBookDetail = documentBookDetails.find { detail -> detail.id == it.detailMappingId }!!,
+                    documentBookTags = documentBookTags.find { tags -> tags.id == it.tagsMappingId }!!
+            )
+        }
+    }
 }
