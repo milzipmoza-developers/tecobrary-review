@@ -7,6 +7,9 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.mongodb.core.MongoOperations
 import org.springframework.data.mongodb.core.MongoTemplate
+import org.springframework.data.mongodb.core.aggregate
+import org.springframework.data.mongodb.core.aggregation.Aggregation
+import org.springframework.data.mongodb.core.aggregation.SampleOperation
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.index.TextIndexed
 import org.springframework.data.mongodb.core.mapping.Document
@@ -37,6 +40,8 @@ interface MongoCategoryRepository : MongoRepository<DocumentCategory, String>, C
 interface CustomMongoCategoryRepository {
 
     fun findAllByKeyword(keyword: String, pageRequest: PageRequest): Page<DocumentCategory>
+
+    fun getRandom(count: Long): List<DocumentCategory>
 }
 
 @Repository
@@ -57,6 +62,13 @@ class CustomMongoCategoryRepositoryImpl(
         val results = mongoTemplate.find(query, DocumentCategory::class.java)
 
         return PageImpl(results, pageRequest, count)
+    }
+
+    override fun getRandom(count: Long): List<DocumentCategory> {
+        val sampleOperation = SampleOperation(count)
+        val aggregation = Aggregation.newAggregation(sampleOperation)
+        val aggregationResults = mongoTemplate.aggregate(aggregation, COLLECTION_NAME, DocumentCategory::class.java)
+        return aggregationResults.mappedResults
     }
 }
 

@@ -15,4 +15,6 @@ interface Categories {
     fun isExistBy(no: String): Boolean
 
     fun isNotExistBy(no: String) = !isExistBy(no)
+
+    fun getRandom(count: Long): List<Category>
 }

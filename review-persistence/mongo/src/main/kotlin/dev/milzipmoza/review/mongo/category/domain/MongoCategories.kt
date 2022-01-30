@@ -54,4 +54,10 @@ class MongoCategories(
     override fun isExistBy(no: String): Boolean {
         return mongoCategoryRepository.existsById(ObjectId(no))
     }
+
+    override fun getRandom(count: Long): List<Category> {
+        return mongoCategoryRepository.getRandom(count)
+                .map { DocumentCategoryMapper.map(it) }
+                .toList()
+    }
 }
