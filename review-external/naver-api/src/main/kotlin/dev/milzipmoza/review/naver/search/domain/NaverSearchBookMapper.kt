@@ -4,6 +4,7 @@ import dev.milzipmoza.review.domain.search.model.SearchBook
 import dev.milzipmoza.review.domain.search.model.description.SearchBookDescription
 import dev.milzipmoza.review.domain.search.model.image.SearchBookImage
 import dev.milzipmoza.review.naver.extensions.removeHtmlTags
+import dev.milzipmoza.review.naver.extensions.removeNaverSearchDelimiters
 import dev.milzipmoza.review.naver.search.api.NaverSearchBookItemDto
 import dev.milzipmoza.review.naver.search.parser.IsbnParser
 import java.time.LocalDate
@@ -16,7 +17,7 @@ object NaverSearchBookMapper {
                 isbn = IsbnParser.parse(item.isbn.removeHtmlTags()),
                 title = item.title.removeHtmlTags(),
                 publisher = item.publisher.removeHtmlTags(),
-                author = item.author.removeHtmlTags(),
+                author = item.author.removeHtmlTags().removeNaverSearchDelimiters(),
                 publishDate = item.pubdate.toLocalDate(),
                 image = SearchBookImage(item.image),
                 description = SearchBookDescription(content = item.description.removeHtmlTags())
