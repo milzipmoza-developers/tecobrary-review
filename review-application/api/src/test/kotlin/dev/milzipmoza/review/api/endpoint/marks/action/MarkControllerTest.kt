@@ -1,5 +1,6 @@
 package dev.milzipmoza.review.api.endpoint.marks.action
 
+import dev.milzipmoza.review.api.OptionalAuthMemberDto
 import dev.milzipmoza.review.domain.mark.MarkType
 import dev.milzipmoza.review.domain.unwrap
 import dev.milzipmoza.review.mongo.mark.mongo.DocumentMarkBook
@@ -35,52 +36,76 @@ internal class MarkControllerTest {
                 .build()
     }
 
+//    @Test
+//    fun requestDoMark() {
+//        webTestClient.post()
+//                .uri("/api/marks/like/mark")
+//                .body(BodyInserters.fromValue(
+//                        MarkDto(BOOK_NO)
+//                ))
+//                .attribute(OptionalAuthMemberDto.ATTRIBUTE_NAME, OptionalAuthMemberDto(MEMBER_NO, "1"))
+//                .exchange()
+//                .expectStatus().is2xxSuccessful
+//                .expectBody().jsonPath("data").isBoolean
+//
+//        val type = MarkType.LIKE.toString()
+//
+//        val documentMark = mongoMarkRepository.findByMemberAndBookAndType(DocumentMarkMember(MEMBER_NO), DocumentMarkBook(BOOK_NO), type)!!
+//
+//        assertThat(documentMark.member.no).isEqualTo(MEMBER_NO)
+//        assertThat(documentMark.book.no).isEqualTo(BOOK_NO)
+//        assertThat(documentMark.type).isEqualTo(type)
+//
+//        val documentMarked = mongoMarkedRepository.findById(documentMark.markedObjectId).unwrap()!!
+//
+//        assertThat(documentMarked.marked).isEqualTo(true)
+//    }
+//
+//    @Test
+//    fun requestDoUnmark() {
+//        webTestClient.post()
+//                .uri("/api/marks/like/unmark")
+//                .body(BodyInserters.fromValue(
+//                        MarkDto(BOOK_NO)
+//                ))
+//                .attribute(OptionalAuthMemberDto.ATTRIBUTE_NAME, OptionalAuthMemberDto(MEMBER_NO, "1"))
+//                .exchange()
+//                .expectStatus().is2xxSuccessful
+//                .expectBody().jsonPath("data").isBoolean
+//
+//        val type = MarkType.LIKE.toString()
+//
+//        val documentMark = mongoMarkRepository.findByMemberAndBookAndType(DocumentMarkMember(MEMBER_NO), DocumentMarkBook(BOOK_NO), type)!!
+//
+//        assertThat(documentMark.member.no).isEqualTo(MEMBER_NO)
+//        assertThat(documentMark.book.no).isEqualTo(BOOK_NO)
+//        assertThat(documentMark.type).isEqualTo(type)
+//
+//        val documentMarked = mongoMarkedRepository.findById(documentMark.markedObjectId).unwrap()!!
+//
+//        assertThat(documentMarked.marked).isEqualTo(false)
+//    }
+
     @Test
-    fun requestDoMark() {
+    fun requestDoMarkNotLoggedIn() {
         webTestClient.post()
                 .uri("/api/marks/like/mark")
                 .body(BodyInserters.fromValue(
-                        MarkDto(MEMBER_NO, BOOK_NO)
+                        MarkDto(BOOK_NO)
                 ))
                 .exchange()
-                .expectStatus().is2xxSuccessful
-                .expectBody().jsonPath("data").isBoolean
-
-        val type = MarkType.LIKE.toString()
-
-        val documentMark = mongoMarkRepository.findByMemberAndBookAndType(DocumentMarkMember(MEMBER_NO), DocumentMarkBook(BOOK_NO), type)!!
-
-        assertThat(documentMark.member.no).isEqualTo(MEMBER_NO)
-        assertThat(documentMark.book.no).isEqualTo(BOOK_NO)
-        assertThat(documentMark.type).isEqualTo(type)
-
-        val documentMarked = mongoMarkedRepository.findById(documentMark.markedObjectId).unwrap()!!
-
-        assertThat(documentMarked.marked).isEqualTo(true)
+                .expectStatus().isBadRequest
     }
 
     @Test
-    fun requestDoUnmark() {
+    fun requestDoUnmarkNotLoggedIn() {
         webTestClient.post()
                 .uri("/api/marks/like/unmark")
                 .body(BodyInserters.fromValue(
-                        MarkDto(MEMBER_NO, BOOK_NO)
+                        MarkDto(BOOK_NO)
                 ))
                 .exchange()
-                .expectStatus().is2xxSuccessful
-                .expectBody().jsonPath("data").isBoolean
-
-        val type = MarkType.LIKE.toString()
-
-        val documentMark = mongoMarkRepository.findByMemberAndBookAndType(DocumentMarkMember(MEMBER_NO), DocumentMarkBook(BOOK_NO), type)!!
-
-        assertThat(documentMark.member.no).isEqualTo(MEMBER_NO)
-        assertThat(documentMark.book.no).isEqualTo(BOOK_NO)
-        assertThat(documentMark.type).isEqualTo(type)
-
-        val documentMarked = mongoMarkedRepository.findById(documentMark.markedObjectId).unwrap()!!
-
-        assertThat(documentMarked.marked).isEqualTo(false)
+                .expectStatus().isBadRequest
     }
 
     companion object {
