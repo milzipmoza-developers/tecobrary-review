@@ -68,7 +68,7 @@ class MongoMarks(
     }
 
     override fun isMarked(member: MarkMember, book: MarkBook, type: MarkType): Boolean {
-        return mongoMarkRepository.existsByMemberAndBookAndType(DocumentMarkMapper.map(member), DocumentMarkMapper.map(book), type.name)
+        return mongoMarkCompoundRepository.isMarked(DocumentMarkMapper.map(member), DocumentMarkMapper.map(book), type.name)
     }
 
     private fun Page<DocumentMark>.toPageEntities(): PageEntities<Mark> {

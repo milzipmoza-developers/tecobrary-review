@@ -20,8 +20,6 @@ interface MongoMarkRepository : MongoRepository<DocumentMark, ObjectId> {
 
     fun findByMemberAndBookAndType(member: DocumentMarkMember, book: DocumentMarkBook, type: String): DocumentMark?
 
-    fun existsByMemberAndBookAndType(member: DocumentMarkMember, book: DocumentMarkBook, type: String): Boolean
-
     fun findAllByMemberAndBook(member: DocumentMarkMember, book: DocumentMarkBook): List<DocumentMark>
 
     fun findAllByMemberAndBook(member: DocumentMarkMember, book: DocumentMarkBook, page: Pageable): Page<DocumentMark>

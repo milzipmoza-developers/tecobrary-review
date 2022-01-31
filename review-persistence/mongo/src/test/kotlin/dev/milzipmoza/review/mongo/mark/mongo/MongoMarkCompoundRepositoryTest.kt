@@ -76,6 +76,9 @@ internal class MongoMarkCompoundRepositoryTest {
         val countMarked = sut.countMarked(DocumentMarkBook("11111"), type.name)
         log.info("elapsed=${System.currentTimeMillis() - start}")
 
-        assertThat(countMarked).isEqualTo(5000)
+        assertThat(countMarked).isEqualTo(2500)
+
+        val marked = sut.isMarked(DocumentMarkMember("1"), DocumentMarkBook("11111"), type.name)
+        assertThat(marked).isTrue
     }
 }
