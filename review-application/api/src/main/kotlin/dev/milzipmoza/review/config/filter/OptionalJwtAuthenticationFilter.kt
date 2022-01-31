@@ -1,10 +1,9 @@
 package dev.milzipmoza.review.config.filter
 
-import dev.milzipmoza.review.api.AuthMemberDto
+import dev.milzipmoza.review.api.OptionalAuthMemberDto
 import dev.milzipmoza.review.config.TecobraryHeaders
 import dev.milzipmoza.review.domain.authentication.AuthenticationConfirm
 import dev.milzipmoza.review.domain.authentication.Authentications
-import dev.milzipmoza.review.exception.HeaderNotFoundException
 import dev.milzipmoza.review.jwt.InvalidTokenException
 import dev.milzipmoza.review.jwt.JwtValidator
 import javax.servlet.FilterChain
@@ -14,30 +13,36 @@ import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 
 @Component
-class JwtAuthenticationFilter(
+class OptionalJwtAuthenticationFilter(
         private val jwtValidator: JwtValidator,
         private val authentications: Authentications
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
         val authorization = request.getHeader(TecobraryHeaders.AUTHORIZATION)
-                ?: throw HeaderNotFoundException(fieldName = TecobraryHeaders.AUTHORIZATION)
+                ?: null
 
         val deviceId = request.getHeader(TecobraryHeaders.DEVICE_ID)
-                ?: throw HeaderNotFoundException(fieldName = TecobraryHeaders.DEVICE_ID)
+                ?: null
 
-        val validatedDecodedJwt = jwtValidator.getValidatedDecodedJwt(authorization)
+        if (authorization != null && deviceId != null) {
+            val validatedDecodedJwt = jwtValidator.getValidatedDecodedJwt(authorization)
 
-        val authentication = authentications.findByAccessToken(validatedDecodedJwt.accessToken)
-                ?: throw InvalidTokenException("유효하지 않은 토큰입니다.")
+            val authentication = authentications.findByAccessToken(validatedDecodedJwt.accessToken)
+                    ?: throw InvalidTokenException("유효하지 않은 토큰입니다.")
 
-        val confirm = AuthenticationConfirm(authentication)
+            val confirm = AuthenticationConfirm(authentication)
 
-        confirm.expired()
-        confirm.device(deviceId)
+            confirm.expired()
+            confirm.device(deviceId)
 
-        request.setAttribute(AuthMemberDto.ATTRIBUTE_NAME, AuthMemberDto(authentication.memberNo, authentication.deviceId))
+            request.setAttribute(OptionalAuthMemberDto.ATTRIBUTE_NAME, OptionalAuthMemberDto(authentication.memberNo, authentication.deviceId))
 
+            filterChain.doFilter(request, response)
+            return
+        }
+
+        request.setAttribute(OptionalAuthMemberDto.ATTRIBUTE_NAME, null)
         filterChain.doFilter(request, response)
     }
 }

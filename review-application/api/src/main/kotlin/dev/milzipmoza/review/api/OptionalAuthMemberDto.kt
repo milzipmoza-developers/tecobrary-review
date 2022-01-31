@@ -1,10 +1,10 @@
 package dev.milzipmoza.review.api
 
-data class TecobraryMemberDto(
+data class OptionalAuthMemberDto(
         val memberNo: String,
         val deviceId: String
 )  {
     companion object {
-        const val ATTRIBUTE_NAME = "tecobraryMember"
+        const val ATTRIBUTE_NAME = "optionalAuthMember"
     }
 }
