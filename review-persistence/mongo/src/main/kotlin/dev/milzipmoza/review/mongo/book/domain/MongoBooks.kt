@@ -48,6 +48,16 @@ class MongoBooks(
         return pageEntities(documentBooks)
     }
 
+    override fun findAllIn(isbns: List<String>): List<Book> {
+        val documentBooks: List<DocumentBook> = mongoBookRepository.findAllByIsbnIn(isbns)
+
+        val documentBookDetails = mongoBookDetailRepository.findAllByIdIn(documentBooks.map { it.detailMappingId })
+
+        val documentBookTags = mongoBookTagsRepository.findAllByIdIn(documentBooks.map { it.tagsMappingId })
+
+        return DocumentBookMapper.map(documentBooks, documentBookDetails, documentBookTags)
+    }
+
     private fun pageEntities(documentBooks: Page<DocumentBook>): PageEntities<Book> {
         val documentBookDetails = mongoBookDetailRepository.findAllByIdIn(documentBooks.content.map { it.detailMappingId })
 

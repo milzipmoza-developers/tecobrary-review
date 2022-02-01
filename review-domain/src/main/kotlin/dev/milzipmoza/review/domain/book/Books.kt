@@ -12,5 +12,7 @@ interface Books {
 
     fun findAllBy(categoryNo: String, pageQuery: PageQuery): PageEntities<Book>
 
+    fun findAllIn(isbns: List<String>): List<Book>
+
     fun getRecentPublished(recentMonths: Long, count: Int): List<Book>
 }
