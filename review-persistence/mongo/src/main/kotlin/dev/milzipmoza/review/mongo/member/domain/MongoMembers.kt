@@ -16,7 +16,7 @@ class MongoMembers(
 
     override fun findBy(no: String): Member {
         val documentMember = mongoMemberRepository.findById(ObjectId(no)).unwrap()
-                ?: throw DocumentNotFoundException("해당하는 회원을 찾을 수 없습니다.")
+                ?: throw DocumentNotFoundException("해당하는 회원을 찾을 수 없어요.")
 
         return DocumentMemberMapper.map(documentMember)
     }
