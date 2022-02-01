@@ -38,7 +38,7 @@ class MongoBookOperation(
 
     override fun edit(book: Book): Boolean {
         val documentBook = mongoBookRepository.findByIsbn(book.isbn)
-                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없습니다.")
+                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없어요.")
         documentBook.category = DocumentBookMapper.map(book.category)
         val updatedDocumentBook = mongoBookRepository.save(documentBook)
         log.info("[MongoBookOperation][{}] succeed updating book={}", book.isbn, updatedDocumentBook.id)

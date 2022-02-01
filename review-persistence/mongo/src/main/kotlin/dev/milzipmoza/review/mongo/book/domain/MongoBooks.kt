@@ -25,13 +25,13 @@ class MongoBooks(
 
     override fun findBy(isbn: String): Book {
         val documentBook = mongoBookRepository.findByIsbn(isbn)
-                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없습니다.")
+                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없어요.")
 
         val documentBookDetail = mongoBookDetailRepository.findById(documentBook.detailMappingId).unwrap()
-                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없습니다.")
+                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없어요.")
 
         val documentBookTags = mongoBookTagsRepository.findById(documentBook.tagsMappingId).unwrap()
-                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없습니다.")
+                ?: throw DocumentNotFoundException("해당하는 도서를 찾을 수 없어요.")
 
         return DocumentBookMapper.map(documentBook, documentBookDetail, documentBookTags)
     }
