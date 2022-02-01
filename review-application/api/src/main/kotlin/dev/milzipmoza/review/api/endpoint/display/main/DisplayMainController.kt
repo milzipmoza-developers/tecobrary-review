@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class DisplayMainController(
         private val displayMainNewBookService: DisplayMainNewBookService,
+        private val displayMainInterestBookService: DisplayMainInterestBookService,
         private val displayMainCategoryService: DisplayMainCategoryService
 ) {
 
@@ -14,6 +15,12 @@ class DisplayMainController(
     fun getNewBooks(): ApiResponse<DisplayMainNewBookSectionDto> {
         val displayNewBooks = displayMainNewBookService.getRecentPublished()
         return ApiResponse.success(data = displayNewBooks)
+    }
+
+    @GetMapping("/api/display/main/interest-books")
+    fun getInterestBooks(type: String): ApiResponse<DisplayMainInterestBookSectionDto> {
+        val displayInterestBookSection = displayMainInterestBookService.getByType(type)
+        return ApiResponse.success(data = displayInterestBookSection)
     }
 
     @GetMapping("/api/display/main/categories")
