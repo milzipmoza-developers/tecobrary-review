@@ -19,6 +19,8 @@ interface MongoBookRepository : MongoRepository<DocumentBook, ObjectId>, CustomM
 
     fun findByIsbn(isbn: String): DocumentBook?
 
+    fun findAllByIsbnIn(isbn: Iterable<String>): List<DocumentBook>
+
     fun findAllByDetailMappingIdIn(id: Iterable<ObjectId>): List<DocumentBook>
 }
 

@@ -11,7 +11,7 @@ object DocumentMarkMapper {
 
     fun map(mark: Mark): Pair<DocumentMark, DocumentMarked> {
         val documentMarked = DocumentMarked(
-                marked = true,
+                marked = mark.marked,
                 txDateTime = LocalDateTime.now()
         )
         val documentMark = DocumentMark(
