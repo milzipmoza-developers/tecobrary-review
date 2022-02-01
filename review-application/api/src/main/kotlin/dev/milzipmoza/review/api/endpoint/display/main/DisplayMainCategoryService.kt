@@ -1,7 +1,6 @@
 package dev.milzipmoza.review.api.endpoint.display.main
 
 import dev.milzipmoza.review.annotation.ApplicationService
-import dev.milzipmoza.review.api.endpoint.display.main.dto.DisplayMainCategoryDto
 import dev.milzipmoza.review.domain.category.Categories
 
 @ApplicationService

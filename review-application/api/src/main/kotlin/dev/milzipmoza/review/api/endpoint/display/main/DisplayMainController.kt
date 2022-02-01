@@ -1,9 +1,6 @@
 package dev.milzipmoza.review.api.endpoint.display.main
 
 import dev.milzipmoza.review.api.ApiResponse
-import dev.milzipmoza.review.api.endpoint.display.main.dto.DisplayMainCategoryDto
-import dev.milzipmoza.review.api.endpoint.display.main.dto.DisplayMainDto
-import dev.milzipmoza.review.api.endpoint.display.main.dto.DisplayMainNewBookSectionDto
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
