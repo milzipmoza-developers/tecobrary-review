@@ -25,7 +25,7 @@ interface CustomMongoBookRepository {
 
     fun findAllByCategoryNo(categoryNo: String, pageRequest: PageRequest): Page<DocumentBook>
 
-    fun findAllAfterPublishDate(baseDate: LocalDate, count: Int): List<DocumentBook>
+    fun findAllAfterPublishDate(baseDate: LocalDate, pageRequest: PageRequest): Page<DocumentBook>
 }
 
 @Repository
@@ -47,13 +47,16 @@ class CustomMongoBookRepositoryImpl(
     }
 
 
-    override fun findAllAfterPublishDate(baseDate: LocalDate, count: Int): List<DocumentBook> {
+    override fun findAllAfterPublishDate(baseDate: LocalDate, pageRequest: PageRequest): Page<DocumentBook> {
         val criteria = Criteria.where("detail.publishDate").gte(baseDate)
 
         val query = Query().addCriteria(criteria)
-                .limit(count)
+                .with(pageRequest)
                 .with(Sort.by(Sort.Direction.DESC, "detail.publishDate"))
 
-        return mongoTemplate.find(query, DocumentBook::class.java)
+        val count = mongoOperations.count(query, DocumentBook::class.java)
+        val results = mongoTemplate.find(query, DocumentBook::class.java)
+
+        return PageImpl(results, pageRequest, count)
     }
 }

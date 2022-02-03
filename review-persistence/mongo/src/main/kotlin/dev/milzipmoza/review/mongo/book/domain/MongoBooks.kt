@@ -56,9 +56,16 @@ class MongoBooks(
         return DocumentBookMapper.map(documentBooks)
     }
 
-    override fun getRecentPublished(recentMonths: Long, count: Int): List<Book> {
-        val documentBooks = mongoBookRepository.findAllAfterPublishDate(LocalDate.now().minusMonths(recentMonths), count)
+    override fun getRecentPublished(recentMonths: Long, pageQuery: PageQuery): PageEntities<Book> {
+        val documentBooks = mongoBookRepository.findAllAfterPublishDate(LocalDate.now().minusMonths(recentMonths), PageRequest.of(pageQuery))
 
-        return DocumentBookMapper.map(documentBooks)
+        return PageEntities(
+                total = documentBooks.totalElements,
+                size = documentBooks.size,
+                isFirst = documentBooks.isFirst,
+                isLast = documentBooks.isLast,
+                items = documentBooks.content
+                        .map { DocumentBookMapper.map(it) }
+                        .toList())
     }
 }
