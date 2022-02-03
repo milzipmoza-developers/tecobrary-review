@@ -1,12 +1,10 @@
 package dev.milzipmoza.review.domain.review.model
 
 import dev.milzipmoza.review.domain.Entity
-import dev.milzipmoza.review.domain.review.model.book.ReviewBook
+import dev.milzipmoza.review.domain.review.ReviewOperationException
 import dev.milzipmoza.review.domain.review.model.content.BlogReviewContent
 import dev.milzipmoza.review.domain.review.model.content.BlogReviewUrl
 import dev.milzipmoza.review.domain.review.model.content.CommentReviewContent
-import dev.milzipmoza.review.domain.review.model.content.ReviewContent
-import dev.milzipmoza.review.domain.review.model.member.ReviewMember
 
 sealed interface Review : Entity<Review> {
 
@@ -14,15 +12,20 @@ sealed interface Review : Entity<Review> {
     val member: ReviewMember
     val book: ReviewBook
     val range: ReviewReadRange
+    val keyword: ReviewKeyword
     val type: ReviewType
 
-    override fun getId() = no
+    override fun getId() = when (no.isNotBlank()) {
+        true -> no
+        false -> throw ReviewOperationException("아직 식별자가 없습니다.")
+    }
 
     class SimpleReview(
-            override val no: String,
+            override val no: String = "",
             override val member: ReviewMember,
             override val book: ReviewBook,
             override val range: ReviewReadRange,
+            override val keyword: ReviewKeyword
     ) : Review {
         override val type: ReviewType = ReviewType.SIMPLE
 
@@ -32,6 +35,7 @@ sealed interface Review : Entity<Review> {
                     member = this.member,
                     book = this.book,
                     range = this.range,
+                    keyword = this.keyword,
                     content = content
             )
         }
@@ -42,26 +46,29 @@ sealed interface Review : Entity<Review> {
                     member = this.member,
                     book = this.book,
                     range = this.range,
+                    keyword = this.keyword,
                     blogUrl = blogUrl
             )
         }
     }
 
-    class CommentReview (
-            override val no: String,
+    class CommentReview(
+            override val no: String = "",
             override val member: ReviewMember,
             override val book: ReviewBook,
             override val range: ReviewReadRange,
-            val content: CommentReviewContent
+            val content: CommentReviewContent,
+            override val keyword: ReviewKeyword
     ) : Review {
         override val type: ReviewType = ReviewType.COMMENT
     }
 
     class PendedBlogReview(
-            override val no: String,
+            override val no: String = "",
             override val member: ReviewMember,
             override val book: ReviewBook,
             override val range: ReviewReadRange,
+            override val keyword: ReviewKeyword,
             blogUrl: String
 
     ) : Review {
@@ -74,16 +81,18 @@ sealed interface Review : Entity<Review> {
                         member = this.member,
                         book = this.book,
                         range = this.range,
+                        keyword = this.keyword,
                         content = this.content.crawlFromBlog(content)
                                 .changeDisplay(ReviewDisplay.ON_DISPLAY)
                 )
     }
 
     class BlogReview(
-            override val no: String,
+            override val no: String = "",
             override val member: ReviewMember,
             override val book: ReviewBook,
             override val range: ReviewReadRange,
+            override val keyword: ReviewKeyword,
             val content: BlogReviewContent
     ) : Review {
         override val type: ReviewType = ReviewType.BLOG_REFERENCE

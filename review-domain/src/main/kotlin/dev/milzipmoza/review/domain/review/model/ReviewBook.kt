@@ -1,9 +1,9 @@
-package dev.milzipmoza.review.domain.review.model.book
+package dev.milzipmoza.review.domain.review.model
 
 import dev.milzipmoza.review.domain.Value
 
 class ReviewBook(
-        val no: String,
+        val isbn: String,
         val title: String,
         val image: String
 ) : Value<ReviewBook> {
@@ -16,7 +16,7 @@ class ReviewBook(
 
         other as ReviewBook
 
-        if (no != other.no) return false
+        if (isbn != other.isbn) return false
         if (title != other.title) return false
         if (image != other.image) return false
 
@@ -24,7 +24,7 @@ class ReviewBook(
     }
 
     override fun hashCode(): Int {
-        var result = no.hashCode()
+        var result = isbn.hashCode()
         result = 31 * result + title.hashCode()
         result = 31 * result + image.hashCode()
         return result
