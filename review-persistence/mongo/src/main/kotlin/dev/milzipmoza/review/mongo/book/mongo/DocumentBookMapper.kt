@@ -6,77 +6,27 @@ import dev.milzipmoza.review.domain.book.model.category.BookCategoryImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookDetail
 import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
-import dev.milzipmoza.review.domain.book.model.tag.BookTag
 import dev.milzipmoza.review.domain.book.model.tag.BookTags
-import kotlin.math.sign
-import org.bson.types.ObjectId
-import org.springframework.util.Assert
 
 object DocumentBookMapper {
 
-    fun map(documentBook: DocumentBook, documentBookDetail: DocumentBookDetail, documentBookTags: DocumentBookTags) =
-            Book(
-                    isbn = documentBook.isbn,
-                    detail = map(documentBookDetail),
-                    category = map(documentBook.category),
-                    tags = map(documentBookTags)
-            )
-
-    private fun map(documentBookDetail: DocumentBookDetail) = BookDetail(
-            image = map(documentBookDetail.image),
-            title = documentBookDetail.title,
-            publisher = documentBookDetail.publisher,
-            author = documentBookDetail.author,
-            locale = BookLanguage.valueOf(documentBookDetail.locale),
-            publishDate = documentBookDetail.publishDate,
-            description = documentBookDetail.description,
-    )
-
-    private fun map(image: DocumentBookDetailImage) = BookImageUrl(
-            host = image.host,
-            path = image.path
-    )
-
-    private fun map(category: DocumentBookCategory?): BookCategory {
-        return when (category) {
-            null -> BookCategory.hasNoCategory()
-            else -> BookCategory.EnrolledBookCategory(
-                    no = category.no,
-                    name = category.name,
-                    imageUrl = map(category.image)
-            )
-        }
-    }
-
-    private fun map(documentBookTags: DocumentBookTags) =
-            BookTags(documentBookTags.tags.map { BookTag(it.no, it.name, it.colorCode) }.toSet())
-
-    private fun map(image: DocumentBookCategoryImage) = BookCategoryImageUrl(
-            host = image.host,
-            path = image.path
-    )
-
-    fun map(bookDetail: BookDetail, detailMappingId: ObjectId) =
-            DocumentBookDetail(
-                    id = detailMappingId,
-                    title = bookDetail.title,
-                    publisher = bookDetail.publisher,
-                    author = bookDetail.author,
-                    image = DocumentBookDetailImage(
-                            host = bookDetail.image.host,
-                            path = bookDetail.image.path
-                    ),
-                    locale = bookDetail.locale.toString(),
-                    publishDate = bookDetail.publishDate,
-                    description = bookDetail.description
-            )
-
-    fun map(book: Book, detailMappingId: ObjectId, tagsMappingId: ObjectId) =
+    fun map(book: Book) =
             DocumentBook(
                     isbn = book.isbn,
                     category = map(book.category),
-                    tagsMappingId = tagsMappingId,
-                    detailMappingId = detailMappingId
+                    tags = book.tags.map { DocumentBookTag(it.no, it.name, it.colorCode) }.toSet(),
+                    detail = DocumentBookDetail(
+                            title = book.detail.title,
+                            publisher = book.detail.publisher,
+                            author = book.detail.author,
+                            image = DocumentBookDetailImage(
+                                    host = book.detail.image.host,
+                                    path = book.detail.image.path
+                            ),
+                            locale = book.detail.locale.name,
+                            publishDate = book.detail.publishDate,
+                            description = book.detail.description
+                    )
             )
 
     fun map(bookCategory: BookCategory): DocumentBookCategory? {
@@ -94,47 +44,48 @@ object DocumentBookMapper {
         }
     }
 
+    private fun map(category: DocumentBookCategory?): BookCategory {
+        return when (category) {
+            null -> BookCategory.hasNoCategory()
+            else -> BookCategory.EnrolledBookCategory(
+                    no = category.no,
+                    name = category.name,
+                    imageUrl = map(category.image)
+            )
+        }
+    }
+
+    private fun map(image: DocumentBookCategoryImage) = BookCategoryImageUrl(
+            host = image.host,
+            path = image.path
+    )
+
     private fun map(bookCategory: BookCategory.EnrolledBookCategory) =
             DocumentBookCategoryImage(
                     host = bookCategory.imageUrl.host,
                     path = bookCategory.imageUrl.path
             )
 
-    fun map(bookDetail: BookDetail) =
-            DocumentBookDetail(
-                    title = bookDetail.title,
-                    publisher = bookDetail.publisher,
-                    author = bookDetail.author,
-                    image = DocumentBookDetailImage(
-                            host = bookDetail.image.host,
-                            path = bookDetail.image.path
-                    ),
-                    locale = bookDetail.locale.toString(),
-                    publishDate = bookDetail.publishDate,
-                    description = bookDetail.description
+    fun map(documentBook: DocumentBook): Book =
+            Book(
+                    isbn = documentBook.isbn,
+                    detail = BookDetail(
+                            image = BookImageUrl(
+                                    host = documentBook.detail.image.host,
+                                    path = documentBook.detail.image.path
+                            ),
+                            title = documentBook.detail.title,
+                            publisher = documentBook.detail.publisher,
+                            author = documentBook.detail.author,
+                            locale = BookLanguage.valueOf(documentBook.detail.locale),
+                            publishDate = documentBook.detail.publishDate,
+                            description = documentBook.detail.description),
+                    category = map(documentBook.category),
+                    tags = BookTags(tags = setOf())
+
             )
 
-    fun map(bookTags: BookTags) =
-            DocumentBookTags(
-                    tags = bookTags.map { DocumentBookTag(no = it.no, name = it.name, colorCode = it.colorCode) }
-                            .toSet()
-            )
-
-    fun map(bookTags: BookTags, tagsMappingId: ObjectId) =
-            DocumentBookTags(
-                    id = tagsMappingId,
-                    tags = bookTags.map { DocumentBookTag(no = it.no, name = it.name, colorCode = it.colorCode) }
-                            .toSet()
-            )
-
-    fun map(documentBooks: List<DocumentBook>, documentBookDetails: List<DocumentBookDetail>, documentBookTags: List<DocumentBookTags>): List<Book> {
-        Assert.isTrue(documentBooks.size == documentBookDetails.size && documentBookDetails.size == documentBookTags.size, "데이터 확인이 필요합니다.")
-        return documentBooks.map {
-            map(
-                    documentBook = it,
-                    documentBookDetail = documentBookDetails.find { detail -> detail.id == it.detailMappingId }!!,
-                    documentBookTags = documentBookTags.find { tags -> tags.id == it.tagsMappingId }!!
-            )
-        }
+    fun map(documentBooks: List<DocumentBook>): List<Book> {
+        return documentBooks.map { map(it) }
     }
 }
