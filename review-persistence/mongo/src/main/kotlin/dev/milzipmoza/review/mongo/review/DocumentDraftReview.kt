@@ -14,8 +14,9 @@ data class DocumentDraftReview(
         val book: DocumentDraftReviewBook,
         val range: String? = null,
         val keyword: DocumentDraftReviewKeyword? = null,
+        val enrolled: Boolean,
         @Indexed(expireAfter = "3d") val createdDateTime: LocalDateTime = LocalDateTime.now(),
-        val expiredDateTime: LocalDateTime = createdDateTime.plusDays(3)
+        val expiredDateTime: LocalDateTime = createdDateTime.plusDays(3),
 )
 
 data class DocumentDraftReviewMember(

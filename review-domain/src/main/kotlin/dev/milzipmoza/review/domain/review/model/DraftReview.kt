@@ -10,6 +10,7 @@ interface DraftReview : Entity<Review> {
     val book: ReviewBook
     val range: ReviewReadRange?
     val keyword: ReviewKeyword?
+    val enrolled: Boolean
 
     override fun getId() = when (no.isNotBlank()) {
         true -> no
@@ -23,10 +24,11 @@ interface DraftReview : Entity<Review> {
     class DraftReviewFirstStep(
             override val no: String,
             override val member: DraftReviewMember,
-            override val book: ReviewBook
+            override val book: ReviewBook,
     ) : DraftReview {
         override val range: ReviewReadRange? = null
         override val keyword: ReviewKeyword? = null
+        override val enrolled: Boolean = false
 
         fun selectRange(range: ReviewReadRange) =
                 DraftReviewSecondStep(
@@ -44,6 +46,7 @@ interface DraftReview : Entity<Review> {
             override val range: ReviewReadRange
     ) : DraftReview {
         override val keyword: ReviewKeyword? = null
+        override val enrolled: Boolean = false
 
         fun initRange() =
                 DraftReviewFirstStep(
@@ -67,7 +70,8 @@ interface DraftReview : Entity<Review> {
             override val member: DraftReviewMember,
             override val book: ReviewBook,
             override val range: ReviewReadRange,
-            override val keyword: ReviewKeyword
+            override val keyword: ReviewKeyword,
+            override val enrolled: Boolean = false
     ) : DraftReview {
         fun initRange() =
                 DraftReviewFirstStep(

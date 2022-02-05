@@ -25,7 +25,8 @@ class MongoDraftReviewOperation(
                                     title = draftReview.book.title
                             ),
                             range = draftReview.range?.name,
-                            keyword = draftReview.keyword?.let { map(it) }
+                            keyword = draftReview.keyword?.let { map(it) },
+                            enrolled = draftReview.enrolled
                     )
                     else -> DocumentDraftReview(
                             id = document.id,
@@ -40,6 +41,7 @@ class MongoDraftReviewOperation(
                             ),
                             range = draftReview.range?.name,
                             keyword = draftReview.keyword?.let { map(it) },
+                            enrolled = draftReview.enrolled,
                             createdDateTime = document.createdDateTime,
                             expiredDateTime = document.expiredDateTime
                     )
