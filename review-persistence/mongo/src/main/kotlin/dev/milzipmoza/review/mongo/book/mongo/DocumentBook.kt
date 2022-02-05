@@ -10,7 +10,7 @@ data class DocumentBook(
         @Id val id: ObjectId = ObjectId(),
         @Indexed(unique = true) val isbn: String,
         var category: DocumentBookCategory?,
-        val tags: Set<DocumentBookTag>,
+        var tags: MutableSet<DocumentBookTag>,
         val detail: DocumentBookDetail,
 )
 

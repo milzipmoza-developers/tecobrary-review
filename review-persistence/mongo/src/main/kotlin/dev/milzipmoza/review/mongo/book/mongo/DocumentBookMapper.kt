@@ -6,7 +6,9 @@ import dev.milzipmoza.review.domain.book.model.category.BookCategoryImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookDetail
 import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
+import dev.milzipmoza.review.domain.book.model.tag.BookTag
 import dev.milzipmoza.review.domain.book.model.tag.BookTags
+import org.bson.types.ObjectId
 
 object DocumentBookMapper {
 
@@ -14,7 +16,27 @@ object DocumentBookMapper {
             DocumentBook(
                     isbn = book.isbn,
                     category = map(book.category),
-                    tags = book.tags.map { DocumentBookTag(it.no, it.name, it.colorCode) }.toSet(),
+                    tags = book.tags.map { DocumentBookTag(it.no, it.name, it.colorCode) }.toMutableSet(),
+                    detail = DocumentBookDetail(
+                            title = book.detail.title,
+                            publisher = book.detail.publisher,
+                            author = book.detail.author,
+                            image = DocumentBookDetailImage(
+                                    host = book.detail.image.host,
+                                    path = book.detail.image.path
+                            ),
+                            locale = book.detail.locale.name,
+                            publishDate = book.detail.publishDate,
+                            description = book.detail.description
+                    )
+            )
+
+    fun map(id: ObjectId, book: Book) =
+            DocumentBook(
+                    id = id,
+                    isbn = book.isbn,
+                    category = map(book.category),
+                    tags = book.tags.map { DocumentBookTag(it.no, it.name, it.colorCode) }.toMutableSet(),
                     detail = DocumentBookDetail(
                             title = book.detail.title,
                             publisher = book.detail.publisher,
@@ -81,7 +103,7 @@ object DocumentBookMapper {
                             publishDate = documentBook.detail.publishDate,
                             description = documentBook.detail.description),
                     category = map(documentBook.category),
-                    tags = BookTags(tags = setOf())
+                    tags = BookTags(tags = documentBook.tags.map { BookTag(it.no, it.name, it.colorCode) }.toSet())
 
             )
 
