@@ -4,6 +4,7 @@ import dev.milzipmoza.review.api.ClientMember
 import dev.milzipmoza.review.config.TecobraryHeaders
 import dev.milzipmoza.review.domain.authentication.AuthenticationConfirm
 import dev.milzipmoza.review.domain.authentication.Authentications
+import dev.milzipmoza.review.domain.member.Members
 import dev.milzipmoza.review.jwt.InvalidTokenException
 import dev.milzipmoza.review.jwt.JwtValidator
 import javax.servlet.FilterChain
@@ -15,7 +16,8 @@ import org.springframework.web.filter.OncePerRequestFilter
 @Component
 class OptionalJwtAuthenticationFilter(
         private val jwtValidator: JwtValidator,
-        private val authentications: Authentications
+        private val authentications: Authentications,
+        private val members: Members
 ) : OncePerRequestFilter() {
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
@@ -30,6 +32,10 @@ class OptionalJwtAuthenticationFilter(
 
             val authentication = authentications.findByAccessToken(validatedDecodedJwt.accessToken)
                     ?: throw InvalidTokenException("유효하지 않은 토큰입니다.")
+
+            if (!members.isExist(authentication.memberNo)) {
+                throw InvalidTokenException("유효하지 않은 회원입니다.")
+            }
 
             val confirm = AuthenticationConfirm(authentication)
 

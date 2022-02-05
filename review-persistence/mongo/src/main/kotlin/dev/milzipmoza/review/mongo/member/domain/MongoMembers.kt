@@ -20,4 +20,8 @@ class MongoMembers(
 
         return DocumentMemberMapper.map(documentMember)
     }
+
+    override fun isExist(no: String): Boolean {
+        return mongoMemberRepository.existsById(ObjectId(no))
+    }
 }
