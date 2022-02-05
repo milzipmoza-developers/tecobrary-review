@@ -3,7 +3,7 @@ package dev.milzipmoza.review.domain.review.model
 class ReviewKeyword(
         val content: Content,
         val informative: Informative,
-        val readMore: ReadMore,
+        val readMore: ReadMore?,
         val selectables: Set<Selectable>
 ) {
 

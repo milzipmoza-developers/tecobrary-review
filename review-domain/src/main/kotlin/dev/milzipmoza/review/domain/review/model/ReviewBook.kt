@@ -4,8 +4,7 @@ import dev.milzipmoza.review.domain.Value
 
 class ReviewBook(
         val isbn: String,
-        val title: String,
-        val image: String
+        val title: String
 ) : Value<ReviewBook> {
 
     override fun sameAs(other: ReviewBook): Boolean = this == other
@@ -18,7 +17,6 @@ class ReviewBook(
 
         if (isbn != other.isbn) return false
         if (title != other.title) return false
-        if (image != other.image) return false
 
         return true
     }
@@ -26,7 +24,6 @@ class ReviewBook(
     override fun hashCode(): Int {
         var result = isbn.hashCode()
         result = 31 * result + title.hashCode()
-        result = 31 * result + image.hashCode()
         return result
     }
 }

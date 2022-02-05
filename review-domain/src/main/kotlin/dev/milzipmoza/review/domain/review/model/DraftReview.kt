@@ -6,7 +6,7 @@ import dev.milzipmoza.review.domain.review.ReviewOperationException
 interface DraftReview : Entity<Review> {
 
     val no: String
-    val member: ReviewMember
+    val member: DraftReviewMember
     val book: ReviewBook
     val range: ReviewReadRange?
     val keyword: ReviewKeyword?
@@ -18,7 +18,7 @@ interface DraftReview : Entity<Review> {
 
     class DraftReviewFirstStep(
             override val no: String,
-            override val member: ReviewMember,
+            override val member: DraftReviewMember,
             override val book: ReviewBook
     ) : DraftReview {
         override val range: ReviewReadRange? = null
@@ -35,7 +35,7 @@ interface DraftReview : Entity<Review> {
 
     class DraftReviewSecondStep(
             override val no: String,
-            override val member: ReviewMember,
+            override val member: DraftReviewMember,
             override val book: ReviewBook,
             override val range: ReviewReadRange
     ) : DraftReview {
@@ -60,7 +60,7 @@ interface DraftReview : Entity<Review> {
 
     class DraftReviewThirdStep(
             override val no: String,
-            override val member: ReviewMember,
+            override val member: DraftReviewMember,
             override val book: ReviewBook,
             override val range: ReviewReadRange,
             override val keyword: ReviewKeyword
@@ -72,10 +72,10 @@ interface DraftReview : Entity<Review> {
                         book = this.book
                 )
 
-        fun submitReview() =
+        fun submitReview(member: ReviewMember) =
                 Review.SimpleReview(
                         no = this.no,
-                        member = this.member,
+                        member = member,
                         book = this.book,
                         range = this.range,
                         keyword = this.keyword
