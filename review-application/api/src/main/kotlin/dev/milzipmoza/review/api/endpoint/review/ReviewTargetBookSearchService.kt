@@ -13,8 +13,8 @@ class ReviewTargetBookSearchService(
 ) {
 
     fun search(keyword: String): PageData<ReviewTargetSearchBookDto> {
-        if (keyword.length < 3) {
-            throw IllegalArgumentException("검색어는 3글자 이상 입력해주세요")
+        if (keyword.length < 2) {
+            throw IllegalArgumentException("두 글자 이상부터 검색이 가능해요")
         }
         val foundSearchBooks = searchBooks.findAllBy(keyword, PageQuery(0, 5))
         val isbns = foundSearchBooks.items.map { it.isbn }
