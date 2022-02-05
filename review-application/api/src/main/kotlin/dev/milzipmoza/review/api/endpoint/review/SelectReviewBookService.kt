@@ -43,7 +43,7 @@ class SelectReviewBookService(
 
         return when (clientMember) {
             is ClientMember.UnknownMember -> {
-                return SelectReviewBookResultDto(false, "")
+                return SelectReviewBookResultDto(false)
             }
 
             is ClientMember.AuthenticatedMember,
