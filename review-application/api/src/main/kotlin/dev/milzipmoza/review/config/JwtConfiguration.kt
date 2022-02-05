@@ -25,5 +25,6 @@ class JwtConfiguration {
                     .apply {
                         this.filter = optionalJwtAuthenticationFilter
                         addUrlPatterns("/api/displays/books/*")
+                        addUrlPatterns("/api/reviews/**")
                     }
 }
