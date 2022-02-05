@@ -1,6 +1,6 @@
 package dev.milzipmoza.review.config.filter
 
-import dev.milzipmoza.review.api.OptionalAuthMemberDto
+import dev.milzipmoza.review.api.ClientMember
 import dev.milzipmoza.review.config.TecobraryHeaders
 import dev.milzipmoza.review.domain.authentication.AuthenticationConfirm
 import dev.milzipmoza.review.domain.authentication.Authentications
@@ -36,13 +36,20 @@ class OptionalJwtAuthenticationFilter(
             confirm.expired()
             confirm.device(deviceId)
 
-            request.setAttribute(OptionalAuthMemberDto.ATTRIBUTE_NAME, OptionalAuthMemberDto(authentication.memberNo, authentication.deviceId))
+            request.setAttribute(ClientMember.ATTRIBUTE_NAME, ClientMember.AuthenticatedMember(authentication.memberNo, authentication.deviceId))
 
             filterChain.doFilter(request, response)
             return
         }
 
-        request.setAttribute(OptionalAuthMemberDto.ATTRIBUTE_NAME, null)
+        if (deviceId != null) {
+            request.setAttribute(ClientMember.ATTRIBUTE_NAME, ClientMember.UnauthenticatedMember(deviceId))
+
+            filterChain.doFilter(request, response)
+            return
+        }
+
+        request.setAttribute(ClientMember.ATTRIBUTE_NAME, ClientMember.UnknownMember())
         filterChain.doFilter(request, response)
     }
 }

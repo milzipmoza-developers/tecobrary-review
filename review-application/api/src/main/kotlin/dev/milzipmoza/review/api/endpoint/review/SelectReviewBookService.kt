@@ -1,8 +1,7 @@
 package dev.milzipmoza.review.api.endpoint.review
 
 import dev.milzipmoza.review.annotation.ApplicationService
-import dev.milzipmoza.review.api.ApiResponse
-import dev.milzipmoza.review.api.OptionalAuthMemberDto
+import dev.milzipmoza.review.api.ClientMember
 import dev.milzipmoza.review.domain.book.BookOperation
 import dev.milzipmoza.review.domain.book.Books
 import dev.milzipmoza.review.domain.book.model.Book
@@ -22,7 +21,7 @@ class SelectReviewBookService(
         private val reviewOperation: DraftReviewOperation
 ) {
 
-    fun select(memberDto: OptionalAuthMemberDto?, selectReviewBook: SelectReviewBookDto): SelectReviewBookResultDto {
+    fun select(clientMember: ClientMember, selectReviewBook: SelectReviewBookDto): SelectReviewBookResultDto {
         val book: Book = try {
             books.findBy(selectReviewBook.isbn)
         } catch (e: DocumentNotFoundException) {
@@ -42,26 +41,31 @@ class SelectReviewBookService(
             books.findBy(newBook.isbn)
         }
 
-        if (memberDto == null) {
-            return SelectReviewBookResultDto(false, "")
-        }
+        return when (clientMember) {
+            is ClientMember.UnknownMember -> {
+                return SelectReviewBookResultDto(false, "")
+            }
 
-        val draftReviewNo = DraftReviewNoFactory.create()
+            is ClientMember.AuthenticatedMember,
+            is ClientMember.UnauthenticatedMember -> {
+                val draftReviewNo = DraftReviewNoFactory.create()
 
-        val draftReview = DraftReview.DraftReviewFirstStep(
-                no = draftReviewNo,
-                member = DraftReviewMember(
-                        no = memberDto.memberNo,
-                        deviceId = memberDto.deviceId
-                ),
-                book = ReviewBook(
-                        isbn = book.isbn,
-                        title = book.detail.title
+                val draftReview = DraftReview.DraftReviewFirstStep(
+                        no = draftReviewNo,
+                        member = DraftReviewMember(
+                                no = clientMember.memberNo,
+                                deviceId = clientMember.deviceId!!
+                        ),
+                        book = ReviewBook(
+                                isbn = book.isbn,
+                                title = book.detail.title
+                        )
                 )
-        )
 
-        val saved = reviewOperation.saveOrUpdate(draftReview)
+                val saved = reviewOperation.saveOrUpdate(draftReview)
 
-        return SelectReviewBookResultDto(saved, draftReviewNo)
+                return SelectReviewBookResultDto(saved, draftReviewNo)
+            }
+        }
     }
 }

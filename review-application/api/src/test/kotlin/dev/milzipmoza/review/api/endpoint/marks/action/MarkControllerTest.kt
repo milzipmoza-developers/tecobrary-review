@@ -1,14 +1,8 @@
 package dev.milzipmoza.review.api.endpoint.marks.action
 
-import dev.milzipmoza.review.api.OptionalAuthMemberDto
-import dev.milzipmoza.review.domain.mark.MarkType
-import dev.milzipmoza.review.domain.unwrap
-import dev.milzipmoza.review.mongo.mark.mongo.DocumentMarkBook
-import dev.milzipmoza.review.mongo.mark.mongo.DocumentMarkMember
 import dev.milzipmoza.review.mongo.mark.mongo.MongoMarkRepository
 import dev.milzipmoza.review.mongo.mark.mongo.MongoMarkedRepository
 import java.time.Duration
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

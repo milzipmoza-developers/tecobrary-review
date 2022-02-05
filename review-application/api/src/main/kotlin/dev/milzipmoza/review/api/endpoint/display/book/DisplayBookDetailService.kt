@@ -1,6 +1,7 @@
 package dev.milzipmoza.review.api.endpoint.display.book
 
 import dev.milzipmoza.review.annotation.ApplicationService
+import dev.milzipmoza.review.api.ClientMember
 import dev.milzipmoza.review.domain.book.Books
 import dev.milzipmoza.review.domain.book.model.category.BookCategory
 import dev.milzipmoza.review.domain.mark.MarkBook
@@ -14,7 +15,7 @@ class DisplayBookDetailService(
         private val marks: Marks
 ) {
 
-    fun get(isbn: String, memberNo: String?): DisplayBookDto {
+    fun get(isbn: String, clientMember: ClientMember): DisplayBookDto {
         val book = books.findBy(isbn)
 
         val bookCategory = book.category
@@ -32,16 +33,16 @@ class DisplayBookDetailService(
                 ),
                 mark = DisplayBookMarkDto(
                         like = DisplayBookLikeDto(
-                                liked = when (memberNo) {
-                                    null -> false
-                                    else -> marks.isMarked(MarkMember(memberNo), MarkBook(book.isbn), MarkType.LIKE)
+                                liked = when (clientMember) {
+                                    is ClientMember.AuthenticatedMember -> marks.isMarked(MarkMember(clientMember.memberNo), MarkBook(book.isbn), MarkType.LIKE)
+                                    else -> false
                                 },
                                 counts = marks.count(MarkBook(book.isbn), MarkType.LIKE)
                         ),
                         favorite = DisplayBookFavoriteMarkDto(
-                                marked = when (memberNo) {
-                                    null -> false
-                                    else -> marks.isMarked(MarkMember(memberNo), MarkBook(book.isbn), MarkType.FAVORITE)
+                                marked = when (clientMember) {
+                                    is ClientMember.AuthenticatedMember -> marks.isMarked(MarkMember(clientMember.memberNo), MarkBook(book.isbn), MarkType.FAVORITE)
+                                    else -> false
                                 },
                                 counts = marks.count(MarkBook(book.isbn), MarkType.FAVORITE)
                         )
