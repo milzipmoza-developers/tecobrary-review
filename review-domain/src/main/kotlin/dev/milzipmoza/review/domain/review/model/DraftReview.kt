@@ -16,6 +16,10 @@ interface DraftReview : Entity<Review> {
         false -> throw ReviewOperationException("아직 식별자가 없습니다.")
     }
 
+    fun isNotOwnedBy(other: DraftReviewMember): Boolean {
+        return member.isNotSameMember(other)
+    }
+
     class DraftReviewFirstStep(
             override val no: String,
             override val member: DraftReviewMember,

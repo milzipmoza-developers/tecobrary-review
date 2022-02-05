@@ -117,4 +117,6 @@ class DraftReviewTest : StringSpec({
         initRange.range shouldBe null
         initRange.keyword shouldBe null
     }
+
+    "본인의 리뷰가 아니면 owned"
 })
