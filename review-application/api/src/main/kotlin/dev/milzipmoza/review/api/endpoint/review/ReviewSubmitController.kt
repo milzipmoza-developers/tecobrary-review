@@ -12,7 +12,7 @@ class ReviewSubmitController(
         private val reviewSubmitService: ReviewSubmitNotUseDraftService
 ) {
 
-    @PostMapping("/api/review/submit")
+    @PostMapping("/api/reviews/submit")
     fun submit(@RequestAttribute(ClientMember.ATTRIBUTE_NAME) clientMember: ClientMember,
                @RequestBody body: ReviewSubmitDto): ApiResponse<Boolean> {
         val result = reviewSubmitService.submit(clientMember, body)

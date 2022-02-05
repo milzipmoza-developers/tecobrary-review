@@ -12,7 +12,7 @@ class ReviewSelectableRangeController(
         private val reviewSelectableRangeService: ReviewSelectableRangeService
 ) {
 
-    @GetMapping("/api/review/available-ranges")
+    @GetMapping("/api/reviews/available-ranges")
     fun get(@RequestAttribute(ClientMember.ATTRIBUTE_NAME) clientMember: ClientMember,
             @RequestParam isbn: String): ApiResponse<ReviewSelectableRangeDto> {
         val data = reviewSelectableRangeService.getAvailableRanges(clientMember, isbn)

@@ -11,7 +11,7 @@ class ReviewTargetBookSearchController(
         private val reviewTargetBookSearchService: ReviewTargetBookSearchService
 ) {
 
-    @GetMapping("/api/review/search-books")
+    @GetMapping("/api/reviews/search-books")
     fun search(@RequestParam("keyword") keyword: String): ApiResponse<PageData<ReviewTargetSearchBookDto>> {
         val pageData = reviewTargetBookSearchService.search(keyword)
         return ApiResponse.success(data = pageData)
