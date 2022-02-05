@@ -9,9 +9,6 @@ import dev.milzipmoza.review.domain.book.model.detail.BookDetail
 import dev.milzipmoza.review.domain.book.model.detail.BookImageUrl
 import dev.milzipmoza.review.domain.book.model.detail.BookLanguage
 import dev.milzipmoza.review.domain.review.DraftReviewOperation
-import dev.milzipmoza.review.domain.review.model.DraftReview
-import dev.milzipmoza.review.domain.review.model.DraftReviewMember
-import dev.milzipmoza.review.domain.review.model.ReviewBook
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
 
 @ApplicationService
@@ -41,31 +38,33 @@ class SelectReviewBookService(
             books.findBy(newBook.isbn)
         }
 
-        return when (clientMember) {
-            is ClientMember.UnknownMember -> {
-                return SelectReviewBookResultDto(false)
-            }
+        return SelectReviewBookResultDto(draftSaved = false)
 
-            is ClientMember.AuthenticatedMember,
-            is ClientMember.UnauthenticatedMember -> {
-                val draftReviewNo = DraftReviewNoFactory.create()
-
-                val draftReview = DraftReview.DraftReviewFirstStep(
-                        no = draftReviewNo,
-                        member = DraftReviewMember(
-                                no = clientMember.memberNo,
-                                deviceId = clientMember.deviceId!!
-                        ),
-                        book = ReviewBook(
-                                isbn = book.isbn,
-                                title = book.detail.title
-                        )
-                )
-
-                val saved = reviewOperation.saveOrUpdate(draftReview)
-
-                return SelectReviewBookResultDto(saved, draftReviewNo)
-            }
-        }
+//        return when (clientMember) {
+//            is ClientMember.UnknownMember -> {
+//                return SelectReviewBookResultDto(false)
+//            }
+//
+//            is ClientMember.AuthenticatedMember,
+//            is ClientMember.UnauthenticatedMember -> {
+//                val draftReviewNo = DraftReviewNoFactory.create()
+//
+//                val draftReview = DraftReview.DraftReviewFirstStep(
+//                        no = draftReviewNo,
+//                        member = DraftReviewMember(
+//                                no = clientMember.memberNo,
+//                                deviceId = clientMember.deviceId!!
+//                        ),
+//                        book = ReviewBook(
+//                                isbn = book.isbn,
+//                                title = book.detail.title
+//                        )
+//                )
+//
+//                val saved = reviewOperation.saveOrUpdate(draftReview)
+//
+//                return SelectReviewBookResultDto(saved, draftReviewNo)
+//            }
+//        }
     }
 }

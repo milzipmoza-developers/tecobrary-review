@@ -16,7 +16,7 @@ class ReviewTargetBookSearchService(
         if (keyword.length < 2) {
             throw IllegalArgumentException("두 글자 이상부터 검색이 가능해요")
         }
-        val foundSearchBooks = searchBooks.findAllBy(keyword, PageQuery(0, 5))
+        val foundSearchBooks = searchBooks.findAllBy(keyword, PageQuery(1, 5))
         val isbns = foundSearchBooks.items.map { it.isbn }
         val foundBooks = books.findAllIn(isbns)
         return PageData.of(foundSearchBooks) {
