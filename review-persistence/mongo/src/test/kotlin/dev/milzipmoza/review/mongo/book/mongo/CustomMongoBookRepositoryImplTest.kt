@@ -38,7 +38,7 @@ internal class CustomMongoBookRepositoryImplTest {
                                 path = "/image.png"
                         )
                 ),
-                tags = setOf()
+                tags = mutableSetOf()
         )
         val entities = listOf(
                 documentBook,
@@ -64,7 +64,7 @@ internal class CustomMongoBookRepositoryImplTest {
                                         path = "/image.png"
                                 )
                         ),
-                        tags = setOf()
+                        tags = mutableSetOf()
                 )
         )
 
@@ -100,7 +100,7 @@ internal class CustomMongoBookRepositoryImplTest {
                                 path = "/image.png"
                         )
                 ),
-                tags = setOf()
+                tags = mutableSetOf()
         )
         val entities = listOf(
                 documentBook,
@@ -126,7 +126,7 @@ internal class CustomMongoBookRepositoryImplTest {
                                         path = "/image.png"
                                 )
                         ),
-                        tags = setOf()
+                        tags = mutableSetOf()
                 )
         )
         mongoBookRepository.saveAll(entities)

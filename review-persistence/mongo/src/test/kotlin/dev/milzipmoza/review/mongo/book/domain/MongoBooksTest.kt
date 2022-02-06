@@ -42,7 +42,7 @@ class MongoBooksTest {
                 isbn = "9788966262472",
                 detail = detail,
                 category = null,
-                tags = setOf()
+                tags = mutableSetOf()
         )
 
         mongoBookRepository.save(documentBook)
