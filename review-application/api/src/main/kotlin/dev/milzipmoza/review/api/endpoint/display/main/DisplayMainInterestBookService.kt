@@ -5,11 +5,15 @@ import dev.milzipmoza.review.domain.book.Books
 import dev.milzipmoza.review.domain.mark.CountedMark
 import dev.milzipmoza.review.domain.mark.MarkAggregation
 import dev.milzipmoza.review.domain.mark.MarkType
+import dev.milzipmoza.review.domain.review.CountedReview
+import dev.milzipmoza.review.domain.review.ReviewAggregation
+import dev.milzipmoza.review.domain.review.Reviews
 
 @ApplicationService
 class DisplayMainInterestBookService(
         private val markAggregation: MarkAggregation,
-        private val books: Books
+        private val reviewAggregation: ReviewAggregation,
+        private val books: Books,
 ) {
 
     fun getByType(type: String): DisplayMainInterestBookSectionDto {
@@ -37,10 +41,13 @@ class DisplayMainInterestBookService(
                 )
             }
             DisplayMainInterestBookType.MANY_REVIEWS -> {
+                val topReviewBooks: List<CountedReview> = reviewAggregation.getTop(3)
+
+                val foundBooks = books.findAllIn(topReviewBooks.map { it.bookIsbn })
 
                 DisplayMainInterestBookSectionDto(
                         type = DisplayMainInterestBookType.MANY_REVIEWS,
-                        books = listOf()
+                        books = foundBooks.map { DisplayMainInterestBookDto.of(it, topReviewBooks.find { review -> review.bookIsbn == it.isbn }!!.count) }
                 )
             }
         }
