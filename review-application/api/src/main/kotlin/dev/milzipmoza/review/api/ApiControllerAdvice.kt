@@ -1,6 +1,7 @@
 package dev.milzipmoza.review.api
 
 import dev.milzipmoza.review.exception.HeaderNotFoundException
+import dev.milzipmoza.review.exception.UnauthorizedMemberException
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
 import dev.milzipmoza.review.mongo.extension.Logger
 import org.springframework.http.HttpStatus
@@ -25,6 +26,13 @@ class ApiControllerAdvice {
     fun handleHeaderNotFound(e: HeaderNotFoundException): ApiResponse<Nothing> {
         log.warn("헤더가 누락되었습니다. fieldName=${e.fieldName}", e)
         return ApiResponse.error(e.message ?: "헤더를 확인해주세요.")
+    }
+
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(UnauthorizedMemberException::class)
+    fun unauthorized(e: UnauthorizedMemberException): ApiResponse<Nothing> {
+        log.warn("권한이 없는 사용자입니다.", e)
+        return ApiResponse.error(e.message ?: "권한이 없습니다.")
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

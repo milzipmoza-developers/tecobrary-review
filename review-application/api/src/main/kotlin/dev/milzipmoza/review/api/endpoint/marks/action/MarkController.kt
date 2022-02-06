@@ -1,7 +1,8 @@
 package dev.milzipmoza.review.api.endpoint.marks.action
 
 import dev.milzipmoza.review.api.ApiResponse
-import dev.milzipmoza.review.api.AuthMemberDto
+import dev.milzipmoza.review.api.ClientMember
+import dev.milzipmoza.review.exception.UnauthorizedMemberException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.PathVariable
@@ -19,18 +20,34 @@ class MarkController(
 
     @PostMapping("/api/marks/{type}/mark")
     fun mark(@PathVariable type: String,
-             @RequestAttribute(AuthMemberDto.ATTRIBUTE_NAME) memberDto: AuthMemberDto,
+             @RequestAttribute(ClientMember.ATTRIBUTE_NAME) clientMember: ClientMember,
              @RequestBody body: MarkDto): ApiResponse<Boolean> {
-        val success = markService.doMark(body.isbn, memberDto.memberNo, type)
-        return ApiResponse.success(data = success)
+        when (clientMember) {
+            is ClientMember.UnknownMember,
+            is ClientMember.UnauthenticatedMember -> {
+                throw UnauthorizedMemberException("로그인이 필요합니다")
+            }
+            is ClientMember.AuthenticatedMember -> {
+                val success = markService.doMark(body.isbn, clientMember.memberNo, type)
+                return ApiResponse.success(data = success)
+            }
+        }
     }
 
     @PostMapping("/api/marks/{type}/unmark")
     fun unmark(@PathVariable type: String,
-               @RequestAttribute(AuthMemberDto.ATTRIBUTE_NAME) memberDto: AuthMemberDto,
+               @RequestAttribute(ClientMember.ATTRIBUTE_NAME) clientMember: ClientMember,
                @RequestBody body: MarkDto): ApiResponse<Boolean> {
-        val success = unmarkService.doUnmark(body.isbn, memberDto.memberNo, type)
-        return ApiResponse.success(data = success)
+        when (clientMember) {
+            is ClientMember.UnknownMember,
+            is ClientMember.UnauthenticatedMember -> {
+                throw UnauthorizedMemberException("로그인이 필요합니다")
+            }
+            is ClientMember.AuthenticatedMember -> {
+                val success = unmarkService.doUnmark(body.isbn, clientMember.memberNo, type)
+                return ApiResponse.success(data = success)
+            }
+        }
     }
 
     @ExceptionHandler

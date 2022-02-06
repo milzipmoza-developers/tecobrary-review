@@ -16,7 +16,6 @@ class JwtConfiguration {
                         this.filter = jwtAuthenticationFilter
                         addUrlPatterns("/api/members/*")
                         addUrlPatterns("/api/authentications/user-infos")
-                        addUrlPatterns("/api/marks/*")
                     }
 
     @Bean
@@ -26,5 +25,6 @@ class JwtConfiguration {
                         this.filter = optionalJwtAuthenticationFilter
                         addUrlPatterns("/api/displays/books/*")
                         addUrlPatterns("/api/reviews/*")
+                        addUrlPatterns("/api/marks/*")
                     }
 }

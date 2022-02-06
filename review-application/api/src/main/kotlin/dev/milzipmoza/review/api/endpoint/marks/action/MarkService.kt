@@ -1,6 +1,7 @@
 package dev.milzipmoza.review.api.endpoint.marks.action
 
 import dev.milzipmoza.review.annotation.ApplicationService
+import dev.milzipmoza.review.api.ClientMember
 import dev.milzipmoza.review.domain.mark.*
 
 @ApplicationService
