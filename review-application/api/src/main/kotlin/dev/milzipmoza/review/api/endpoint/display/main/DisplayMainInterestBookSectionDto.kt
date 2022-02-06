@@ -23,7 +23,7 @@ data class DisplayMainInterestBookDto(
     companion object {
         fun of(book: Book, counts: Int) = DisplayMainInterestBookDto(
                 isbn = book.isbn,
-                title = book.detail.title,
+                title = book.detail.summarizedTitle,
                 author = book.detail.author,
                 imageUrl = book.detail.fullImageUrl,
                 tags = book.tags.map { DisplayMainTagDto(it.name, it.colorCode) },
