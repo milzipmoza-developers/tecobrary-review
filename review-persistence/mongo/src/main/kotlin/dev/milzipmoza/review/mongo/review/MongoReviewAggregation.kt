@@ -3,6 +3,8 @@ package dev.milzipmoza.review.mongo.review
 import dev.milzipmoza.review.domain.review.CountedReview
 import dev.milzipmoza.review.domain.review.CountedReviewKeyword
 import dev.milzipmoza.review.domain.review.CountedReviewKeywords
+import dev.milzipmoza.review.domain.review.CountedReviewRange
+import dev.milzipmoza.review.domain.review.CountedReviewRanges
 import dev.milzipmoza.review.domain.review.CountedReviewSelectable
 import dev.milzipmoza.review.domain.review.CountedReviewSelectables
 import dev.milzipmoza.review.domain.review.ReviewAggregation
@@ -52,5 +54,15 @@ class MongoReviewAggregation(
         val selectables = documents.map { CountedReviewSelectable(ReviewKeyword.Selectable.valueOf(it.selectable), it.count) }
 
         return CountedReviewSelectables(selectables)
+    }
+
+    override fun getRangeCount(isbn: String): CountedReviewRanges {
+        val aggregationResults = mongoReviewAggregator.getCountRange(isbn)
+
+        val documents = aggregationResults.mappedResults
+
+        val counts = documents.map { CountedReviewRange(it.range, it.count) }
+
+        return CountedReviewRanges(counts)
     }
 }

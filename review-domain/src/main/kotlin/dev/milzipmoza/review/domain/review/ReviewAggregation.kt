@@ -9,4 +9,6 @@ interface ReviewAggregation {
     fun getBriefKeywords(isbn: String, range: ReviewReadRange): CountedReviewKeywords
 
     fun getBriefReviews(isbn: String, range: ReviewReadRange): CountedReviewSelectables
+
+    fun getRangeCount(isbn: String): CountedReviewRanges
 }

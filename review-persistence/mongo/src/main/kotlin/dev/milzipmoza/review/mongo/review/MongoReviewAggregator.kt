@@ -13,15 +13,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface MongoReviewAggregator : MongoRepository<DocumentReview, ObjectId>, CustomMongoReviewAggregator {
 
-    /**
-     * db.reviews.aggregate([
-     *   { $match: {'book.isbn': '9788966263172'}},
-     *   { $project: {a: {range: '$range', content: '$keyword.content', informative: '$keyword.informative', readMore: '$keyword.readMore'}}},
-     *   { $project: {a: {$objectToArray: '$a'} } },
-     *   { $unwind: '$a' },
-     *   { $group: {_id: {key: '$aa.k', value: '$aa.v'}, count: {$sum: 1} } }
-     * ])
-     */
     @Aggregation(pipeline = [
         "{ \$match: {'book.isbn': '?0', 'range': '?1' } }",
         "{ \$project: { a: { content: '\$keyword.content', informative: '\$keyword.informative', readMore: '\$keyword.readMore' } } }",
@@ -31,15 +22,6 @@ interface MongoReviewAggregator : MongoRepository<DocumentReview, ObjectId>, Cus
     ])
     fun getBriefKeywords(bookIsbn: String, range: String): AggregationResults<DocumentReviewKeywordBrief>
 
-
-    /**
-     * db.reviews.aggregate([
-     *   { \$match: {'book.isbn': '9788966263172'}},
-     *   { \$project: {range: '\$range', selectables: '\$keyword.selectables'}},
-     *   { \$unwind: '\$selectables' },
-     *   { \$group: {_id: {selectable: '\$selectables'}, count: {$sum: 1} } }
-     * ])
-     */
     @Aggregation(pipeline = [
         "{ \$match: {'book.isbn': '?0', 'range': '?1' } }",
         "{ \$project: {range: '\$range', selectables: '\$keyword.selectables'} }",
@@ -47,6 +29,12 @@ interface MongoReviewAggregator : MongoRepository<DocumentReview, ObjectId>, Cus
         "{ \$group: {_id: {selectable: '\$selectables'}, count: {\$sum: 1} } }"
     ])
     fun getBriefReviews(bookIsbn: String, range: String): AggregationResults<DocumentReviewBrief>
+
+    @Aggregation(pipeline = [
+        "{ \$match: {'book.isbn': '?0'} }",
+        "{ \$group: {_id: {range: '\$range'}, count: {\$sum: 1} } }"
+    ])
+    fun getCountRange(bookIsbn: String): AggregationResults<DocumentReviewRangeCount>
 }
 
 data class DocumentReviewKeywordBrief(
@@ -61,4 +49,10 @@ data class DocumentReviewBrief(
         @Field("_id.selectable")
         val selectable: String,
         val count: Int
+)
+
+data class DocumentReviewRangeCount(
+        @Field("_id.range")
+        val range: String,
+        val count: Long
 )

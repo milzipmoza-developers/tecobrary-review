@@ -6,4 +6,6 @@ import dev.milzipmoza.review.domain.review.model.Review
 interface Reviews {
 
     fun getAll(memberNo: String, bookIsbn: String): EnrolledReviews
+
+    fun count(bookIsbn: String): Long
 }

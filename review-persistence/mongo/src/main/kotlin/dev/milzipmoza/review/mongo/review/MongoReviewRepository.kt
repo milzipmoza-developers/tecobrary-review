@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface MongoReviewRepository : MongoRepository<DocumentReview, ObjectId>, CustomMongoReviewRepository {
 
+    fun countAllByBookIsbn(bookIsbn: String): Long
 }
 
 interface CustomMongoReviewRepository {

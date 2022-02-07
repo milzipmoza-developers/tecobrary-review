@@ -35,6 +35,10 @@ class MongoReviews(
         return EnrolledReviews(reviews)
     }
 
+    override fun count(bookIsbn: String): Long {
+        return mongoReviewRepository.countAllByBookIsbn(bookIsbn)
+    }
+
     private fun reviewKeyword(keyword: DocumentReviewKeyword) = ReviewKeyword(
             content = ReviewKeyword.Content.valueOf(keyword.content),
             informative = ReviewKeyword.Informative.valueOf(keyword.informative),
