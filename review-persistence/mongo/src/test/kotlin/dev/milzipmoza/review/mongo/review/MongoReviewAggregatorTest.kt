@@ -55,7 +55,7 @@ internal class MongoReviewAggregatorTest {
     private fun create(memberNo: String) = Review.SimpleReview(
             member = ReviewMember(no = memberNo),
             book = ReviewBook(isbn = "a", title = "제목"),
-            range = ReviewReadRange.A_LITTLE,
+            range = ReviewReadRange.values()[Random.nextInt(0, 4) % 5],
             keyword = ReviewKeyword(
                     content = ReviewKeyword.Content.values()[Random.nextInt(0, 4) % 5],
                     informative = ReviewKeyword.Informative.values()[Random.nextInt(0, 3) % 4],

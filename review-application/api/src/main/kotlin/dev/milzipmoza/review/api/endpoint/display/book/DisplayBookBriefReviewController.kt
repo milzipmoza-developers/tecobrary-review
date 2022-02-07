@@ -12,9 +12,8 @@ class DisplayBookBriefReviewController(
 ) {
 
     @GetMapping("/api/displays/books/{isbn}/reviews")
-    fun getBrief(@PathVariable isbn: String,
-                   @RequestParam range: String): ApiResponse<DisplayBookBriefReviewDto> {
-        val brief = displayBookBriefReviewService.brief(isbn, range)
+    fun getBrief(@PathVariable isbn: String): ApiResponse<DisplayBookBriefReviewDto> {
+        val brief = displayBookBriefReviewService.brief(isbn)
         return ApiResponse.success(data = brief)
     }
 }

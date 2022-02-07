@@ -9,11 +9,10 @@ class DisplayBookBriefReviewService(
         private val reviewAggregation: ReviewAggregation
 ) {
 
-    fun brief(isbn: String, range: String): DisplayBookBriefReviewDto {
-        val readRange = ReviewReadRange.valueOf(range)
+    fun brief(isbn: String): DisplayBookBriefReviewDto {
 
-        val briefKeywords = reviewAggregation.getBriefKeywords(isbn, readRange).sorted()
-        val reviews = reviewAggregation.getBriefReviews(isbn, readRange).sorted()
+        val briefKeywords = reviewAggregation.getBriefKeywords(isbn).sorted()
+        val reviews = reviewAggregation.getBriefReviews(isbn).sorted()
 
         val content = briefKeywords.content.map { DisplayReviewKeywordDto(it.content.name, it.count) }
         val informative = briefKeywords.informative.map { DisplayReviewKeywordDto(it.content.name, it.count) }
@@ -21,10 +20,6 @@ class DisplayBookBriefReviewService(
         val selectables = reviews.selectables.map { DisplayReviewKeywordDto(it.selectable.name, it.count) }
 
         return DisplayBookBriefReviewDto(
-                readRange = DisplayReviewReadRangeDto(
-                        readRange.name,
-                        readRange.displayName
-                ),
                 content = content,
                 informative = informative,
                 readMore = readMore,

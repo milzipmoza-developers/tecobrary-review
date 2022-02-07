@@ -22,8 +22,8 @@ class MongoReviewAggregation(
         return documents.map { CountedReview(it.bookIsbn, it.count) }
     }
 
-    override fun getBriefKeywords(isbn: String, range: ReviewReadRange): CountedReviewKeywords {
-        val aggregationResults = mongoReviewAggregator.getBriefKeywords(isbn, range.name)
+    override fun getBriefKeywords(isbn: String): CountedReviewKeywords {
+        val aggregationResults = mongoReviewAggregator.getBriefKeywords(isbn)
 
         val documents = aggregationResults.mappedResults
 
@@ -46,8 +46,8 @@ class MongoReviewAggregation(
         )
     }
 
-    override fun getBriefReviews(isbn: String, range: ReviewReadRange): CountedReviewSelectables {
-        val aggregationResults = mongoReviewAggregator.getBriefReviews(isbn, range.name)
+    override fun getBriefReviews(isbn: String): CountedReviewSelectables {
+        val aggregationResults = mongoReviewAggregator.getBriefReviews(isbn)
 
         val documents = aggregationResults.mappedResults
 

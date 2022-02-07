@@ -14,21 +14,21 @@ import org.springframework.stereotype.Repository
 interface MongoReviewAggregator : MongoRepository<DocumentReview, ObjectId>, CustomMongoReviewAggregator {
 
     @Aggregation(pipeline = [
-        "{ \$match: {'book.isbn': '?0', 'range': '?1' } }",
+        "{ \$match: {'book.isbn': '?0' } }",
         "{ \$project: { a: { content: '\$keyword.content', informative: '\$keyword.informative', readMore: '\$keyword.readMore' } } }",
         "{ \$project: { a: {\$objectToArray: '\$a'} } }",
         "{ \$unwind: '\$a' }",
         "{ \$group: {_id: {key: '\$a.k', value: '\$a.v'}, count: {\$sum: 1} } }"
     ])
-    fun getBriefKeywords(bookIsbn: String, range: String): AggregationResults<DocumentReviewKeywordBrief>
+    fun getBriefKeywords(bookIsbn: String): AggregationResults<DocumentReviewKeywordBrief>
 
     @Aggregation(pipeline = [
-        "{ \$match: {'book.isbn': '?0', 'range': '?1' } }",
+        "{ \$match: {'book.isbn': '?0' } }",
         "{ \$project: {range: '\$range', selectables: '\$keyword.selectables'} }",
         "{ \$unwind: '\$selectables' }",
         "{ \$group: {_id: {selectable: '\$selectables'}, count: {\$sum: 1} } }"
     ])
-    fun getBriefReviews(bookIsbn: String, range: String): AggregationResults<DocumentReviewBrief>
+    fun getBriefReviews(bookIsbn: String): AggregationResults<DocumentReviewBrief>
 
     @Aggregation(pipeline = [
         "{ \$match: {'book.isbn': '?0'} }",
