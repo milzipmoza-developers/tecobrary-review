@@ -8,7 +8,8 @@ class CategoryCreateController(
         private val categoryCreateService: CategoryCreateService
 ) {
     @PostMapping("/api/categories")
-    fun createCategory(@RequestBody body: ApiCreateBody<CreateCategoryDto>): ApiResponse<String> {
+    fun createCategory(@RequestBody body: ApiCreateBody<CreateCategoryDto>,
+                       @RequestAttribute(AdminMemberDto.ATTRIBUTE_NAME) adminMemberDto: AdminMemberDto): ApiResponse<String> {
         val categoryNo = categoryCreateService.doCreate(body.create)
         return ApiResponse.success(data = categoryNo)
     }

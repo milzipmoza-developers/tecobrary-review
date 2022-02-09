@@ -10,7 +10,8 @@ class CategoryUpdateController(
 
     @PostMapping("/api/categories/{categoryNo}")
     fun updateCategory(@PathVariable categoryNo: String,
-                       @RequestBody body: ApiUpdateBody<UpdateCategoryDto>): ApiResponse<String> {
+                       @RequestBody body: ApiUpdateBody<UpdateCategoryDto>,
+                       @RequestAttribute(AdminMemberDto.ATTRIBUTE_NAME) adminMemberDto: AdminMemberDto): ApiResponse<String> {
         val updatedCategoryNo = categoryUpdateService.doUpdate(categoryNo, body.update)
         return ApiResponse.success(data = updatedCategoryNo)
     }

@@ -1,5 +1,6 @@
 package dev.milzipmoza.review.config
 
+import dev.milzipmoza.review.config.filter.AdminAuthenticationFilter
 import dev.milzipmoza.review.config.filter.JwtAuthenticationFilter
 import dev.milzipmoza.review.config.filter.OptionalJwtAuthenticationFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
@@ -8,6 +9,16 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class JwtConfiguration {
+
+    @Bean
+    fun adminFilterRegistration(adminAuthenticationFilter: AdminAuthenticationFilter) =
+            FilterRegistrationBean<AdminAuthenticationFilter>()
+                    .apply {
+                        this.filter = adminAuthenticationFilter
+                        addUrlPatterns("/api/books/*")
+                        addUrlPatterns("/api/categories/*")
+                        addUrlPatterns("/api/tags/*")
+                    }
 
     @Bean
     fun jwtFilterRegistration(jwtAuthenticationFilter: JwtAuthenticationFilter) =
