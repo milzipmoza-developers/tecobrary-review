@@ -17,7 +17,8 @@ interface MongoMemberRepository : MongoRepository<DocumentMember, ObjectId> {
 data class DocumentMember(
         @Id val id: ObjectId = ObjectId.get(),
         @Indexed(unique = true) val account: DocumentMemberAccount,
-        val info: DocumentMemberInfo
+        val info: DocumentMemberInfo,
+        val isAdmin: Boolean? = null
 )
 
 data class DocumentMemberAccount(

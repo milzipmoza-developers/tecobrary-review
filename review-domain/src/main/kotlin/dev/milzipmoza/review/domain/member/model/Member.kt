@@ -6,7 +6,8 @@ import dev.milzipmoza.review.domain.member.MemberOperationException
 class Member(
         val no: String = "",
         val account: MemberAccount,
-        val info: MemberInfo
+        val info: MemberInfo,
+        val isAdmin: Boolean
 ) : Entity<Member> {
 
     override fun getId() = when (no.isNotBlank()) {

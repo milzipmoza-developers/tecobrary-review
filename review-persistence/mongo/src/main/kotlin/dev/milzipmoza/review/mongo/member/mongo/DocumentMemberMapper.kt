@@ -30,7 +30,8 @@ object DocumentMemberMapper {
         return Member(
                 no = documentMember.id.toHexString(),
                 account = map(documentMember.account),
-                info = map(documentMember.info)
+                info = map(documentMember.info),
+                isAdmin = documentMember.isAdmin ?: false
         )
     }
 
