@@ -35,3 +35,9 @@ tecobrary:
   authentication:
     encrypt:
       key: local12345local12345local1234567 # to be 32 chars
+    jwt:
+      issuer: "test"
+      subject: "test"
+      scope: "test"
+      version: "test"
+      secret-key: "test"
