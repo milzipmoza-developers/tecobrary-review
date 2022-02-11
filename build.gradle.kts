@@ -19,7 +19,7 @@ plugins {
 }
 
 group = "dev.milzipmoza"
-version = "0.0.1-SNAPSHOT"
+version = "20220212"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 allprojects {
