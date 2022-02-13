@@ -21,7 +21,7 @@ class GithubApiModule(
                 name = userResponse.login,
                 avatarUrl = userResponse.avatarUrl,
                 email = email,
-                bio = userResponse.bio
+                bio = userResponse.bio ?: ""
         )
     }
 }

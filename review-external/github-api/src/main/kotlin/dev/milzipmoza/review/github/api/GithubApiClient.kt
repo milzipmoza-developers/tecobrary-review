@@ -30,7 +30,7 @@ data class GithubUserResponse(
         val id: String,
         @JsonProperty("avatar_url")
         val avatarUrl: String,
-        var bio: String = ""
+        var bio: String? = null
 )
 
 data class GithubEmailResponse(
