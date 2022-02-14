@@ -4,17 +4,18 @@ import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.api.ClientMember
 import dev.milzipmoza.review.domain.book.Books
 import dev.milzipmoza.review.domain.review.ReviewOperation
+import dev.milzipmoza.review.domain.review.Reviews
 import dev.milzipmoza.review.domain.review.model.Review
 import dev.milzipmoza.review.domain.review.model.ReviewBook
 import dev.milzipmoza.review.domain.review.model.ReviewKeyword
 import dev.milzipmoza.review.domain.review.model.ReviewMember
 import dev.milzipmoza.review.domain.review.model.ReviewReadRange
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
-import org.springframework.web.bind.annotation.RequestBody
 
 @ApplicationService
 class ReviewSubmitNotUseDraftService(
         private val books: Books,
+        private val reviews: Reviews,
         private val reviewOperation: ReviewOperation
 ) {
     fun submit(clientMember: ClientMember, body: ReviewSubmitDto): Boolean {
@@ -29,10 +30,18 @@ class ReviewSubmitNotUseDraftService(
                 } catch (e: DocumentNotFoundException) {
                     throw IllegalArgumentException("리뷰를 등록하려는 도서가 없어요")
                 }
+
+                val range = ReviewReadRange.valueOf(body.range)
+                val enrolledReviews = reviews.getAll(clientMember.memberNo, body.isbn)
+
+                if (enrolledReviews.isNotAvailableToEnroll(range)) {
+                    throw IllegalArgumentException("이미 등록한 리뷰예요")
+                }
+
                 Review.SimpleReview(
                         member = ReviewMember(no = clientMember.memberNo),
                         book = ReviewBook(isbn = book.isbn, title = book.detail.title),
-                        range = ReviewReadRange.valueOf(body.range),
+                        range = range,
                         keyword = ReviewKeyword(
                                 content = ReviewKeyword.Content.valueOf(body.content),
                                 informative = ReviewKeyword.Informative.valueOf(body.informative),

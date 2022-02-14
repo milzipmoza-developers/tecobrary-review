@@ -58,4 +58,25 @@ class EnrolledReviewsTest : StringSpec({
         availableRanges.size shouldBe 1
         availableRanges shouldContain ReviewReadRange.READ_ALL
     }
+
+    "작성된 리뷰가 MULTIPLE_CHAPTERS 이면 MULTIPLE_CHAPTERS 이하는 추가할 수 없다." {
+        val enrolledReviews = EnrolledReviews(listOf(
+                Review.SimpleReview(
+                        member = ReviewMember(no = ""),
+                        book = ReviewBook(isbn = "", title = ""),
+                        range = ReviewReadRange.MULTIPLE_CHAPTERS,
+                        keyword = ReviewKeyword(
+                                content = ReviewKeyword.Content.EASY,
+                                informative = ReviewKeyword.Informative.MUCH,
+                                readMore = null,
+                                selectables = setOf()
+                        )
+                )
+        ))
+
+        val toAddRange = ReviewReadRange.MULTIPLE_CHAPTERS
+        val isNotAvailable = enrolledReviews.isNotAvailableToEnroll(toAddRange)
+
+        isNotAvailable shouldBe true
+    }
 })

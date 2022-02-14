@@ -12,4 +12,10 @@ class EnrolledReviews(
 
         return ReviewReadRange.values().filter { it.displayOrder > highestRange.displayOrder }
     }
+
+    fun isNotAvailableToEnroll(range: ReviewReadRange): Boolean {
+        val availableRanges = availableRanges()
+
+        return !availableRanges.contains(range)
+    }
 }
