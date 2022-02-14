@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class GithubOAuthCallbackController(
         private val githubUserService: GithubUserService,
-        private val memberLoginService: MemberLoginService
+        private val memberLoginService: MemberLoginService,
+        private val githubOAuthCallbackUriFactory: GithubOAuthCallbackUriFactory
 ) {
 
     private val log = Logger.of(this)
@@ -23,7 +24,7 @@ class GithubOAuthCallbackController(
         val githubUser = githubUserService.getBy(callbackRequest.code)
         val member = ExternalUserConverter.convert(githubUser)
         val code = memberLoginService.processLogin(member, callbackRequest.deviceId)
-        val redirectUri = GithubOAuthCallbackUriFactory.success("login", code, UrlStatus.SUCCESS)
+        val redirectUri = githubOAuthCallbackUriFactory.success("login", code, UrlStatus.SUCCESS)
         httpServletResponse.setHeader("X-Referer", "tecobrary-api-server")
         httpServletResponse.sendRedirect(redirectUri)
     }
@@ -32,7 +33,7 @@ class GithubOAuthCallbackController(
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     fun handleIllegalAccessException(e: DeviceNotMatchException, httpServletResponse: HttpServletResponse) {
         log.error("[GithubOAuthCallbackController] 로그인 도중 에러 발생", e)
-        val redirectUri = GithubOAuthCallbackUriFactory.failed("login", UrlStatus.NOT_MATCH_DEVICE)
+        val redirectUri = githubOAuthCallbackUriFactory.failed("login", UrlStatus.NOT_MATCH_DEVICE)
         httpServletResponse.setHeader("X-Referer", "tecobrary-api-server")
         httpServletResponse.sendRedirect(redirectUri)
     }
@@ -41,7 +42,7 @@ class GithubOAuthCallbackController(
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     fun handleException(e: Exception, httpServletResponse: HttpServletResponse) {
         log.error("[GithubOAuthCallbackController] 로그인 도중 에러 발생", e)
-        val redirectUri = GithubOAuthCallbackUriFactory.failed("login", UrlStatus.AUTH_FAILURE)
+        val redirectUri = githubOAuthCallbackUriFactory.failed("login", UrlStatus.AUTH_FAILURE)
         httpServletResponse.setHeader("X-Referer", "tecobrary-api-server")
         httpServletResponse.sendRedirect(redirectUri)
     }

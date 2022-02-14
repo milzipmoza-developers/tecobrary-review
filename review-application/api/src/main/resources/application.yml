@@ -41,6 +41,8 @@ tecobrary:
       scope: "test"
       version: "test"
       secret-key: "test"
+    callback:
+      origin-url: "http://localhost:3000"
 
 api:
   cors:
