@@ -10,6 +10,7 @@ import dev.milzipmoza.review.domain.review.model.ReviewBook
 import dev.milzipmoza.review.domain.review.model.ReviewKeyword
 import dev.milzipmoza.review.domain.review.model.ReviewMember
 import dev.milzipmoza.review.domain.review.model.ReviewReadRange
+import dev.milzipmoza.review.exception.UnauthorizedMemberException
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
 
 @ApplicationService
@@ -22,7 +23,7 @@ class ReviewSubmitNotUseDraftService(
         val simpleReview = when (clientMember) {
             is ClientMember.UnknownMember,
             is ClientMember.UnauthenticatedMember -> {
-                throw IllegalArgumentException("로그인 하시면 리뷰 등록을 마무리할 수 있어요")
+                throw UnauthorizedMemberException("로그인 하시면 리뷰 등록을 마무리할 수 있어요")
             }
             is ClientMember.AuthenticatedMember -> {
                 val book = try {

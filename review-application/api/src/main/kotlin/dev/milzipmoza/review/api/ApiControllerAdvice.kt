@@ -28,7 +28,7 @@ class ApiControllerAdvice {
         return ApiResponse.error(e.message ?: "헤더를 확인해주세요.")
     }
 
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedMemberException::class)
     fun unauthorized(e: UnauthorizedMemberException): ApiResponse<Nothing> {
         log.warn("권한이 없는 사용자입니다.", e)
