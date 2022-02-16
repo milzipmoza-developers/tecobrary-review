@@ -38,10 +38,9 @@ class CustomMongoBookRepositoryImpl(
         val criteria = Criteria.where("category.no").`is`(categoryNo)
 
         val query = Query.query(criteria)
-                .with(pageRequest)
 
         val count = mongoOperations.count(query, DocumentBook::class.java)
-        val results = mongoTemplate.find(query, DocumentBook::class.java)
+        val results = mongoTemplate.find(query.with(pageRequest), DocumentBook::class.java)
 
         return PageImpl(results, pageRequest, count)
     }
