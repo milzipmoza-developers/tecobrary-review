@@ -19,6 +19,7 @@ dependencies {
 	implementation(project(":review-persistence:mongo"))
 	implementation(project(":review-external:naver-api"))
 	implementation(project(":review-external:github-api"))
+	implementation(project(":review-external:slack-api"))
 
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")

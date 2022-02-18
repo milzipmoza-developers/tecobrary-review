@@ -7,5 +7,6 @@ import org.springframework.context.annotation.Configuration
 @EnableFeignClients(basePackages = [
     "dev.milzipmoza.review.naver",
     "dev.milzipmoza.review.github",
+    "dev.milzipmoza.review.slack",
 ])
 class OpenFeignClientConfiguration
