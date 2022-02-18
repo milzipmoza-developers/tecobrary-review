@@ -25,4 +25,5 @@ include(
 		"review-external",
 		"review-external:naver-api",
 		"review-external:github-api",
+		"review-external:slack-api",
 )
