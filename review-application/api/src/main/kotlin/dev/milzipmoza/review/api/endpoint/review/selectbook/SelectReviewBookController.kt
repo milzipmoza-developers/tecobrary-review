@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.review
+package dev.milzipmoza.review.api.endpoint.review.selectbook
 
 import dev.milzipmoza.review.api.ApiResponse
 import dev.milzipmoza.review.api.ClientMember

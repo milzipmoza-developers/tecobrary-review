@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.review
+package dev.milzipmoza.review.api.endpoint.review.selectbook
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDate

@@ -1,0 +1,16 @@
+logging:
+  level:
+    root: debug
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+external:
+  slack-api:
+    project-id: a
+    channel-id: a
+    sender-id: a

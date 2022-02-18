@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.review
+package dev.milzipmoza.review.api.endpoint.review.selectbook
 
 import dev.milzipmoza.review.annotation.ApplicationService
 import dev.milzipmoza.review.api.ClientMember
@@ -15,6 +15,7 @@ import dev.milzipmoza.review.mongo.DocumentNotFoundException
 class SelectReviewBookService(
         private val books: Books,
         private val bookOperation: BookOperation,
+        private val bookSaveMessageService: BookSaveMessageService,
         private val reviewOperation: DraftReviewOperation
 ) {
 
@@ -35,6 +36,7 @@ class SelectReviewBookService(
                     )
             )
             bookOperation.save(newBook)
+            bookSaveMessageService.send(newBook)
             books.findBy(newBook.isbn)
         }
 

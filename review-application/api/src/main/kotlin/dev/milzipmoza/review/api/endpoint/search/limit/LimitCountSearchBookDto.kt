@@ -1,10 +1,10 @@
-package dev.milzipmoza.review.api.endpoint.review
+package dev.milzipmoza.review.api.endpoint.search.limit
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDate
 
 
-data class ReviewTargetSearchBookDto(
+data class LimitCountSearchBookDto(
         val isbn: String,
         val title: String,
         val publisher: String,
