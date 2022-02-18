@@ -25,6 +25,10 @@ class SearchResultProcessService(
 
         val notSavedBooks = searchIsbns subtract foundBooks.map { it.isbn }.toSet()
 
+        if (notSavedBooks.isEmpty()) {
+            return
+        }
+
         val toSaveBooks = items.filter { notSavedBooks.contains(it.isbn) }
                 .map {
                     Book(
