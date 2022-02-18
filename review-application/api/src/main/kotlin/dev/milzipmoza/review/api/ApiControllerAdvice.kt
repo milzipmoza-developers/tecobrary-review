@@ -4,13 +4,16 @@ import dev.milzipmoza.review.exception.HeaderNotFoundException
 import dev.milzipmoza.review.exception.UnauthorizedMemberException
 import dev.milzipmoza.review.mongo.DocumentNotFoundException
 import dev.milzipmoza.review.mongo.extension.Logger
+import dev.milzipmoza.review.slack.send.SlackMessageSender
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class ApiControllerAdvice {
+class ApiControllerAdvice(
+        private val slackMessageSender: SlackMessageSender
+) {
 
     private val log = Logger.of(this)
 
@@ -46,6 +49,7 @@ class ApiControllerAdvice {
     @ExceptionHandler(Exception::class)
     fun handleUnknown(e: Exception): ApiResponse<Nothing> {
         log.error("알 수 없는 에러가 발생하였습니다.", e)
+        slackMessageSender.send("[에러 발생]\n$e")
         return ApiResponse.error("알 수 없는 문제가 발생하였어요.")
     }
 }
