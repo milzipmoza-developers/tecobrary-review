@@ -1,4 +1,4 @@
-package dev.milzipmoza.review.api.endpoint.review
+package dev.milzipmoza.review.api.endpoint.review.selectbook
 
 data class SelectReviewBookResultDto(
         val draftSaved: Boolean,
