@@ -36,7 +36,7 @@ internal class MongoReviewAggregatorTest {
 
     @Test
     fun getBriefKeywords() {
-        val documents = mongoReviewAggregator.getBriefKeywords("a", ReviewReadRange.A_LITTLE.name)
+        val documents = mongoReviewAggregator.getBriefKeywords("a")
 
         val mappedResults = documents.mappedResults
 
@@ -45,7 +45,7 @@ internal class MongoReviewAggregatorTest {
 
     @Test
     fun getBriefReviews() {
-        val documents = mongoReviewAggregator.getBriefReviews("a", ReviewReadRange.A_LITTLE.name)
+        val documents = mongoReviewAggregator.getBriefReviews("a")
 
         val mappedResults = documents.mappedResults
 
