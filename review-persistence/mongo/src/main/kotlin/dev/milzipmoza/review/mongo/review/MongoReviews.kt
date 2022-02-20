@@ -24,7 +24,7 @@ class MongoReviews(
     }
 
     override fun getRecent(size: Int, lastReviewNo: String?): List<Review> {
-        return mongoReviewRepository.findRecentAfter(size, ObjectId(lastReviewNo))
+        return mongoReviewRepository.findRecentAfter(size, lastReviewNo?.let { ObjectId(it) })
                 .map { DocumentReviewMapper.map(it) }
     }
 
