@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository
 interface MongoMemberRepository : MongoRepository<DocumentMember, ObjectId> {
 
     fun findByAccount(account: DocumentMemberAccount): DocumentMember?
+
+    fun findAllByIdIn(objectId: List<ObjectId>): List<DocumentMember>
 }
 
 @Document(collection = "members")
