@@ -13,7 +13,7 @@ class TimelineHasMoreController(
     @GetMapping("/api/timeline/has-more")
     fun getHasMore(latestReviewNo: String): ApiResponse<Boolean> {
         val latestReview = reviews.getLatest()
-        val hasMore = latestReviewNo == (latestReview?.no ?: false)
+        val hasMore = latestReviewNo != (latestReview?.no ?: false)
         return ApiResponse.success(data = hasMore)
     }
 }
