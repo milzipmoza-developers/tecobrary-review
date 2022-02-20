@@ -15,8 +15,8 @@ class MongoReviews(
         private val mongoReviewRepository: MongoReviewRepository
 ) : Reviews {
 
-    override fun getAll(memberNo: String, isbn: String): EnrolledReviews {
-        val documents = mongoReviewRepository.findAllByMemberNoAndBookNo(memberNo, isbn)
+    override fun getAll(memberNo: String, bookIsbn: String): EnrolledReviews {
+        val documents = mongoReviewRepository.findAllByMemberNoAndBookNo(memberNo, bookIsbn)
 
         val reviews = documents.map { DocumentReviewMapper.map(it) }
 
@@ -27,8 +27,8 @@ class MongoReviews(
         return mongoReviewRepository.countAllByBookIsbn(bookIsbn)
     }
 
-    override fun getRecent(size: Int, noAfter: String?): List<Review> {
-        return mongoReviewRepository.findRecentAfter(size, ObjectId(noAfter))
+    override fun getRecent(size: Int, lastReviewNo: String?): List<Review> {
+        return mongoReviewRepository.findRecentAfter(size, ObjectId(lastReviewNo))
                 .map { DocumentReviewMapper.map(it) }
     }
 }
