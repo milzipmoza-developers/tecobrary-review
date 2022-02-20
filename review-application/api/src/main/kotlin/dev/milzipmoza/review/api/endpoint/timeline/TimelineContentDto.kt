@@ -25,6 +25,7 @@ data class TimelineContentTagDto(
 )
 
 data class TimelineContentReviewDto(
+        val no: String,
         val range: String,
         val content: String,
         val informative: String,
