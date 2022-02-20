@@ -1,6 +1,7 @@
 package dev.milzipmoza.review.mongo.review
 
 import org.bson.types.ObjectId
+import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
@@ -16,6 +17,10 @@ interface MongoReviewRepository : MongoRepository<DocumentReview, ObjectId>, Cus
 interface CustomMongoReviewRepository {
 
     fun findAllByMemberNoAndBookNo(memberNo: String, bookIsbn: String): List<DocumentReview>
+
+    fun findRecentAfter(size: Int, id: ObjectId?): List<DocumentReview>
+
+    fun findLatest(): DocumentReview?
 }
 
 @Repository
@@ -30,5 +35,31 @@ class CustomMongoReviewRepositoryImpl(
         val query = Query.query(criteria)
 
         return mongoTemplate.find(query, DocumentReview::class.java)
+    }
+
+    override fun findRecentAfter(size: Int, id: ObjectId?): List<DocumentReview> {
+        if (id == null) {
+            val query = Query()
+                    .with(Sort.by(Sort.Direction.DESC, "id"))
+                    .limit(size)
+
+            return mongoTemplate.find(query, DocumentReview::class.java)
+        }
+
+        val criteria = Criteria.where("id").lt(id)
+
+        val query = Query.query(criteria)
+                .with(Sort.by(Sort.Direction.DESC, "id"))
+                .limit(size)
+
+        return mongoTemplate.find(query, DocumentReview::class.java)
+    }
+
+    override fun findLatest(): DocumentReview? {
+        val query = Query()
+                .with(Sort.by(Sort.Direction.DESC, "id"))
+                .limit(1)
+
+        return mongoTemplate.findOne(query, DocumentReview::class.java)
     }
 }

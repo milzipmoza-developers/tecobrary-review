@@ -8,4 +8,8 @@ interface Reviews {
     fun getAll(memberNo: String, bookIsbn: String): EnrolledReviews
 
     fun count(bookIsbn: String): Long
+
+    fun getRecent(size: Int, lastReviewNo: String?): List<Review>
+
+    fun getLatest(): Review?
 }

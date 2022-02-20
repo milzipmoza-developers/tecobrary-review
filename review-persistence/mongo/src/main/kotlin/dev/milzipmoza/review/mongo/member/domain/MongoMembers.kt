@@ -21,6 +21,12 @@ class MongoMembers(
         return DocumentMemberMapper.map(documentMember)
     }
 
+    override fun findAllIn(nos: List<String>): List<Member> {
+        val ids = nos.map { ObjectId(it) }
+        return mongoMemberRepository.findAllByIdIn(ids)
+                .map { DocumentMemberMapper.map(it) }
+    }
+
     override fun isExist(no: String): Boolean {
         return mongoMemberRepository.existsById(ObjectId(no))
     }
