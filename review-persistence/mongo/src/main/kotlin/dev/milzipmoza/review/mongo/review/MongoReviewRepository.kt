@@ -19,6 +19,8 @@ interface CustomMongoReviewRepository {
     fun findAllByMemberNoAndBookNo(memberNo: String, bookIsbn: String): List<DocumentReview>
 
     fun findRecentAfter(size: Int, id: ObjectId?): List<DocumentReview>
+
+    fun findLatest(): DocumentReview?
 }
 
 @Repository
@@ -51,5 +53,13 @@ class CustomMongoReviewRepositoryImpl(
                 .limit(size)
 
         return mongoTemplate.find(query, DocumentReview::class.java)
+    }
+
+    override fun findLatest(): DocumentReview? {
+        val query = Query()
+                .with(Sort.by(Sort.Direction.DESC, "id"))
+                .limit(1)
+
+        return mongoTemplate.findOne(query, DocumentReview::class.java)
     }
 }

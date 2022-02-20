@@ -3,10 +3,6 @@ package dev.milzipmoza.review.mongo.review
 import dev.milzipmoza.review.domain.review.Reviews
 import dev.milzipmoza.review.domain.review.model.EnrolledReviews
 import dev.milzipmoza.review.domain.review.model.Review
-import dev.milzipmoza.review.domain.review.model.ReviewBook
-import dev.milzipmoza.review.domain.review.model.ReviewKeyword
-import dev.milzipmoza.review.domain.review.model.ReviewMember
-import dev.milzipmoza.review.domain.review.model.ReviewReadRange
 import org.bson.types.ObjectId
 import org.springframework.stereotype.Repository
 
@@ -30,5 +26,11 @@ class MongoReviews(
     override fun getRecent(size: Int, lastReviewNo: String?): List<Review> {
         return mongoReviewRepository.findRecentAfter(size, ObjectId(lastReviewNo))
                 .map { DocumentReviewMapper.map(it) }
+    }
+
+    override fun getLatest(): Review? {
+        val latestDocument = mongoReviewRepository.findLatest()
+        return latestDocument?.let { DocumentReviewMapper.map(it) }
+
     }
 }

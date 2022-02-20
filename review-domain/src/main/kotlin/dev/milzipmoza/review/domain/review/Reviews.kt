@@ -10,4 +10,6 @@ interface Reviews {
     fun count(bookIsbn: String): Long
 
     fun getRecent(size: Int, lastReviewNo: String?): List<Review>
+
+    fun getLatest(): Review?
 }
