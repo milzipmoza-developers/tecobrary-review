@@ -37,5 +37,6 @@ class JwtConfiguration {
                         addUrlPatterns("/api/displays/books/*")
                         addUrlPatterns("/api/reviews/*")
                         addUrlPatterns("/api/marks/*")
+                        addUrlPatterns("/api/bookmarks/*")
                     }
 }
