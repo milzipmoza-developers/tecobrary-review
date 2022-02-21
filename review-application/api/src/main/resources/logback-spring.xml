@@ -8,7 +8,7 @@
     </springProfile>
 
     <springProfile name="prod">
-        <property name="LOGS_PATH" value="~/logs"/>
+        <property name="LOGS_PATH" value="./logs"/>
     </springProfile>
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
