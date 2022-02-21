@@ -1,23 +1,26 @@
 package dev.milzipmoza.review.mongo.mark.mongo
 
+import dev.milzipmoza.review.domain.mark.MarkType
+import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.aggregation.Aggregation
-import org.springframework.data.mongodb.core.aggregation.Aggregation.previousOperation
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.stereotype.Repository
+import java.time.LocalDateTime
 
 
 interface MongoMarkCompoundRepository {
     fun isMarked(member: DocumentMarkMember, book: DocumentMarkBook, type: String): Boolean
 
     fun countMarked(book: DocumentMarkBook, type: String): Long
+
+    fun getRecentFavoriteAfter(member: DocumentMarkMember, size: Long, beforeMarkDateTime: LocalDateTime?): List<DocumentBookmark>
 }
 
 @Repository
 class MongoMarkCompoundRepositoryImpl(
         private val mongoTemplate: MongoTemplate
 ) : MongoMarkCompoundRepository {
-
 
     /**
      * db.marks.aggregate([
@@ -64,6 +67,30 @@ class MongoMarkCompoundRepositoryImpl(
         val result = mongoTemplate.aggregate(aggregation, DocumentMark::class.java, MarkCounted::class.java)
         val uniqueMappedResult = result.uniqueMappedResult
         return uniqueMappedResult?.count ?: 0
+    }
+
+    override fun getRecentFavoriteAfter(member: DocumentMarkMember, size: Long, beforeMarkDateTime: LocalDateTime?): List<DocumentBookmark> {
+        val lookup = Aggregation.lookup("marked_marks", "markedObjectId", "_id", "marked_marks")
+        val match = when (beforeMarkDateTime) {
+            null -> Aggregation.match(
+                    Criteria.where("marked_marks.marked").`is`(true)
+                            .and("member.no").`is`(member.no)
+                            .and("type").`is`(MarkType.FAVORITE.name))
+            else -> Aggregation.match(
+                    Criteria.where("marked_marks.marked").`is`(true)
+                            .and("member.no").`is`(member.no)
+                            .and("type").`is`(MarkType.FAVORITE.name)
+                            .and("marked_marks.txDateTime").lt(beforeMarkDateTime))
+        }
+        val sort = Aggregation.sort(Sort.Direction.DESC, "marked_marks.txDateTime")
+        val limit = Aggregation.limit(size)
+        val project = Aggregation.project("_id", "member", "book", "marked_marks.txDateTime")
+        val unwind = Aggregation.unwind("txDateTime")
+
+        val aggregation = Aggregation.newAggregation(lookup, match, sort, limit, project, unwind)
+
+        val results = mongoTemplate.aggregate(aggregation, DocumentMark::class.java, DocumentBookmark::class.java)
+        return results.mappedResults
     }
 }
 
